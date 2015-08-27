@@ -1,0 +1,410 @@
+.pageHeader {
+	padding-top: 10px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1000;
+    padding-bottom: 10px;
+
+    background: #000;
+}
+
+.icon_phone {
+	background-url:url("/resources/images/phone.svg")
+	width: 15px;
+	display: inline-block;
+}
+
+h2.blog {
+	background-color: #42ca8b;
+}
+
+.panel {
+	border: 1px solid #0084b4;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.reflowster-ad {
+	position: relative;
+	display: block;
+}
+
+.reflowster-ad img {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.reflowster-ad .head {
+	font-weight: bold;
+}
+
+.reflowster-ad .tagline {
+	font-size: 13px;
+	color: #0084b4;
+}
+
+.reflowster-ad .ordernow {
+	display: block;
+	margin: 0 auto;
+	width: 100px;
+	position: relative;
+	margin-bottom: 5px;
+	text-align:center;
+//	position: absolute;
+//	top: 124px;
+//	left: 5px;
+}
+
+
+
+/* ====== media ====== */
+.media {margin:10px;}
+.media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.media .img {float:left; margin-right: 10px;}
+.media .img img{display:block;}
+.media .imgExt{float:right; margin-left: 10px;}
+
+.iconlink, .iconlink:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
+.copyright {
+	text-align: center;
+	font-size: 80%;
+}
+
+.linkicons {
+	display: inline;
+}
+
+.linkicons * {
+	display: inline;
+}
+
+.company {
+	color: black;
+	max-width: 500px;
+	border-radius: 5px;
+	background: white;
+	padding: 3px;
+	margin: 3px auto;
+}
+
+.company [itemprop="description"] {
+	display: block;
+	font-size: 70%;
+}
+
+.company [itemprop="image"] {
+	width: 50px;
+	border-radius: 5px;
+}
+
+.body {
+	min-height: 600px;
+}
+
+.footer {
+	padding: 6px;
+	min-height: 50px;
+	background: black;
+	color: #666;
+}
+
+.paddedbody {
+	padding:10px;
+}
+
+.postheader {
+	clear: both;
+	margin-bottom: 10px;
+	overflow: visible;
+}
+
+.gravatar {
+	float: left;	
+}
+
+.addthis_sharing_toolbox {
+	height: 25px;
+}
+
+.author {
+	font-weight: bold;
+}
+
+.pageHeader .nav {
+	margin-top: 6px;
+}
+
+#mc_embed_signup{
+	background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;
+}
+
+body #mc_embed_signup .button {
+	font-weight: bold;
+	height: 21px;
+	line-height: 21px;
+	margin: -2px 0px -4px 0;
+	padding: 0px 8px;
+}
+
+.pageHeader .nav-pills > li > a {
+	color: #999;
+	background: none;
+}
+
+.pageHeader .nav-pills > li {
+	margin-top: 2px;
+}
+
+.pageHeader .nav-pills > li > a:hover {
+	color: white;
+	background: none;
+}
+
+.pageHeader .nav-pills > li.active > a {
+	color: white;
+	background: none; 
+}
+
+.kickstarter-widget {
+    text-align: center;
+}
+
+.pageHeader img {
+    position: relative;
+    top: 2px;
+    height: 55px;
+}
+
+.nounderline:hover {
+	text-decoration: none;
+}
+
+h2 {
+	color: white;
+	background: #428bca;
+	font-size: 1.3em;
+	font-weight: bold;
+	display: block;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+h2 a {
+    color: white;
+    text-decoration: underline;
+}
+
+h2 a:hover {
+    color: black;
+}
+
+.note-text {
+	color: #0084b4;
+	font-size: 110%;
+	font-weight: bold;
+}
+
+.note {
+	display: block;
+	color: #0084b4;
+	font-size: 110%;
+	margin: 0 10px;
+	border: 1px solid #0084b4;
+	font-weight: bold;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.splash {
+	overflow: hidden;
+    left: 0px;
+    right: 0px;
+    background-image: url('/resources/images/reflowster_splash.jpg');
+    height: 400px;
+    
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    position:relative;
+}
+
+.kickstarterbadge {
+	position: absolute;
+	top: -5px;
+	left: -5px;	
+}
+
+.kickstarterbadge img {
+	width: 120px;	
+}
+
+.text-over {
+	font-size: 20px;
+	background: rgba(0,0,0,0.8);
+	color: white;
+	border-radius: 10px;
+	width: 550px;
+	position: absolute;
+	padding: 20px;
+	top: 100px;
+	left: 100px;
+	text-align: left;
+}
+
+.text-over span {
+	display: block;
+	font-size: 17px;
+	color: #999;
+}
+
+.text-over .orderlink {
+	text-align: right;
+}
+
+.header-logo {
+	float: left;	
+}
+
+.header-nav {
+	float: right;	
+}
+
+.pageHeader .nav.nav-pills {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.ordernow {
+	display: inline-block;
+	border: none;
+	border-radius: 4px;
+	padding: 4px 10px;
+	background-color: #428bca;
+	color: white;
+	position: relative;
+	top: 4px;
+	text-decoration: none;
+}
+
+.ordernow:hover {
+	background-color: #356FA2;
+	text-decoration: none;
+	color: white;
+}
+
+.body {
+	margin-top: 5px;
+}
+
+.image_block, .image_block span, .image_block img {
+    width: 150px;
+    height: 150px;
+}
+
+.image_block {
+    display: inline-block;
+    overflow: hidden;
+    margin: 15px 10px;
+    border-radius: 20px;
+    position: relative;
+
+    -webkit-box-shadow: 0px 0px 12px 9px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    0px 0px 12px 9px rgba(50, 50, 50, 1);
+    box-shadow:         0px 0px 12px 9px rgba(50, 50, 50, 1);
+}
+
+.image_block span {
+    display: none;
+}
+
+.image_block:hover span {
+    display: block;
+}
+
+.image_block span {
+    position: absolute;
+    background: rgba(255,255,255,.8);
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    padding: 10px 10px;
+}
+
+.content {
+    padding: 10px;
+}
+
+.tagline {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 5px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.showcase {
+    display: block;
+    margin: 5px auto;
+    max-height: 300px;
+    max-width: 100%;
+}
+
+.display_header {
+    vertical-align: bottom;
+    margin: 5px 5px 5px 0;
+    height: 20px;
+}
+
+/* email subscription form */
+
+#email_form {
+	width: 100%;
+}
+
+#email_button {
+	float: right;
+}
+
+.email_subscription {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.email_subscription label {
+	font-weight: normal;
+	font-size: 11px;
+}
+
+.email_subscription input[type='radio'] {
+	position: relative;
+	top: 3px;
+	left: -1px;
+}
+
+.email_overlay {
+	z-index: 100;
+    display: none;
+    position: absolute;
+    background: white;
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+    border: 2px solid green;
+    padding: 20px 5px;
+}
+
+

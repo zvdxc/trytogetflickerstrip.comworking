@@ -1,0 +1,19 @@
+name: Flickerstrip
+titletagline: Control your lights like never before
+companyname: Reflowster
+markdown: redcarpet
+kickstarterurl: https://www.kickstarter.com/projects/reflowster/reflowster-soldering-controller-for-surface-mount
+highlighter: pygments
+exclude: [tasks, README.md]
+include: [.htaccess]
+url: http://flickerstrip.com
+gems: [jekyll-sitemap]
+excerpt_separator: <!--more-->
+authors:
+  julian:
+    display_name: Julian Hartline
+    gravatar: 300aa4fabf894a18d740058bbcad03e6
+    email: julianh2o@gmail.com
+    web: http://www.julianhartline.com/
+    twitter: reflowster
+    github: julianh2o
