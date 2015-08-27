@@ -1,4 +1,4 @@
-reflowster.com
+flickerstrip.com
 ==============
 
-The website for the Reflowster reflow soldering controller
+The website for Flickerstrip, the LED strip that lets you build your own light show.
