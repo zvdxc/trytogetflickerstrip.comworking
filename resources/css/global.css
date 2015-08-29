@@ -9,6 +9,137 @@
     background: #000;
 }
 
+.featureBoxes {
+  	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+body {
+	background: black;
+}
+
+.featureBox {
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+	
+	width: 200px;
+	height: 200px;
+	border: 3px solid white;
+	border-radius: 10px;
+	color: white;
+	font-size: 16px;
+	padding: 10px;
+	margin: 10px;
+	
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+}
+
+.invert {
+	-webkit-filter: invert(100%);
+    filter: invert(100%);	
+}
+
+.splash-subscribe-form {
+    position: absolute;
+    width: 300px;
+    right: 200px;
+    top: 130px;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: left;
+    background: black;
+    color: white;
+}
+
+.splash-subscribe-form .emailrow {
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding-top: 10px;
+}
+
+#mce-EMAIL {
+	-webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+	margin-right: 3px;
+	border-radius: 5px;
+	color: black;
+}
+
+body #mc_embed_signup .button {
+	font-weight: bold;
+	padding: 2px 9px;
+	float:right;
+	height: auto;
+	background-color: blue;
+	border-radius: 5px;
+	border: 1px solid transparent;
+}
+
+.featureBox .imageHolder {
+	display: block;
+	
+    -webkit-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+}
+
+.featureBox img {
+	width: 100px;
+	height: 100px;	
+}
+
+.featureBox div {
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;	
+}
+
 .icon_phone {
 	background-url:url("/resources/images/phone.svg")
 	width: 15px;
@@ -141,18 +272,6 @@ h2.blog {
 	margin-top: 6px;
 }
 
-#mc_embed_signup{
-	background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;
-}
-
-body #mc_embed_signup .button {
-	font-weight: bold;
-	height: 21px;
-	line-height: 21px;
-	margin: -2px 0px -4px 0;
-	padding: 0px 8px;
-}
-
 .pageHeader .nav-pills > li > a {
 	color: #999;
 	background: none;
@@ -226,7 +345,7 @@ h2 a:hover {
 	overflow: hidden;
     left: 0px;
     right: 0px;
-    background-image: url('/resources/images/reflowster_splash.jpg');
+    background-image: url('/resources/images/splash.png');
     height: 400px;
     
     margin: 0;
