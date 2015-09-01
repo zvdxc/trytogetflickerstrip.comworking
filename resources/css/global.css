@@ -1,3 +1,4 @@
+
 .pageHeader {
 	padding-top: 10px;
     top: 0px;
@@ -9,69 +10,18 @@
     background: #000;
 }
 
-.featureBoxes {
-  	display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-align-content: flex-start;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    -webkit-align-items: flex-start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-}
 
 body {
 	background: black;
 }
 
-.featureBox {
-	display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column-reverse;
-    -ms-flex-direction: column-reverse;
-    flex-direction: column-reverse;
-    -webkit-flex-wrap: nowrap;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    -webkit-align-content: center;
-    -ms-flex-line-pack: center;
-    align-content: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-	
-	width: 200px;
-	height: 200px;
-	border: 3px solid white;
-	border-radius: 10px;
-	color: white;
-	font-size: 16px;
-	padding: 10px;
-	margin: 10px;
-	
-    -webkit-order: 0;
-    -ms-flex-order: 0;
-    order: 0;
-    -webkit-flex: 0 1 auto;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
-    -webkit-align-self: auto;
-    -ms-flex-item-align: auto;
-    align-self: auto;
+.header-logo a {
+    font-size: 33px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    color: white;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .invert {
@@ -83,7 +33,7 @@ body {
     position: absolute;
     width: 300px;
     right: 200px;
-    top: 130px;
+    top: 265px;
     border-radius: 10px;
     padding: 15px;
     text-align: left;
@@ -117,27 +67,97 @@ body #mc_embed_signup .button {
 	border: 1px solid transparent;
 }
 
-.featureBox .imageHolder {
-	display: block;
+@media screen and (min-width: 500px) {
+	.featureBox .imageHolder {
+		display: block;
+		
+	    -webkit-flex: 1 0 auto;
+	    -ms-flex: 1 0 auto;
+	    flex: 1 0 auto;
+	    
+	    -webkit-order: 1;
+	    -ms-flex-order: 1;
+	    order: 1;
+	}
 	
-    -webkit-flex: 1 0 auto;
-    -ms-flex: 1 0 auto;
-    flex: 1 0 auto;
-    
-    -webkit-order: 1;
-    -ms-flex-order: 1;
-    order: 1;
+	.featureBox img {
+		width: 100px;
+		height: 100px;	
+	}
+	
+	.featureBox div {
+	    -webkit-flex: 0 1 auto;
+	    -ms-flex: 0 1 auto;
+	    flex: 0 1 auto;	
+	}
+	
+	.body {
+		min-height: 600px;
+	}
+	
+	.featureBoxes {
+	  	display: -ms-flexbox;
+	    display: -webkit-flex;
+	    display: flex;
+	    -webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	    flex-direction: row;
+	    -webkit-flex-wrap: nowrap;
+	    -ms-flex-wrap: nowrap;
+	    flex-wrap: nowrap;
+	    -webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	    justify-content: center;
+	    -webkit-align-content: flex-start;
+	    -ms-flex-line-pack: start;
+	    align-content: flex-start;
+	    -webkit-align-items: flex-start;
+	    -ms-flex-align: start;
+	    align-items: flex-start;
+	}
+	
+	.featureBox {
+		display: -ms-flexbox;
+	    display: -webkit-flex;
+	    display: flex;
+	    -webkit-flex-direction: column-reverse;
+	    -ms-flex-direction: column-reverse;
+	    flex-direction: column-reverse;
+	    -webkit-flex-wrap: nowrap;
+	    -ms-flex-wrap: nowrap;
+	    flex-wrap: nowrap;
+	    -webkit-justify-content: flex-start;
+	    -ms-flex-pack: start;
+	    justify-content: flex-start;
+	    -webkit-align-content: center;
+	    -ms-flex-line-pack: center;
+	    align-content: center;
+	    -webkit-align-items: center;
+	    -ms-flex-align: center;
+	    align-items: center;
+		
+		width: 200px;
+		height: 200px;
+		
+	    -webkit-order: 0;
+	    -ms-flex-order: 0;
+	    order: 0;
+	    -webkit-flex: 0 1 auto;
+	    -ms-flex: 0 1 auto;
+	    flex: 0 1 auto;
+	    -webkit-align-self: auto;
+	    -ms-flex-item-align: auto;
+	    align-self: auto;
+	}
 }
 
-.featureBox img {
-	width: 100px;
-	height: 100px;	
-}
-
-.featureBox div {
-    -webkit-flex: 0 1 auto;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;	
+.featureBox {
+	border: 3px solid white;
+	border-radius: 10px;
+	color: white;
+	font-size: 16px;
+	padding: 10px;
+	margin: 10px;
 }
 
 .icon_phone {
@@ -235,10 +255,6 @@ h2.blog {
 	border-radius: 5px;
 }
 
-.body {
-	min-height: 600px;
-}
-
 .footer {
 	padding: 6px;
 	min-height: 50px;
@@ -297,8 +313,7 @@ h2.blog {
 
 .pageHeader img {
     position: relative;
-    top: 2px;
-    height: 55px;
+    height: 35px;
 }
 
 .nounderline:hover {
@@ -365,6 +380,7 @@ h2 a:hover {
 }
 
 .text-over {
+	font-weight: bold;
 	font-size: 20px;
 	background: rgba(0,0,0,0.8);
 	color: white;
@@ -378,9 +394,10 @@ h2 a:hover {
 }
 
 .text-over span {
+	font-weight: normal;
 	display: block;
 	font-size: 17px;
-	color: #999;
+	color: #bbb;
 }
 
 .text-over .orderlink {
@@ -526,4 +543,60 @@ h2 a:hover {
     padding: 20px 5px;
 }
 
-
+@media screen and (max-width: 500px) {
+	.featureBox img {
+		width: 50px;
+		height: 50px;	
+	}
+	
+	.text-over {
+		position: relative;
+		top: auto;
+		padding: 10px;
+		left: auto;
+		width: auto;
+		margin: 20px;
+		font-size: 17px;
+	}
+	
+	.text-over span {
+		font-size: 16px;
+	}
+	
+	.splash-subscribe-form {
+		position: static;
+		width: auto;
+		top: auto;
+		right: auto;
+		margin: 20px;
+		margin-top: 40px;
+	}
+	
+	.featureBox {
+	    display: -ms-flexbox;
+	    display: -webkit-flex;
+	    display: flex;
+	    -webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	    flex-direction: row;
+	}
+	
+	.featureBox>* {
+	    -webkit-flex: 1 1 auto;
+	    -ms-flex: 1 1 auto;
+	    flex: 1 1 auto;
+	}
+	
+	.featureBox>.imageHolder {
+		margin-right: 5px;
+		
+	    -webkit-flex: 0 0 auto;
+	    -ms-flex: 0 0 auto;
+	    flex: 0 0 auto;
+	}
+	
+	.splash {
+		background-position: -319px -75px;
+	    background-size: 1000px 600px;
+    }
+}
