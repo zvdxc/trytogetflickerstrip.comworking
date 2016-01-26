@@ -1,8 +1,8 @@
 name: Flickerstrip
-titletagline: Control your lights like never before
+titletagline: Bring your creativity to light
 companyname: Reflowster
 markdown: redcarpet
-kickstarterurl: https://www.kickstarter.com/projects/reflowster/reflowster-soldering-controller-for-surface-mount
+kickstarterurl: https://www.flickerstrip.com
 highlighter: pygments
 exclude: [tasks, README.md]
 include: [.htaccess]

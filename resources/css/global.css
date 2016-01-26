@@ -15,13 +15,18 @@ body {
 	background: black;
 }
 
-.header-logo a {
+.header-logo .logoText {
     font-size: 33px;
     padding-bottom: 0;
     margin-bottom: 0;
     color: white;
     text-decoration: none;
     font-family: 'Orbitron', sans-serif;
+    
+    margin-left: 100px;
+    margin-top: 22px;
+    position: relative;
+    top: 26px;
 }
 
 .invert {
@@ -29,19 +34,21 @@ body {
     filter: invert(100%);	
 }
 
-.splash-subscribe-form {
-    position: absolute;
-    width: 300px;
-    right: 200px;
-    top: 265px;
+.subscribe-form {
     border-radius: 10px;
     padding: 15px;
     text-align: left;
     background: black;
+    margin: 10px auto;
+    width: 300px;
     color: white;
+    
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 1);
+	-moz-box-shadow:    0px 0px 10px 5px rgba(255, 255, 255, 1);
+	box-shadow:         0px 0px 10px 5px rgba(255, 255, 255, 1);
 }
 
-.splash-subscribe-form .emailrow {
+.subscribe-form .emailrow {
 	display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -152,12 +159,36 @@ body #mc_embed_signup .button {
 }
 
 .featureBox {
-	border: 3px solid white;
+	/*border: 3px solid white;*/
 	border-radius: 10px;
 	color: white;
 	font-size: 16px;
 	padding: 10px;
 	margin: 10px;
+}
+
+.featureBox:nth-child(1) {
+	/*background-color: rgba(255,0,0,.3);*/
+	
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 1);
+	-moz-box-shadow:    0px 0px 10px 5px rgba(255, 0, 0, 1);
+	box-shadow:         0px 0px 10px 5px rgba(255, 0, 0, 1);
+}
+
+.featureBox:nth-child(2) {
+	/*background-color: rgba(0,255,0,.3);*/
+	
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(0, 255, 0, 1);
+	-moz-box-shadow:    0px 0px 10px 5px rgba(0, 255, 0, 1);
+	box-shadow:         0px 0px 10px 5px rgba(0, 255, 0, 1);
+}
+
+.featureBox:nth-child(3) {
+	/*background-color: rgba(0,0,255,.3);*/
+	
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 255, 1);
+	-moz-box-shadow:    0px 0px 10px 5px rgba(0, 0, 255, 1);
+	box-shadow:         0px 0px 10px 5px rgba(0, 0, 255, 1);
 }
 
 .icon_phone {
@@ -312,8 +343,8 @@ h2.blog {
 }
 
 .pageHeader img {
-    position: relative;
-    height: 35px;
+    position: absolute;
+    height: 125px;
 }
 
 .nounderline:hover {
@@ -358,6 +389,7 @@ h2 a:hover {
 
 .splash {
 	overflow: hidden;
+	z-index: -1;
     left: 0px;
     right: 0px;
     background-image: url('/resources/images/splash.png');
@@ -379,29 +411,39 @@ h2 a:hover {
 	width: 120px;	
 }
 
-.text-over {
-	font-weight: bold;
-	font-size: 20px;
-	background: rgba(0,0,0,0.8);
-	color: white;
-	border-radius: 10px;
-	width: 550px;
-	position: absolute;
-	padding: 20px;
-	top: 100px;
-	left: 100px;
-	text-align: left;
+.firstlookVideo {
+	margin: 40px auto;
 }
 
-.text-over span {
+.tagline {
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+	border-radius: 10px;
+	padding: 20px;
+	
+	margin: 20px auto;
+	
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 1);
+	-moz-box-shadow:    0px 0px 10px 5px rgba(255, 255, 255, 1);
+	box-shadow:         0px 0px 10px 5px rgba(255, 255, 255, 1);
+}
+
+.tagline span {
 	font-weight: normal;
 	display: block;
 	font-size: 17px;
 	color: #bbb;
 }
 
-.text-over .orderlink {
-	text-align: right;
+/*
+.text-over {
+	background: rgba(0,0,0,0.8);
+	width: 550px;
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	text-align: left;
 }
 
 .header-logo {
@@ -561,15 +603,6 @@ h2 a:hover {
 	
 	.text-over span {
 		font-size: 16px;
-	}
-	
-	.splash-subscribe-form {
-		position: static;
-		width: auto;
-		top: auto;
-		right: auto;
-		margin: 20px;
-		margin-top: 40px;
 	}
 	
 	.featureBox {

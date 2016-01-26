@@ -1,21 +1,33 @@
 <header class="pageHeader">
     <div class="container">
-    	<div class="header-logo">
-            <a href="/">
-            	<img src="/resources/images/flickerstriplogo2.png" />
-                Flickerstrip
-            </a>
-        </div>
-        
-        {% comment %}
         <div class="row">
-            <div class="col-md-12">
+        	<div class="col-md-6">
+		    	<div class="header-logo">
+		    		<div class="logo">
+			    		<a href="/">
+				        	<img src="/resources/images/logo_no_outline.png" />
+			            </a>
+		            </div>
+		            <div class="logoText">
+		                <a class="title" href="/" >lickerstrip</a>
+		                <span class="tag">Bring your creativity to light</span>
+	                </div>
+		        </div>
+	        </div>
+        
+            <div class="col-md-6">
                	<div class="header-nav">
-		            {% include navigation.html %}
+					<div class="subscribe-form">
+						Coming soon to<br/>
+						<img style='height: 20px;' src="/resources/images/kickstarter-logo-dark.png" alt="Kickstarter"><br/>
+						<span style="position: relative; top: 9px;">Don't miss out, subscribe:</span>
+						{% include subscribeform.html %}
+					</div>
+
+		            <!--{% include navigation.html %}-->
 		            <!--<a href="http://store.reflowster.com/products/reflowster" class="ordernow">Order Now</a>-->
 	            </div>
             </div>
         </div>
-        {% endcomment %}
     </div>
 </header>
