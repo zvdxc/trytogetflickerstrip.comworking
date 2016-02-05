@@ -68,9 +68,13 @@
     top: 0px;
     left: 0px;
     right: 0px;
-    height: 125px;
+    height: 160px;
     z-index: 1000;
     padding-bottom: 2px;
+}
+
+.pageHeader.minimalHeader {
+    height: 125px;
 }
 
 
