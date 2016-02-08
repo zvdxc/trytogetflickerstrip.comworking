@@ -7,7 +7,7 @@ highlighter: pygments
 exclude: [tasks, README.md]
 include: [.htaccess]
 url: http://flickerstrip.com
-gems: [jekyll-sitemap]
+gems: ["jekyll-sitemap","jekyll-less"]
 excerpt_separator: <!--more-->
 authors:
   julian:
