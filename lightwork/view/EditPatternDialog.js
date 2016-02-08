@@ -42,16 +42,59 @@ function($,tinycolor,util,LEDStripRenderer,CanvasPixelEditor,desktop_template) {
         return canvas;
     }
 
+    function serializePattern(pattern) {
+        var out = "";
+        _.each(pattern,function(value,key) {
+            if (key == "body" || key == "rendered" || key == "path") return;
+            if (typeof value == "string") {
+                out += key+":"+value+"\n";
+            } else {
+                out += key+":"+JSON.stringify(value)+"\n";
+            }
+        })
+        out += "\n";
+        var body = typeof(pattern.body) == "string" ? pattern.body : JSON.stringify(pattern.body);
+        out += body;
+        return btoa(out);
+    }
+
+    function deserializePattern(b64) {
+        var content = atob(b64);
+        var loc = content.indexOf("\n\n");
+        var headerraw = content.substring(0,loc);
+        var body = content.substring(loc+2);
+
+        var pattern = {};
+        _.each(headerraw.split("\n"),function(line) {
+            if (line == "") return;
+            var index = line.indexOf(":");
+            var tokens = [line.substring(0,index),line.substring(index+1)];
+            if (tokens[1][0] == "[" || tokens[1][0] == "{") {
+                //assume json
+                tokens[1] = JSON.parse(tokens[1]);
+            }
+            pattern[tokens[0]] = tokens[1];
+        });
+
+        pattern.body = body[0] == "[" || body[0] == "{" ? JSON.parse(body) : body;
+        return pattern;
+    }
+
     $.extend(This.prototype, {
         init:function(pattern) {
             this.pattern = $.extend({},pattern);
 			this.widgets = [];
             this.$el = $("<div class='editPatternDialog'/>");
 
+            if (window.location.hash) {
+                this.pattern = deserializePattern(window.location.hash.substring(1));
+            }
+
             this.$el.append(desktop_template);
             this.$el = this.$el.children();
 
-            this.$el.find(".hideButton").click(_.bind(function() {
+            this.$el.find(".hideButton").click(_.bind(function(e) {
+                e.preventDefault();
                 this.hide()
             },this));
 
@@ -70,7 +113,8 @@ function($,tinycolor,util,LEDStripRenderer,CanvasPixelEditor,desktop_template) {
             },this));
 
             this.$el.find(".titletext").text(this.pattern.name);
-            this.$el.find(".titletext").click(_.bind(function() {
+            this.$el.find(".titletext").click(_.bind(function(e) {
+                e.preventDefault();
                 var name = prompt("Pattern name",this.pattern.name);
                 if (name == null) return;
                 this.pattern.name = name;
@@ -78,7 +122,42 @@ function($,tinycolor,util,LEDStripRenderer,CanvasPixelEditor,desktop_template) {
             },this));
 
             this.$el.find(".patternControls").addClass("hide");
-            this.$el.find(".saveButton").click(_.bind(this.savePatternClicked,this));
+            this.$el.find(".savePattern").click(_.bind(function(e) {
+                e.preventDefault();
+                var target = e.target;
+                var pattern = this.pattern;
+                var name = prompt("Choose a name for your pattern: ",pattern.name);
+                if (!name) return;
+                pattern.name = name;
+                var b64 = serializePattern(pattern);
+                target.download=name+".pattern";
+                target.href="data:;base64,"+b64;
+            },this));
+
+            this.$el.find(".openPattern input").change(_.bind(function(e) {
+                if (e.target.files.length == 0) return;
+                var file = e.target.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                $(reader).on("load",_.bind(function(e) {
+                    var preamble = "data:;base64,";
+                    var dataUrl = e.target.result;
+                    this.$el.find(".openPattern input").val("");
+                    if (!dataUrl.startsWith(preamble)) {
+                        alert("Invalid pattern file");
+                        throw "Invalid pattern file!";
+                    }
+                    var b64 = dataUrl.substring(preamble.length);
+                    this.pattern = deserializePattern(b64);
+
+                    this.canvas = util.renderPattern(this.pattern.body,this.pattern.pixels,this.pattern.frames,null,null,false,false);
+                    this.editor.setImage(this.canvas);
+                    this.editor.setFps(this.pattern.fps);
+
+                    this.updateEditor();
+                    this.updatePattern();
+                },this));
+            },this));
 
             this.$el.find(".openConsole").hide();
             this.$el.find(".patternControls").removeClass("hide");
@@ -90,7 +169,6 @@ function($,tinycolor,util,LEDStripRenderer,CanvasPixelEditor,desktop_template) {
                 this.pattern.palette = palette;
             },this));
             
-
             $(this.canvas).css("border","1px solid black");
 
             this.canvas = util.renderPattern(this.pattern.body,this.pattern.pixels,this.pattern.frames,null,null,false,false);
@@ -143,6 +221,8 @@ function($,tinycolor,util,LEDStripRenderer,CanvasPixelEditor,desktop_template) {
             } else if (this.pattern.type == "bitmap") {
                 this.pattern.body = util.canvasToBytes(this.canvas,false);
             }
+
+            window.location.hash=serializePattern(this.pattern);
 
             this.updateRendered();
         },

@@ -116,6 +116,8 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
 
             var delay = null;
             $(this.drawingArea).on("mousewheel",_.bind(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
 				var delta = e.originalEvent.detail || e.originalEvent.wheelDelta;
                 var pos = util.getCursorPosition(this.drawingArea,e,this.displayMargins.left,this.displayMargins.top);
 

@@ -1,6 +1,34 @@
 @import "flexbox.less";
 
 //////////////////////////////////
+.mbtn {
+    display: inline-block;
+    background-color: #0000ff;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    padding: 3px 7px;
+}
+
+.mbtn:hover {
+    background-color: #3366ff;
+}
+
+.mbtn.file {
+    position: relative;
+    input {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        right: 0;
+        left:0;
+        border: 1px solid red;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+}
+
 .flexone {
     -webkit-flex: 1 0 auto;
     -ms-flex: 1 0 auto;
