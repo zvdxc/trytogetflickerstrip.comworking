@@ -1,7 +1,7 @@
 <header class="pageHeader {% if page.header == "min" %}minimalHeader{% endif %}">
     <div class="container">
-        <div class="row">
-        	<div class="col-md-6">
+        <div class="flexdisplay">
+        	<div class="flexshrink">
 		    	<div class="header-logo">
 		    		<div class="logo">
 			    		<a href="/">
@@ -14,8 +14,10 @@
 	                </div>
 		        </div>
 	        </div>
+	        
+	        <div class="flexgrow"></div>
         
-            <div class="col-md-6">
+            <div class="flexshrink">
                	<div class="header-nav">
 			        {% if page.header != "min" %}
 						<div class="subscribe-form">

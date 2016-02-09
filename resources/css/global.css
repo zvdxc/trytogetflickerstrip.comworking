@@ -5,6 +5,24 @@
 .media .img img{display:block;}
 .media .imgExt{float:right; margin-left: 10px;}
 
+.flexdisplay {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flexgrow {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.flexshrink {
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
 .logobg {
 	text-align: center;
 	display: inline-block;
