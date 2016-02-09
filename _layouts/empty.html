@@ -27,6 +27,10 @@
         <link rel="stylesheet" href="/resources/css/icons.css">
         
 	    {% include analytics.html %}
+	    
+		{% if page.custom_head %}
+			{{ page.custom_head }}
+		{% endif %}
     </head>
     <body>
     <div id="fb-root"></div>

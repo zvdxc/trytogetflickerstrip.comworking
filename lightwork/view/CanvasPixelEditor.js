@@ -13,6 +13,10 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
        }
     }
 
+    function distance(x0,y0,x1,y1) {
+        return Math.sqrt(Math.pow(x1-x0,2) + Math.pow(y1-y0,2));
+    }
+
     var This = function() {
         this.init.apply(this,arguments);
     }
@@ -74,19 +78,32 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
 						button:e.button,
 						startX:pos[0],
 						startY:pos[1],
+                        dragStart:new Date().getTime(),
 						params:{
 							offset:this.offset
 						}
 					}
 				}
+                var isShortDrag = this.down && ((new Date().getTime() - this.down.dragStart < 100) && distance(this.down.startX,this.down.startY,pos[0],pos[1]) == 0);
 				if (e.type == "mouseup" || e.type == "touchend") {
+                    if (this.down.button == 2 && isShortDrag) {
+                        var ipos = this.translateCanvasToImage(pos[0],pos[1]);
+                        var g = this.image.getContext("2d");
+                        var pixel = g.getImageData(ipos[0],ipos[1], 1, 1).data;
+                        if (e.shiftKey) {
+                            this.fg = new tinycolor({r:pixel[0],g:pixel[1],b:pixel[2]});
+                        } else {
+                            this.bg = new tinycolor({r:pixel[0],g:pixel[1],b:pixel[2]});
+                        }
+                        this.updateColorUI();
+                    }
 					this.down = false;
 					this.previousMousePosition = null;
 					return;
 				} 
 
                 function doDrawing() {
-                    var keys = [e.altKey,e.ctrlKey,e.shiftKey,e.metaKey];
+                    //var keys = [e.altKey,e.ctrlKey,e.shiftKey,e.metaKey];
                     if (this.down) {
                         if (this.down.button == 2) {
                             if (!this.down.startX || !this.down.startY) return;

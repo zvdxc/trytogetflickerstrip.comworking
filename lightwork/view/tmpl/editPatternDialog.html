@@ -1,14 +1,29 @@
 <div class="patternEditor">
+    <div class="prettyRender" style="height: 100px;"></div>
     <div class="patternPreview"></div>
     <div class="patternControls">
         <div class="controls"></div>
         <div class="right metricsPanel">
-            <a class="savePattern mbtn" href='#'>Save Pattern</a>
-            <div class="openPattern mbtn file"><input type="file">Open Pattern</div>
+            <a class="sharePattern btn btn-primary" href='#'>Share Lightwork</a>
             <label>FPS: <input type="number" class="fps" /></label>
             <label>Frames: <input type="number" class="frames" /></label>
             <label>Pixels: <input type="number" class="pixels" /></label>
+            <a class="savePattern btn btn-default" href='#'>Save</a>
+            <div class="openPattern btn btn-default file"><input type="file">Load</div>
         </div>
     </div>
     <div class="editorcontainer"></div>
+    <div class="helpIcon"><span class="glyphicon glyphicon-question-sign" /></div>
+    <div class="helpOverlay">
+        <div class="illuminate">A rendered version of part of the LED strip displays up here</div>
+        <div class="entirestrip"><span class="glyphicon glyphicon-arrow-down"></span>This bar shows a compact version of the entire 150 pixel strip</div>
+        <div class="timeexpanded">This area shows a "time expanded" view with the current frame highlighted</div>
+        <div class="colorpicker"><span class="glyphicon glyphicon-arrow-down"></span>Click to choose a fg/bg color from a picker</div>
+        <div class="palettehelp"><span class="glyphicon glyphicon-arrow-up"></span>This is the palette, left click to select the color, right click to use the color. (shift for bg color)</div>
+        <div class="metricshelp"><span class="glyphicon glyphicon-arrow-down"></span>Adjust the pattern metrics here</div>
+        <div class="downloadupload">Download/upload patterns to/from<span class="glyphicon glyphicon-arrow-up"></span><br/> your computer to load onto your Flickerstrip</div>
+        <div class="mainarea">Each pixel represents an LED on the strip, the ghosts are for lining up cycling patterns</div>
+        <div class="timeaxis">Time</div>
+        <div class="pixelsaxis">Pixels</div>
+    </div>
 </div>

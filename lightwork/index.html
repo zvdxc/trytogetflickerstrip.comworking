@@ -1,13 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
+---
+layout: padded
+title: Lightwork Editor
+description: Take control of your lights. Flickerstrip lets you set the mood, create your own light show, or build your own patterns
+navigation:
+    exclude: true
+author: Julian Hartline
+custom_head: | 
     <link rel="stylesheet" href="./view/less/style.css">
-    <link rel='stylesheet' href='./view/lib/spectrum.css' />
-
+    <link rel='stylesheet' href='./view/lib/spectrum.css'>
+    <script src="./view/lib/illuminated.js"></script>
     <script data-main="./main.js" src="./view/lib/require.js"></script>
-</head>
-<body>
-</body>
-</html>
+header: min
+---
 
 
+
+<div class="lightworkEditor"></div>
+
+<div class="socialShare modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Share your lightwork</h4>
+      </div>
+      <div class="modal-body">
+        <a href="" class="shareLink"></a>
+
+        <br/>
+        <br/>
+
+        <div class="addthis_sharing_toolbox"></div>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

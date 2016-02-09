@@ -48,6 +48,14 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
             this.stripLength = stripLength;
             this.rendered = null;
 			this.running = true;
+
+            $(document).on("visibilitychange",_.bind(function(e) {
+                if (document.hidden) {
+                    this.stop();
+                } else {
+                    this.start();
+                }
+            },this));
             
             var millis = new Date().getTime();
             var self = this;
@@ -121,7 +129,6 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
 
             g.clearRect(0,0,this.canvas.width,this.canvas.height);
 
-
             g.fillStyle = "#000";
             g.fillRect(padding.left-1,padding.top-1,this.canvas.width-padding.right,ledHeight+2);
 
@@ -193,9 +200,13 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
                 } else {
                     g.drawImage(this.rendered, 0, t, this.rendered.width, 1, loc.x, loc.y+start, loc.width, frameSize);
                 }
+
             }
 			//console.log("count: ",litCount);
             g.imageSmoothingEnabled = true;
+
+            var frameData = imgctx.getImageData(0, currentFrame, this.rendered.width, 1);
+            $(this).trigger("frame",frameData);
 
             //draw currently frame line
             /*

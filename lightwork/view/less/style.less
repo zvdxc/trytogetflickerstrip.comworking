@@ -10,11 +10,31 @@
     padding: 3px 7px;
 }
 
+.lightworkEditor {
+    background: white;
+    padding: 10px;
+    height: 500px;
+    .flexExpandContent;
+    color: black;
+}
+
+.socialShare {
+    color: black;
+
+    h1, h2, h3, h4, h5, h6 {
+        color: black;
+    }
+}
+
 .mbtn:hover {
     background-color: #3366ff;
 }
 
-.mbtn.file {
+body {
+    margin: 10px;
+}
+
+.btn.file {
     position: relative;
     input {
         position: absolute;
@@ -26,6 +46,13 @@
         width: 100%;
         height: 100%;
         opacity: 0;
+    }
+}
+
+.mbtn-success {
+    background-color: #0b0;
+    &:hover {
+        background-color: #6b6;
     }
 }
 
@@ -160,7 +187,7 @@
 }
 
 .patternEditor {
-    height: 100%;
+    position: relative;
     .flex-display();
     .flex-direction(column);
     >* {
@@ -172,6 +199,66 @@
         .flexExpandContent;
     }
 }
+
+.helpIcon {
+    font-size: 24px;
+    color: #428bca;
+    position: absolute;
+    bottom: -9px;
+    left: -2px;
+    z-index: 2;
+}
+
+
+.rotate {
+    -webkit-transform: rotate(-90deg); /* Safari */
+    -moz-transform: rotate(-90deg); /* Firefox */
+    -ms-transform: rotate(-90deg); /* IE */
+    -o-transform: rotate(-90deg); /* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+}
+
+.helpOverlay {
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    background-color: rgba(0,0,0,.8);
+
+    div {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        position: absolute;
+    }
+
+    .illuminate {top: 8px; left:226px};
+    .entirestrip {top: 95px; left:373px};
+    .timeexpanded {top: 139px; left:152px};
+    .colorpicker {top: 174px; left:38px};
+    .palettehelp {top: 224px; left:225px};
+    .metricshelp {top: 177px; left:629px};
+    .downloadupload {top: 239px; left:651px};
+    .mainarea {top: 444px; left:157px};
+    .timeaxis {top: 310px; left:15px};
+    .pixelsaxis {top: 229px; left:91px};
+
+    .downloadupload {
+        width: 300px;
+        font-size: 16px;
+    }
+
+    .palettehelp {
+        font-size: 16px;
+        width: 300px;
+    }
+
+    .timeaxis {
+        .rotate;
+    }
+}
+
 
 html, body {
     margin: 0;
