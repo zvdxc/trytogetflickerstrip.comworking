@@ -141,6 +141,25 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
 				this.doZoom(delta,pos[0],pos[1]);
             },this));
 
+            $(document).on("keyup",_.bind(function(e) {
+                var code = e.keyCode;
+                var brightenAmount = 10;
+                var spinAmount = 10;
+                if (code == 38) { //UP
+                    this.fg = this.fg.clone().lighten(brightenAmount);
+                    this.updateColorUI();
+                } else if (code == 40) { //DOWN
+                    this.fg = this.fg.clone().darken(brightenAmount);
+                    this.updateColorUI();
+                } else if (code == 37) { //LEFT
+                    this.fg = this.fg.clone().spin(spinAmount);
+                    this.updateColorUI();
+                } else if (code == 39) { //RIGHT
+                    this.fg = this.fg.clone().spin(-spinAmount);
+                    this.updateColorUI();
+                }
+            },this));
+
 			this.requestFrame();
             this.repaint();
         },
