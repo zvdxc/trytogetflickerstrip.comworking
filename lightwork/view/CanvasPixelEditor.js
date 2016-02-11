@@ -149,18 +149,24 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
                 if (code == 38) { //UP
                     this.fg = this.fg.clone().lighten(brightenAmount);
                     this.updateColorUI();
+                    e.preventDefault();
+                    e.stopPropagation();
                 } else if (code == 40) { //DOWN
                     this.fg = this.fg.clone().darken(brightenAmount);
                     this.updateColorUI();
+                    e.preventDefault();
+                    e.stopPropagation();
                 } else if (code == 37) { //LEFT
                     this.fg = this.fg.clone().spin(spinAmount);
                     this.updateColorUI();
+                    e.preventDefault();
+                    e.stopPropagation();
                 } else if (code == 39) { //RIGHT
                     this.fg = this.fg.clone().spin(-spinAmount);
                     this.updateColorUI();
+                    e.preventDefault();
+                    e.stopPropagation();
                 }
-                e.preventDefault();
-                e.stopPropagation();
             },this));
 
 			this.requestFrame();
