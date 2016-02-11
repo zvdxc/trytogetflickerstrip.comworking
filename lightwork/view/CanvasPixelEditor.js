@@ -141,8 +141,9 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
 				this.doZoom(delta,pos[0],pos[1]);
             },this));
 
-            $(document).on("keyup",_.bind(function(e) {
+            $(document).on("keydown",_.bind(function(e) {
                 var code = e.keyCode;
+                console.log("code",code);
                 var brightenAmount = 10;
                 var spinAmount = 10;
                 if (code == 38) { //UP
@@ -158,6 +159,8 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
                     this.fg = this.fg.clone().spin(-spinAmount);
                     this.updateColorUI();
                 }
+                e.preventDefault();
+                e.stopPropagation();
             },this));
 
 			this.requestFrame();
