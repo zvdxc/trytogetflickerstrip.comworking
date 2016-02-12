@@ -180,6 +180,12 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 this.hide()
             },this));
 
+            this.$el.find(".arduinoDownload").click(_.bind(function(e) {
+                var b64 = serializePattern(this.pattern);
+                window.open("arduino.php?data="+b64);
+                e.preventDefault();
+            },this));
+
             if (!this.pattern.name) this.pattern.name = "New Lightwork";
 
             this.$pretty = this.$el.find(".prettyRender");
