@@ -5,11 +5,11 @@
   #include <avr/power.h>
 #endif
 
+//IMPORTANT: Update the pin and length to match your LED strip!
 #define PIN 5
 #define LENGTH 150
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LENGTH, PIN, NEO_GRB + NEO_KHZ800);
-
 <?php 
 $b64 = str_replace(' ','+',$_GET['data']);
 $raw = base64_decode($b64);
