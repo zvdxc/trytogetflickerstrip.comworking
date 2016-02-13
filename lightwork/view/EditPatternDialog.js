@@ -290,15 +290,49 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             },this));
             */
 
-            this.$el.find(".openPattern input").change(_.bind(function(e) {
-                if (e.target.files.length == 0) return;
-                var file = e.target.files[0];
+            function getFileFromInput(input,cb) {
+                if (input.files.length == 0) return;
+                var file = input.files[0];
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
                 $(reader).on("load",_.bind(function(e) {
+                    cb(e.target.result);
+                },this));
+            }
+
+            this.$el.find(".imageDownload").click(_.bind(function(e) {
+                e.target.href=this.canvas.toDataURL();
+                e.target.download="pattern.png";
+            },this));
+
+            this.$el.find(".imageUpload input").change(_.bind(function(e) {
+                getFileFromInput(e.target,_.bind(function(dataUrl) {
+                    var $img = $("<img />").attr("src",dataUrl).hide();
+                    $img.load(_.bind(function(e) {
+                        var w = $img.get(0).width;
+                        var h = $img.get(0).height;
+                        $img.remove();
+
+                        this.canvas.width = w;
+                        this.canvas.height = h;
+                        this.canvas.getContext("2d").drawImage($img.get(0),0,0);
+
+                        this.editor.setFps(this.pattern.fps);
+                        this.pattern.frames = h;
+                        this.pattern.pixels = w;
+
+                        this.updateEditor();
+                        this.updatePattern();
+                    },this));
+                    $("body").append($img);
+                },this));
+            },this));
+
+            this.$el.find(".openPattern input").change(_.bind(function(e) {
+                getFileFromInput(e.target,_.bind(function() {
+                    $(e.target).val("");
+                    var dataUrl = fileData;
                     var preamble = "data:;base64,";
-                    var dataUrl = e.target.result;
-                    this.$el.find(".openPattern input").val("");
                     if (!dataUrl.startsWith(preamble)) {
                         alert("Invalid pattern file");
                         throw "Invalid pattern file!";

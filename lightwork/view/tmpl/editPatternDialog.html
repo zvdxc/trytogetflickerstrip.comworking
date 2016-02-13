@@ -1,17 +1,20 @@
 <div class="patternEditor">
     <div class="prettyRender" style="height: 100px;"></div>
     <div class="patternPreview"></div>
+    <div class="buttonPanel">
+        <a class="sharePattern btn btn-primary btn-sm" href='#'>Share Lightwork</a>
+        <a class="btn btn-success arduinoDownload btn-sm" href="#">Download as Arduino code</a>
+        <a class="btn btn-success imageDownload btn-sm" href="#">Download as image</a>
+        <div class="imageUpload btn btn-default file btn-sm"><input type="file">Import Image</div>
+        <a class="savePattern btn btn-success btn-sm" href='#'>Save</a>
+        <div class="openPattern btn btn-default file btn-sm"><input type="file">Load</div>
+    </div>
     <div class="patternControls">
         <div class="controls"></div>
         <div class="right metricsPanel">
-            <a class="sharePattern btn btn-primary" href='#'>Share Lightwork</a>
             <label>FPS: <input type="number" class="fps" /></label>
             <label>Frames: <input type="number" class="frames" /></label>
             <label>Pixels: <input type="number" class="pixels" /></label>
-            <a class="savePattern btn btn-default" href='#'>Save</a>
-            <div class="openPattern btn btn-default file"><input type="file">Load</div>
-            <br/>
-            <a class="arduinoDownload" href="#">Download as Arduino Code</a>
         </div>
     </div>
     <div class="editorcontainer"></div>
