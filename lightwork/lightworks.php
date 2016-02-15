@@ -67,4 +67,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_GET["create"])) {
 
     header('Content-Type: application/json');
     echo json_encode(["body"=>$lightwork]);
+} else if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET["list"])) {
+    $statement = $pdo->prepare("SELECT * FROM lightworks");
+    
+    $statement->execute();
+    $rows = $statement->fetchAll();
+
+    $outrows = [];
+    foreach ($rows as $row) {
+        $outrows[] = [
+            "id" => $row['id'],
+            "created" => $row['created'],
+            "payload" => $row['payload'],
+        ];
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($outrows);
 }
