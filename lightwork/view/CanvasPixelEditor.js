@@ -142,8 +142,8 @@ define(['jquery','tinycolor',"view/util.js", 'text!tmpl/canvasPixelEditor.html',
             },this));
 
             $(document).on("keydown",_.bind(function(e) {
+                if ($(e.target).is("input")) return;
                 var code = e.keyCode;
-                console.log("code",code);
                 var brightenAmount = 10;
                 var spinAmount = 10;
                 if (code == 38) { //UP

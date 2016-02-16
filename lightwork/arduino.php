@@ -11,7 +11,25 @@
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LENGTH, PIN, NEO_GRB + NEO_KHZ800);
 <?php 
-$b64 = str_replace(' ','+',$_GET['data']);
+if (isset($_GET['id'])) {
+    require("../../lightwork_db.php");
+    try {
+        # MySQL with PDO_MYSQL
+        $pdo = new PDO("mysql:host=$dbcredentials[host];dbname=$dbcredentials[dbname]", $dbcredentials["user"], $dbcredentials["password"]);
+    } catch(PDOException $e) {
+        echo "ERROR: ".$e->getMessage();
+    } 
+    $statement = $pdo->prepare("SELECT payload FROM lightworks WHERE id=:id LIMIT 1");
+    
+    $statement->execute([':id' => intval($_GET["id"])]);
+    $row = $statement->fetch();
+
+    $data = $row["payload"];
+} else {
+    $data = $_GET['data'];
+}
+
+$b64 = str_replace(' ','+',$data);
 $raw = base64_decode($b64);
 $spl = explode("\n\n",$raw,2);
 $info = $spl[0];

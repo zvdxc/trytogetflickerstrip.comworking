@@ -184,7 +184,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 var b64 = serializePattern(this.pattern);
                 var datastring = [this.editor.offset.x,this.editor.offset.y,this.editor.zoomFactor].join("|");
                 $.post("./lightworks.php?create",serializePattern(this.pattern,datastring),function(result) {
-                    window.open("arduino.php?data="+b64);
+                    window.open("arduino.php?id="+result.id);
                 });
                 e.preventDefault();
             },this));
