@@ -77,35 +77,77 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
         });
     }
 
-    $.get("lightworks.php?list",function(data) {
-        _.each(data,_.bind(function(shared) {
-            var created = moment(shared.created).format("MMMM Do YYYY, h:mm a");
-            var renderer = new LEDStripRenderer(150);
-            var url = "index.html#"+shared.id;
-            $lw.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
-            $lw.append(renderer.$el);
-            renderer.$el.click(function() {
-                if (window.location.hash = "#DELETE") {
-                    dels.push(shared.id);
-                    renderer.$el.css("outline","2px solid red");
-                    console.log(dels.join(","));
-                } else {
-                    window.location = url;
-                }
-            });
-            try {
-                var pattern = deserializePattern(shared.payload);
-                pattern.type = "bitmap";
-                setTimeout(_.bind(function() {
-                    renderer.resizeToParent();
-
-                    util.evaluatePattern(pattern);
-                    renderer.setPattern(pattern.rendered);
-                },this),5);
-            } catch (e) {
-                console.log("err",shared.id,e);
+    function renderShared(shared) {
+        var created = moment(shared.created).format("MMMM Do YYYY, h:mm a");
+        var renderer = new LEDStripRenderer(150);
+        var $div = $("<div></div>");
+        var url = "index.html#"+shared.id;
+        $div.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
+        $div.append(renderer.$el);
+        renderer.$el.click(function() {
+            if (window.location.hash = "#DELETE") {
+                dels.push(shared.id);
+                renderer.$el.css("outline","2px solid red");
+                console.log(dels.join(","));
+            } else {
+                window.location = url;
             }
-        },this));
+        });
+        try {
+            var pattern = deserializePattern(shared.payload);
+            pattern.type = "bitmap";
+            setTimeout(_.bind(function() {
+                renderer.resizeToParent();
+
+                util.evaluatePattern(pattern);
+                renderer.setPattern(pattern.rendered);
+            },this),5);
+        } catch (e) {
+            console.log("err",shared.id,e);
+        }
+        return $div;
+    }
+
+    var sharedPatterns = null;
+    var pageSize = 10;
+
+    function renderPage(page) {
+        var $el = $(".elements").empty();
+        $(".pagination li").removeClass("active");
+        $(".pagination [data-page="+page+"]").addClass("active");
+        for (var i=page*pageSize; i<(page+1)*pageSize; i++) {
+            if (!sharedPatterns[i]) continue;
+            $el.append(renderShared(sharedPatterns[i]));
+        }
+        return $el;
+    }
+
+    function renderPagination(pages) {
+        var $el = $("<ul class='pagination'></ul>");
+        for (var i=0; i<pages; i++) {
+            var $a = $("<a href='#'></a>");
+            $a.text(i+1);
+            $a.data("page",i);
+            $a.click(function(e) {
+                var page = $(this).data("page");
+                renderPage(page);
+            });
+            var $li = $("<li></li>").append($a);
+            $li.attr("data-page",i);
+            $el.append($li);
+        }
+        return $el;
+    }
+
+    $.get("lightworks.php?list",function(data) {
+        sharedPatterns = data;
+        var pages = sharedPatterns.length / pageSize;
+
+        var $pagination = renderPagination(pages);
+        $(".pagination").each(function() {
+            $(this).replaceWith($pagination.clone(true));
+        });
+        renderPage(0);
     });
 });
 
