@@ -5,6 +5,12 @@
 .media .img img{display:block;}
 .media .imgExt{float:right; margin-left: 10px;}
 
+.makerFaireBadge {
+	width: 153px;
+    margin-left: 13px;
+    margin-top: 6px;
+}
+
 .flexdisplay {
     display: -ms-flexbox;
     display: -webkit-flex;
