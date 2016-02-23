@@ -54,29 +54,6 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
     window.platform = "desktop";
     var $lw = $(".lightworks");
 
-    if (window.location.hash == "#LOGGED") {
-        $.get("patterns.txt",function(txt) {
-            var patterns = txt.split("\n")
-            _.each(patterns,_.bind(function(pat) {
-                var renderer = new LEDStripRenderer(150);
-                $lw.append(renderer.$el);
-                var pattern = deserializePattern(pat);
-                pattern.type = "bitmap";
-                renderer.$el.click(function() {
-                    $.post("./lightworks.php?create",serializePattern(pattern),function(result) {
-                        renderer.$el.css("outline","2px solid blue");
-                        console.log("created result: "+result.id);
-                    });
-                });
-                setTimeout(_.bind(function() {
-                    renderer.resizeToParent();
-                    util.evaluatePattern(pattern);
-                    renderer.setPattern(pattern.rendered);
-                },this),5);
-            },this));
-        });
-    }
-
     function renderShared(shared) {
         var created = moment(shared.created).format("MMMM Do YYYY, h:mm a");
         var renderer = new LEDStripRenderer(150);
@@ -84,6 +61,11 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
         var url = "index.html#"+shared.id;
         $div.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
         $div.append(renderer.$el);
+        renderer.$el.hover(function() {
+            renderer.start();
+        }, function() {
+            renderer.stop();
+        });
         renderer.$el.click(function() {
             if (window.location.hash = "#DELETE") {
                 dels.push(shared.id);
@@ -101,6 +83,7 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
 
                 util.evaluatePattern(pattern);
                 renderer.setPattern(pattern.rendered);
+                renderer.stop();
             },this),5);
         } catch (e) {
             console.log("err",shared.id,e);
@@ -109,7 +92,7 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
     }
 
     var sharedPatterns = null;
-    var pageSize = 10;
+    var pageSize = 30;
 
     function renderPage(page) {
         var $el = $(".elements").empty();

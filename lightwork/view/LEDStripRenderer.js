@@ -88,6 +88,7 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
         stop:function() {
 			this.setTimer(null);
             this.running = false;
+            this.repaint();
         },
         start:function() {
 			if (this.pattern && this.pattern.fps) this.setTimer(this.pattern.fps);
@@ -133,12 +134,14 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
             g.fillRect(padding.left-1,padding.top-1,this.canvas.width-padding.right,ledHeight+2);
 
             //render LED strip at current frame
-            for (var i=0; i<this.stripLength; i++) {
-                var pixel = util.getPixelFromImageData(imageData,i,currentFrame);
-                var c = new tinycolor({r:pixel[0],g:pixel[1],b:pixel[2]});
+            if (this.running) {
+                for (var i=0; i<this.stripLength; i++) {
+                    var pixel = util.getPixelFromImageData(imageData,i,currentFrame);
+                    var c = new tinycolor({r:pixel[0],g:pixel[1],b:pixel[2]});
 
-                g.fillStyle = tinycolor(c.toString()).toHexString();
-                g.fillRect(padding.left+i*separation,padding.top,separation,ledHeight);
+                    g.fillStyle = tinycolor(c.toString()).toHexString();
+                    g.fillRect(padding.left+i*separation,padding.top,separation,ledHeight);
+                }
             }
 
             //draw the numbers
@@ -188,7 +191,7 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
                 //console.log(this.rendered.width,this.rendered.height);
 				var lit = false;
 				var pixelsFromCurrent = Math.abs(Math.floor(oframeSize*t)-Math.floor(oframeSize*currentFrame));
-                if (this.pattern.frames > 3 && (oframeSize < 2 && pixelsFromCurrent<=1 || t == currentFrame)) {
+                if (this.running && this.pattern.frames > 3 && (oframeSize < 2 && pixelsFromCurrent<=1 || t == currentFrame)) {
                     var frameData = imgctx.getImageData(0, t, this.rendered.width, 1);
                     util.invertPixelData(frameData);
                     var tcanvas = document.createElement("canvas");
