@@ -94,7 +94,7 @@
     top: 0px;
     left: 0px;
     right: 0px;
-    height: 160px;
+    height: 175px;
     z-index: 1000;
     padding-bottom: 2px;
 }
@@ -128,6 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shareprompt {
+	text-align: left;
 	width: 500px;
 	margin: auto;
 }
@@ -169,6 +170,8 @@ h1, h2, h3, h4, h5, h6 {
 .photos img {
 	margin-top: 10px;
 	width: 50%;
+	
+    border-radius: 10px;
 }
 
 .photos span {
@@ -205,25 +208,72 @@ h1, h2, h3, h4, h5, h6 {
     filter: invert(100%);	
 }
 
+#mce-responses {
+	margin-top: 10px;
+}
+
+#mce-success-response {
+	color: #33cc33;
+}
+
+#mce-error-response {
+	color: #33cc33;
+}
+
 .subscribe-form {
+    z-index: 1000;
+    position: relative;
+    
     float: right;
     border-radius: 10px;
-    padding: 15px;
+    padding: 5px 9px;
     text-align: left;
     background: black;
     margin: 10px auto;
     width: 300px;
     color: white;
-    
-	-webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 1);
-	-moz-box-shadow:    0px 0px 10px 5px rgba(255, 255, 255, 1);
-	box-shadow:         0px 0px 10px 5px rgba(255, 255, 255, 1);
+}
+
+.emailrow .item {
+	-webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.emailrow .item label {
+	border-radius: 5px;
+	padding: 3px 5px;
+	text-align: center;
+	font-size: 13px;
+	width: 100%;
+	height: 100%;
+	background-color: #999;
+	color: #eee;
+}
+
+.emailrow .item:last-child {
+	margin-left: 2px;
+}
+
+.emailrow .item input:checked + label {
+	background-color: #3399ff;
+}
+
+.emailrow .item input {
+	display: none;
+}
+
+.subscribe-form ul {
+	list-style: none;
 }
 
 .subscribe-form .emailrow {
 	display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     padding-top: 10px;
 }
 
@@ -242,7 +292,7 @@ body #mc_embed_signup .button {
 	padding: 2px 9px;
 	float:right;
 	height: auto;
-	background-color: blue;
+	background-color: #3399ff;
 	border-radius: 5px;
 	border: 1px solid transparent;
 }
@@ -332,36 +382,43 @@ body #mc_embed_signup .button {
 }
 
 .featureBox {
-	/*border: 3px solid white;*/
 	border-radius: 10px;
 	color: white;
 	font-size: 16px;
 	padding: 10px;
 	margin: 10px;
+	
+	background-color: black;
 }
 
 .featureBox:nth-child(1) {
 	/*background-color: rgba(255,0,0,.3);*/
 	
+	/*
 	-webkit-box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 1);
 	-moz-box-shadow:    0px 0px 10px 5px rgba(255, 0, 0, 1);
 	box-shadow:         0px 0px 10px 5px rgba(255, 0, 0, 1);
+	*/
 }
 
 .featureBox:nth-child(2) {
 	/*background-color: rgba(0,255,0,.3);*/
 	
+	/*
 	-webkit-box-shadow: 0px 0px 10px 5px rgba(0, 255, 0, 1);
 	-moz-box-shadow:    0px 0px 10px 5px rgba(0, 255, 0, 1);
 	box-shadow:         0px 0px 10px 5px rgba(0, 255, 0, 1);
+	*/
 }
 
 .featureBox:nth-child(3) {
 	/*background-color: rgba(0,0,255,.3);*/
 	
+	/*
 	-webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 255, 1);
 	-moz-box-shadow:    0px 0px 10px 5px rgba(0, 0, 255, 1);
 	box-shadow:         0px 0px 10px 5px rgba(0, 0, 255, 1);
+	*/
 }
 
 .icon_phone {
@@ -566,7 +623,7 @@ h2 a:hover {
     right: 0px;
     background-image: url('/resources/images/splash.png');
     background-position-x: -35px;
-    height: 370px;
+    height: 420px;
     
     margin: 0;
     text-align: center;
@@ -584,13 +641,17 @@ h2 a:hover {
 }
 
 .firstlookVideo {
-	margin: 40px auto;
+	margin: 15px auto;
 }
 
 .glow {
+	/*
 	-webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 1);
 	-moz-box-shadow:    0px 0px 10px 5px rgba(255, 255, 255, 1);
 	box-shadow:         0px 0px 10px 5px rgba(255, 255, 255, 1);
+	*/
+	
+	border: 3px solid #3399ff;
 }
 
 .tagline {
