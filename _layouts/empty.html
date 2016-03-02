@@ -6,7 +6,10 @@
         <title>{{ page.title }} | {{ site.titletagline }}</title>
         <meta name="Description" content="{{ page.description }}">
         <meta name="viewport" content="width=device-width">
-        <meta property="og:image" content="{{ page.fbimage | default:'/resources/images/logo_blackgb_rounded_corners.png' }}"/>
+        <meta property="og:image" content="{{ site.url }}{{ page.fbimage | default:'/resources/images/logo_blackgb_rounded_corners.png' }}"/>
+        <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
+        <meta property="og:title" content="{{ page.title }}"/>
+        <meta property="og:description" content="{{ page.description }}"/>
         <link rel="icon" href="/resources/images/favicon_16.png" />
         <link rel="me" href="https://twitter.com/flickerstrip">
 
