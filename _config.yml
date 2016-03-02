@@ -4,6 +4,7 @@ companyname: Reflowster
 markdown: redcarpet
 kickstarterurl: https://www.flickerstrip.com
 highlighter: pygments
+fb_appid: 1665564517043913
 exclude: [tasks, README.md]
 include: [.htaccess]
 url: http://flickerstrip.com
