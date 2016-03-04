@@ -1,0 +1,91 @@
+@import "../resources/css/flexbox.less";
+
+@primary: #3399ff;
+@deemphasis: #aaa;
+
+.main {
+	min-height: 900px;
+}
+
+.teasertext {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+h1 {
+	color: #ccc;
+}
+
+.spacer {
+	height: 15px;
+}
+
+h3 {
+	text-align: center;
+}
+
+.launch {
+	text-align: center;
+	font-size: 18px;
+	color: @deemphasis;
+}
+
+.countdown {
+	text-align: center;
+	font-size: 60px;
+	span {
+		//border: 2px solid @primary;
+		background-color: #999;
+		color: #333;
+		border-radius: 10px;
+		padding: 5px 11px 0px 10px;
+		position: relative;
+		width: 92px;
+		display: inline-block;
+	}
+	
+	span:before {
+		color: #ddd;
+		font-size: 12px;
+		position: absolute;
+		top: 7px;
+	    left: 14px;
+    }
+}
+
+.inlinegraphic {
+	height: 29px;
+    position: relative;
+    top: -4px;
+}
+
+.images {
+	img {
+		width: 30%;
+	}
+}
+
+.steps {
+	.flex-display;
+	>div {
+		.flex(1 1 auto);
+		width: 30%;
+		margin: 5px;
+		//text-align: center;
+	}
+}
+
+.shareButton {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	
+	background-size: contain;
+	&.twitter { background-image: url('/resources/images/twitter.png'); }
+	&.facebook { background-image: url('/resources/images/facebook.png'); }
+}
+
+.days:before { content:'days'; }
+.hours:before { content:'hours'; }
+.minutes:before { content:'minutes'; }
+.seconds:before { content:'seconds'; }

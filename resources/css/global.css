@@ -5,6 +5,8 @@
 .media .img img{display:block;}
 .media .imgExt{float:right; margin-left: 10px;}
 
+@primary: #3399ff; //blue
+
 .makerFaireBadge {
 	width: 153px;
     margin-left: 13px;
@@ -247,8 +249,13 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 13px;
 	width: 100%;
 	height: 100%;
-	background-color: #999;
+	background-color: #ccc;
+	color: #666;
+}
+
+.emailrow .item:hover label {
 	color: #eee;
+	background-color: #116699
 }
 
 .emailrow .item:last-child {
@@ -256,6 +263,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .emailrow .item input:checked + label {
+	color: #eee;
 	background-color: #3399ff;
 }
 
@@ -263,11 +271,11 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
-.subscribe-form ul {
+#mc_embed_signup ul {
 	list-style: none;
 }
 
-.subscribe-form .emailrow {
+#mc_embed_signup .emailrow {
 	display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
