@@ -14,6 +14,8 @@ $(document).ready(function() {
 	    $(".countdown .seconds").text(pad(duration.seconds(),2));
 	};
 	
+	$(".youtubelink").jqueryVideoLightning({ id: "SN5VDPl2nCE", autoplay: true, color: "white" });
+	
 	update();
 	setInterval(update,1000);
 });

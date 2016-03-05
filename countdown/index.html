@@ -1,5 +1,5 @@
 ---
-layout: padded
+layout: noheader
 title: Flickerstrip, bring your creativity to light
 description: Flickerstrip is the neopixel LED light strip that lets you upload custom patterns via WiFi
 navigation:
@@ -9,49 +9,65 @@ custom_head: |
     <script src="./moment.js"></script>
     <script src="./script.js"></script>
     <link rel="stylesheet" href="./style.css">
+    <script src="./jquery-video-lightning.js"></script>
 ---
 
-<h1>Countdown to <img class="inlinegraphic" src="/resources/images/kickstarter-logo-dark.png"> launch.</h1>
-<div class="countdown">
-	<span class="days"></span>
-	<span class="hours"></span>
-	<span class="minutes"></span>
-	<span class="seconds"></span>
-</div>
-<div class="launch"></div>
-
-<div class="spacer"></div>
-
-<div class="teasertext">
-	Flickerstrip is the first WiFi light strip that supports animated patterns. Use your smartphone to browse through the
-	light art created by others, or build your own dancing light show from scratch.
+<div class="countdownsplash">
+	<a href="/"><img src="/resources/images/CountdownSplash.jpg" /></a>
 </div>
 
-<h3>Don't miss out on the early-bird rewards!</h3>
-<div class="steps">
-	<div>
-		<h2>1. Subscribe</h2>
-		Get notified on launch day and get the best price with the early-bird reward tiers
-		{% include subscribeform.html %}
+<div class="main">
+
+<div class="container-fluid">
+	<div class="col-sm-8">
+		<h1>Countdown to <img class="inlinegraphic" src="/resources/images/kickstarter-logo-dark.png"> launch.</h1>
+		<div class="countdown">
+			<span class="days"></span>
+			<span class="hours"></span>
+			<span class="minutes"></span>
+			<span class="seconds"></span>
+		</div>
+		<div class="launch"></div>
+		
+		<div class="spacer"></div>
+		
+		<div class="teasertext">
+			Flickerstrip is the first WiFi light strip that supports animated patterns. Use your smartphone to browse through the
+			light art created by others, or build your own dancing light show from scratch.
+		</div>
+		
+		<div class="images">
+			<a href="/resources/images/mediakit/photos/10.jpg"><img src="/resources/images/mediakit/photos/smaller/10.jpg"></a>
+			<a href="/resources/images/mediakit/photos/20.jpg"><img src="/resources/images/mediakit/photos/smaller/20.jpg"></a>
+			<a href="/resources/images/mediakit/photos/14.jpg"><img src="/resources/images/mediakit/photos/smaller/14.jpg"></a>
+		</div>
 	</div>
-	
-	<div>
-		<h2>2. Share</h2>
-		Don't let your friends miss out either<br/>
-		<a href="https://www.facebook.com/sharer/sharer.php?u=http://flickerstrip.com/countdown" class="shareButton facebook"></a>
-		<a href="https://twitter.com/home?status=http://flickerstrip.com/countdown" class="shareButton twitter"></a>
-	</div>
-	
-	
-	<div>
-		<h2>3. Watch</h2>
-		The Flickerstrip firstlook gives you a sneak peek at Flickerstrip in action
+	<div class="col-sm-4">
+		<h3>Don't miss out on the early-bird rewards!</h3>
+		<div class="steps">
+			<div>
+				<h2>1. Watch</h2>
+				The Flickerstrip firstlook gives you a sneak peek at Flickerstrip in action.
+				<br/>
+				<br/>
+				
+				<a class="btn btn-primary youtubelink">Watch now</a>
+			</div>
+			<div>
+				<h2>2. Subscribe</h2>
+				Get notified on launch day and get the best price with the early-bird reward tiers
+				{% include subscribeform.html %}
+			</div>
+			
+			<div>
+				<h2>3. Share</h2>
+				Don't let your friends miss out either<br/>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=http://flickerstrip.com/countdown" class="shareButton facebook"></a>
+				<a href="https://twitter.com/home?status=http://flickerstrip.com/countdown" class="shareButton twitter"></a>
+			</div>
+		</div>
 	</div>
 </div>
 
-<div class="images">
-	<a href="/resources/images/mediakit/photos/10.jpg"><img src="/resources/images/mediakit/photos/smaller/10.jpg"></a>
-	<a href="/resources/images/mediakit/photos/20.jpg"><img src="/resources/images/mediakit/photos/smaller/20.jpg"></a>
-	<a href="/resources/images/mediakit/photos/14.jpg"><img src="/resources/images/mediakit/photos/smaller/14.jpg"></a>
-</div>
 
+</div>

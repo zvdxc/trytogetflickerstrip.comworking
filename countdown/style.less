@@ -1,7 +1,28 @@
 @import "../resources/css/flexbox.less";
 
 @primary: #3399ff;
+@secondary: #FFA523;
 @deemphasis: #aaa;
+
+.btn {
+	background-color: @primary;
+}
+
+.main {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.countdownsplash img {
+	margin: 0 auto;
+	display: block;
+	max-width: 960px;
+}
+
+.countdownsplash {
+	max-height: 250px;
+	overflow: hidden;
+}
 
 .main {
 	min-height: 900px;
@@ -10,10 +31,24 @@
 .teasertext {
 	max-width: 500px;
 	margin: 0 auto;
+	margin-bottom: 10px;
 }
 
 h1 {
 	color: #ccc;
+	font-size: 31px;
+}
+
+h2 {
+	margin-top: 10px;
+	background-color: @secondary;
+	color: black;
+}
+
+h3 {
+	font-size: 22px;
+	margin-top: 5px;
+	padding: 0;
 }
 
 .spacer {
@@ -54,7 +89,7 @@ h3 {
 }
 
 .inlinegraphic {
-	height: 29px;
+	height: 26px;
     position: relative;
     top: -4px;
 }
@@ -67,9 +102,9 @@ h3 {
 
 .steps {
 	.flex-display;
+	.flex-direction(column);
 	>div {
 		.flex(1 1 auto);
-		width: 30%;
 		margin: 5px;
 		//text-align: center;
 	}
