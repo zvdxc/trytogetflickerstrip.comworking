@@ -18,6 +18,31 @@ $(document).ready(function() {
 	
 	update();
 	setInterval(update,1000);
+	
+    var $sidebar   = $(".floatdown"), 
+        $window    = $(window),
+        offset     = $sidebar.offset(),
+        topPadding = 15;
+    
+    var animateOptions = {
+		duration: 200,
+    };
+
+    var t = null;
+    $window.scroll(function() {
+    	if (t != null) clearTimeout(t);
+    	t = setTimeout(function() {
+	        if ($window.scrollTop() > offset.top) {
+	            $sidebar.stop().animate({
+	                marginTop: $window.scrollTop() - offset.top + topPadding
+	            },animateOptions);
+	        } else {
+	            $sidebar.stop().animate({
+	                marginTop: 0
+	            },animateOptions);
+	        }
+    	},50);
+    });
 });
 
 function pad(n, width, z) {

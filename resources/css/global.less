@@ -7,6 +7,14 @@
 
 @primary: #3399ff; //blue
 
+a {
+	color: @primary;
+	&:hover {
+		color: lighten(@primary,20%);
+		text-decoration: none;
+	}
+}
+
 .makerFaireBadge {
 	width: 153px;
     margin-left: 13px;
@@ -430,7 +438,7 @@ body #mc_embed_signup .button {
 }
 
 .icon_phone {
-	background-url:url("/resources/images/phone.svg")
+	background-image:url("/resources/images/phone.svg");
 	width: 15px;
 	display: inline-block;
 }
@@ -477,15 +485,6 @@ h2.blog {
 //	top: 124px;
 //	left: 5px;
 }
-
-
-
-/* ====== media ====== */
-.media {margin:10px;}
-.media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
-.media .img {float:left; margin-right: 10px;}
-.media .img img{display:block;}
-.media .imgExt{float:right; margin-left: 10px;}
 
 .iconlink, .iconlink:hover {
 	text-decoration: none;

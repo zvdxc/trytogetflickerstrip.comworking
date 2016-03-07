@@ -4,6 +4,41 @@
 @secondary: #FFA523;
 @deemphasis: #aaa;
 
+.phonerow {
+	.flex-display;
+	.align-items(center);
+	font-size: 24px;
+	font-weight: bold;
+	>* {
+		display: block;
+		padding: 10px;
+	}
+	>a {
+		.flex(0 0 auto);
+	}
+	>div {
+		img {
+			width: 100%;
+			border: 2px solid #999;
+			border-radius: 10px;
+			margin: 10px;
+		}
+		.flex(1 1 auto);
+	}
+	img {
+		max-height: 400px;
+	}
+}
+
+.phonerow:nth-child(odd) {
+	>a {
+		.flex-order(2);
+	}
+	>div {
+		.flex-order(1);
+	}
+}
+
 .btn {
 	background-color: @primary;
 }
@@ -20,7 +55,6 @@
 }
 
 .countdownsplash {
-	max-height: 250px;
 	overflow: hidden;
 }
 
