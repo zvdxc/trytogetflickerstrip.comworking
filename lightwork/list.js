@@ -67,7 +67,7 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
             renderer.stop();
         });
         renderer.$el.click(function() {
-            if (window.location.hash = "#DELETE") {
+            if (window.location.hash == "#DELETE") {
                 dels.push(shared.id);
                 renderer.$el.css("outline","2px solid red");
                 console.log(dels.join(","));
