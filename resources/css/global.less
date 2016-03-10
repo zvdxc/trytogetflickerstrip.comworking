@@ -29,21 +29,15 @@ a {
 }
 
 .flexdisplay {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+	.flex-display;
 }
 
 .flexgrow {
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
+	.flex(1 1 auto);
 }
 
 .flexshrink {
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
+	.flex(0 0 auto);
 }
 
 .logobg {
@@ -291,19 +285,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mc_embed_signup .emailrow {
-	display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
+	.flex-display;
+	.flex-direction(row);
     padding-top: 10px;
 }
 
 #mce-EMAIL {
-	-webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
+	.flex(1 1 auto);
 	margin-right: 3px;
 	border-radius: 5px;
 	color: black;
