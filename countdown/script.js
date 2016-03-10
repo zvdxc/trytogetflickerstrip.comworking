@@ -21,8 +21,10 @@ $(document).ready(function() {
 	
     var $sidebar   = $(".floatdown"), 
         $window    = $(window),
-        offset     = $sidebar.offset(),
         topPadding = 15;
+    
+    var $marker = $("<a style='width:0 !important; height:0 !important'></a>"); //mark where we should base our position on
+    $sidebar.before($marker);
     
     var animateOptions = {
 		duration: 200,
@@ -32,6 +34,7 @@ $(document).ready(function() {
     $window.scroll(function() {
     	if (t != null) clearTimeout(t);
     	t = setTimeout(function() {
+	        var offset = $marker.offset();
 	        if ($window.scrollTop() > offset.top) {
 	            $sidebar.stop().animate({
 	                marginTop: $window.scrollTop() - offset.top + topPadding
