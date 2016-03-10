@@ -7,7 +7,6 @@
 .phonerow {
 	.flex-display;
 	.align-items(center);
-	font-size: 24px;
 	font-weight: bold;
 	>* {
 		display: block;
@@ -22,11 +21,16 @@
 			border: 2px solid #999;
 			border-radius: 10px;
 			margin: 10px;
+			max-width:100%;
 		}
 		.flex(1 1 auto);
+		a {
+			display: block;
+		}
 	}
 	img {
 		max-height: 400px;
+		max-width:30vw;
 	}
 }
 
@@ -36,6 +40,7 @@
 	}
 	>div {
 		.flex-order(1);
+		text-align: right;
 	}
 }
 
@@ -52,6 +57,7 @@
 	margin: 0 auto;
 	display: block;
 	max-width: 960px;
+	width: 100%;
 }
 
 .countdownsplash {
@@ -101,15 +107,14 @@ h3 {
 
 .countdown {
 	text-align: center;
-	font-size: 60px;
 	span {
-		//border: 2px solid @primary;
 		background-color: #999;
 		color: #333;
 		border-radius: 10px;
 		padding: 5px 11px 0px 10px;
 		position: relative;
 		width: 92px;
+		max-width:23%;
 		display: inline-block;
 	}
 	
@@ -120,6 +125,22 @@ h3 {
 		top: 7px;
 	    left: 14px;
     }
+}
+
+.countdown { font-size: 6vw; }
+.countdown span { padding-top: 16px; }
+.phonerow { font-size: 3.5vw; }
+
+//Large screen
+@media all and (min-width: 560px) {
+	.countdown { font-size: 60px; }
+	.phonerow { font-size: 24px; }
+}
+
+//Mobile devices
+@media all and (max-width: 559px) {
+	.countdown span:before { top: 4px; }
+	.container-fluid { padding-left: 0; padding-right: 0; }
 }
 
 .inlinegraphic {

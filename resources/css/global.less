@@ -1,3 +1,5 @@
+@import "flexbox.less";
+
 /* ====== media ====== */
 .media {margin:10px;}
 .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
@@ -114,6 +116,9 @@ a {
     height: 125px;
 }
 
+html,body {
+	width: 100%;
+}
 
 body {
 	background: #111;
@@ -246,9 +251,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .emailrow .item {
-	-webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
+	.flex(1 1 auto);
 }
 
 .emailrow .item label {
@@ -257,9 +260,11 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 	font-size: 13px;
 	width: 100%;
-	height: 100%;
 	background-color: #ccc;
 	color: #666;
+	
+	.flex-display;
+	.align-items(center);
 }
 
 .emailrow .item:hover label {
@@ -284,10 +289,17 @@ h1, h2, h3, h4, h5, h6 {
 	list-style: none;
 }
 
-#mc_embed_signup .emailrow {
+.emailrow {
 	.flex-display;
 	.flex-direction(row);
+	.align-items(stretch);
+	.align-content(stretch);
     padding-top: 10px;
+}
+
+.emailrow .item {
+	.flex-display;
+	.align-content(center);
 }
 
 #mce-EMAIL {
@@ -296,12 +308,13 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 5px;
 	color: black;
 	padding: 2px 10px;
+	width: 100%;
 }
 
-body #mc_embed_signup .button {
+.emailrow .button {
+	.flex(0 0 auto);
 	font-weight: bold;
 	padding: 2px 9px;
-	float:right;
 	height: auto;
 	background-color: #3399ff;
 	border-radius: 5px;
@@ -312,13 +325,9 @@ body #mc_embed_signup .button {
 	.featureBox .imageHolder {
 		display: block;
 		
-	    -webkit-flex: 1 0 auto;
-	    -ms-flex: 1 0 auto;
-	    flex: 1 0 auto;
-	    
-	    -webkit-order: 1;
-	    -ms-flex-order: 1;
-	    order: 1;
+		.flex(1 0 auto);
+		
+		.flex-order(1);
 	}
 	
 	.featureBox img {
@@ -327,9 +336,7 @@ body #mc_embed_signup .button {
 	}
 	
 	.featureBox div {
-	    -webkit-flex: 0 1 auto;
-	    -ms-flex: 0 1 auto;
-	    flex: 0 1 auto;	
+		.flex(0 1 auto);
 	}
 	
 	.body {
@@ -337,58 +344,28 @@ body #mc_embed_signup .button {
 	}
 	
 	.featureBoxes {
-	  	display: -ms-flexbox;
-	    display: -webkit-flex;
-	    display: flex;
-	    -webkit-flex-direction: row;
-	    -ms-flex-direction: row;
-	    flex-direction: row;
-	    -webkit-flex-wrap: nowrap;
-	    -ms-flex-wrap: nowrap;
-	    flex-wrap: nowrap;
-	    -webkit-justify-content: center;
-	    -ms-flex-pack: center;
-	    justify-content: center;
-	    -webkit-align-content: flex-start;
-	    -ms-flex-line-pack: start;
-	    align-content: flex-start;
-	    -webkit-align-items: flex-start;
-	    -ms-flex-align: start;
-	    align-items: flex-start;
+		.flex-display;
+		.flex-direction(row);
+		.flex-wrap(nowrap);
+		.justify-content(center);
+		.align-content(flex-start);
+		.align-items(flex-start);
 	}
 	
 	.featureBox {
-		display: -ms-flexbox;
-	    display: -webkit-flex;
-	    display: flex;
-	    -webkit-flex-direction: column-reverse;
-	    -ms-flex-direction: column-reverse;
-	    flex-direction: column-reverse;
-	    -webkit-flex-wrap: nowrap;
-	    -ms-flex-wrap: nowrap;
-	    flex-wrap: nowrap;
-	    -webkit-justify-content: flex-start;
-	    -ms-flex-pack: start;
-	    justify-content: flex-start;
-	    -webkit-align-content: center;
-	    -ms-flex-line-pack: center;
-	    align-content: center;
-	    -webkit-align-items: center;
-	    -ms-flex-align: center;
-	    align-items: center;
+		.flex-display;
+		.flex-direction(column-reverse);
+		.flex-wrap(nowrap);
+		.justify-content(flex-start);
+		.align-content(center);
+		.align-items(center);
 		
 		width: 200px;
 		height: 200px;
 		
-	    -webkit-order: 0;
-	    -ms-flex-order: 0;
-	    order: 0;
-	    -webkit-flex: 0 1 auto;
-	    -ms-flex: 0 1 auto;
-	    flex: 0 1 auto;
-	    -webkit-align-self: auto;
-	    -ms-flex-item-align: auto;
-	    align-self: auto;
+		.flex-order(0);
+		.flex(0 1 auto);
+		.align-self(auto);
 	}
 }
 

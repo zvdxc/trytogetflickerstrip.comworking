@@ -33,6 +33,7 @@ $(document).ready(function() {
     var t = null;
     $window.scroll(function() {
     	if (t != null) clearTimeout(t);
+    	if ($(window).width() <= 765) return;
     	t = setTimeout(function() {
 	        var offset = $marker.offset();
 	        if ($window.scrollTop() > offset.top) {
