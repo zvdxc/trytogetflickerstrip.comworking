@@ -53,3 +53,56 @@ header: min
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="subscribeModal modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Subscribe</h4>
+      </div>
+      <div class="modal-body">
+      		<div class="note">
+	      		Hey there! I'm glad you're enjoying the lightwork GIF camera.
+	      		Would you mind subscribing to get a notification email when Flickerstrip launches?
+	      		<br/>
+	      		<br/>
+	      		Subscribing will allow you to continue generating GIFs from your patterns AND you'll be the first to know when the early-backer rewards are available. Plus, it really helps the project succeed.
+	      		
+	      		<br/>
+	      		<br/>
+	      		If you're really opposed to subscribing, clear your cookies and reload the page and you'll be able to generate another GIF. :)
+	      		
+	      		<br/>
+	      		<br/>
+	      		Thanks,<br/>
+	      		Julian Hartline<br/>
+	      		Creator of Flickerstrip
+      		</div>
+      		
+			{% include subscribeform.html %}
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="confirmModal modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm your subscription</h4>
+      </div>
+      <div class="modal-body">
+      		<div class="note">
+      			Please confirm your email subscription to continue by checking your email and clicking the link.
+      		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info noEmail">Didn't get an email!</button>
+        <button type="button" class="btn btn-info retryButton">Retry</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
