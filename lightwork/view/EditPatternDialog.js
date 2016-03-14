@@ -223,6 +223,49 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 this.$el.find(".titletext").text(this.pattern.name);
             },this));
 
+            this.$el.find(".generateGif").click(_.bind(function(e) {
+            	e.preventDefault();
+            	var b64 = serializePattern(this.pattern);
+            	function queuePattern(email) {
+	            	$.post("./mirror.php?add"+(email ? "&email="+email : ""),b64,function(result) {
+	            		if (result.trim() == "NEEDEMAIL") {
+	            			$(".subscribeModal").modal("show");
+	            			$(".subscribeModal #mc-embedded-subscribe").off("click").click(function()  {
+	            				var email = $(".subscribeModal #mce-EMAIL").val()
+        						console.log("got email",email);
+		            			$(".subscribeModal").modal("hide");
+	            				queuePattern(email);
+	            			});
+	            			return;
+	            		} else if (result.trim() == "CONFIRMEMAIL") {
+	            			$(".confirmModal").modal("show");
+	            			
+	            			$(".confirmModal .retryButton").off("click").click(function()  {
+	            				queuePattern();
+		            			$(".confirmModal").modal("hide");
+	            			});
+	            			
+	            			return;
+	            		}
+	            		var requestId = result;
+	            		var timeoutCount = 0;
+	            		var t = setInterval(function() {
+	            			$.get("./mirror.php?check&id="+requestId)
+		        				.done(function(res) {
+		        					if (timeoutCount ++ > 20) clearInterval(t);
+		        					
+		        					if (res == 0) return;
+		        					
+	            					clearInterval(t);
+	            					
+	            					$("<img />").attr("src","./mirror?get&id="+requestId).appendTo(document.body);
+	            				})
+	            		},5000);
+	            	});
+            	}
+            	queuePattern();
+            },this));
+            
             this.$el.find(".patternControls").addClass("hide");
             this.$el.find(".savePattern").click(_.bind(function(e) {
                 var target = e.target;
@@ -332,7 +375,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             },this));
 
             this.$el.find(".openPattern input").change(_.bind(function(e) {
-                getFileFromInput(e.target,_.bind(function() {
+                getFileFromInput(e.target,_.bind(function(fileData) {
                     $(e.target).val("");
                     var dataUrl = fileData;
                     var preamble = "data:;base64,";

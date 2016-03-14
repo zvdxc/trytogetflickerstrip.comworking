@@ -2,7 +2,7 @@ requirejs.config({
     baseUrl: "./view/lib",
     "shim": {
         "bootstrap" : { "deps" :['jquery'] },
-        "jquery.spectrum"  : ["jquery"]
+        "jquery.spectrum"  : { "deps" :["jquery"] },
     },
     paths: {
         "view":"..",
