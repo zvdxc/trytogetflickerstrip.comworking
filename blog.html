@@ -1,0 +1,17 @@
+---
+layout: padded
+title: Posts
+description: Flickerstrip posts
+navigation:
+  order: 4
+author: Julian Hartline
+---
+<h1>Posts</h1>
+
+{% for post in site.posts %}
+    <h2>{{ post.date | date_to_string }} - <a href="{{ post.url }}">{{ post.title }}</a></h2>
+    {{ post.excerpt }}
+    <a href="{{ post.url }}">read more..</a>
+    <br/>
+    <br/>
+{% endfor %}
