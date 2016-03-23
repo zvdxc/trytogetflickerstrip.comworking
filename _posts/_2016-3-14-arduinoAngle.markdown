@@ -8,7 +8,7 @@ categories: news
 
 When I discovered the ESP8266, I was ecstatic that I finally had a cheap way of connecting my Arduino to the internet. I started to work immediately hacking together a library to communicate with it over it's serial pins.
 
-6 months later, the [arduino/esp8266](https://github.com/esp8266/Arduino) project cut out the middle man after I managed to upload my first Arduino sketch directly to the ESP8266. My initial excitement redoubled as I realized that the module had plenty of resources to run both the WiFi stack and a sketch of reasonable complexity. In fact, it's fair to say that the ESP8266 combined with the arduino/esp8266 project is one of the best Arduino's I've ever worked with.
+6 months later, the [arduino/esp8266](https://github.com/esp8266/Arduino) project cut out the middle man after I managed to upload my first Arduino sketch directly to the ESP8266. My initial excitement redoubled as I realized that the module had plenty of resources to run both the Wi-Fi stack and a sketch of reasonable complexity. In fact, it's fair to say that the ESP8266 combined with the arduino/esp8266 project is one of the best Arduino's I've ever worked with.
 
 A flurry of testing, programming, and tinkering followed this realization and I soon ended up with some basic sketches that implemented the various functionality that I would eventually need in the project. The primary features I managed to get working at that time included the webserver, driving a neopixel strip, and storing state in non-volatile memory.
 
@@ -17,17 +17,17 @@ From there, I started to assemble the pieces. What follows is a module by module
 Connecting to the home network
 ---------------------
 
-For as basic and common a problem is, it's surprisingly difficult to nail down. Once the device has the WiFi credentials, it's of course no problem to connect to the WiFi network, but this device (like most IoT devices) doesn't have a keyboard (or alternative physical IO) that is suitable for configuring a WiFi network.
+For as basic and common a problem is, it's surprisingly difficult to nail down. Once the device has the Wi-Fi credentials, it's of course no problem to connect to the Wi-Fi network, but this device (like most IoT devices) doesn't have a keyboard (or alternative physical IO) that is suitable for configuring a Wi-Fi network.
 
-![A comparison of the four different configuration methods including requirements, pros, and cons of each](/resources/images/arduinoAngle/configurationComparison.png "Ultimately, configuring via WiFi made the most sense to us")
+![A comparison of the four different configuration methods including requirements, pros, and cons of each](/resources/images/arduinoAngle/configurationComparison.png "Ultimately, configuring via Wi-Fi made the most sense to us")
 
-I considered a variety of approaches from configuring the credentials: via USB, via Bluetooth, and even via a "blinking" procedure that transmits the credentials from a smartphone or desktop screen using a phototransistor on the device. I liked the simplicity of programming via USB, but eventually decided to remove USB from our device to cut down the size, price, and complexity of the units. I pursued the idea of using a visual spectrum phototransistor to receive the configuration information from a smartphone or desktop computer but after tinkering with it a bit and considering alternatives, I ultimately abandoned it in favor of configuration via WiFi access point.
+I considered a variety of approaches from configuring the credentials: via USB, via Bluetooth, and even via a "blinking" procedure that transmits the credentials from a smartphone or desktop screen using a phototransistor on the device. I liked the simplicity of programming via USB, but eventually decided to remove USB from our device to cut down the size, price, and complexity of the units. I pursued the idea of using a visual spectrum phototransistor to receive the configuration information from a smartphone or desktop computer but after tinkering with it a bit and considering alternatives, I ultimately abandoned it in favor of configuration via Wi-Fi access point.
 
 ![A diagram showing the smartphone connecting to Flickerstrip and configuring it before both connect to the home network](/resources/images/arduinoAngle/wificonfiguration.png "Most of this process happens quickly and seamlessly without much user intervention")
 
-One of the great features of the ESP8266 is the ability to create a WiFi network in "AP" (Access Point) mode. You can name your access point and communicate with devices that connect to it. The current implementation of the Flickerstrip firmware does just this. When an unconfigured Flickerstrip is powerd up, it creates the network "Flickerstrip" and waits for clients. The user connects to this network using their smartphone or desktop computer and accesses a web server running on the ESP8266 by connecting to 192.168.1.1. Accessing this address in a web browser presents a form to fill in your SSID and password.
+One of the great features of the ESP8266 is the ability to create a Wi-Fi network in "AP" (Access Point) mode. You can name your access point and communicate with devices that connect to it. The current implementation of the Flickerstrip firmware does just this. When an unconfigured Flickerstrip is powerd up, it creates the network "Flickerstrip" and waits for clients. The user connects to this network using their smartphone or desktop computer and accesses a web server running on the ESP8266 by connecting to 192.168.1.1. Accessing this address in a web browser presents a form to fill in your SSID and password.
 
-![The WiFi configuration dialog has a field for SSID and password and the option to show the password](/resources/images/arduinoAngle/configureFlickerstrip.png "The dialog that's displayed when you connect to 192.168.1.1 on the Flickerstrip")
+![The Wi-Fi configuration dialog has a field for SSID and password and the option to show the password](/resources/images/arduinoAngle/configureFlickerstrip.png "The dialog that's displayed when you connect to 192.168.1.1 on the Flickerstrip")
 
 Once the credentials are submitted, the Flickerstrip takes down the access point and connects using the provided credentials.
 
