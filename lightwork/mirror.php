@@ -2,7 +2,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-$mirrorIP = "192.168.2.16:1234";
+$mirrorIP = "73.220.41.15:1234";
+//$mirrorIP = "192.168.2.16:1234";
 $base = "http://$mirrorIP";
 $mailchimp = "907d6c8d55950ce2b1d855aad7f2f09c-us8";
 $listId = "d61b64d495";
@@ -36,6 +37,13 @@ if (isset($_GET['add'])) {
     curl_setopt($ch, CURLOPT_POSTFIELDS,$b64);
 
     $data = curl_exec($ch);
+
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    if ($http_status != 200) {
+        http_response_code($http_status);
+        return;
+    }
+
     print $data;
 } else if (isset($_GET['get'])) {
     $id = $_GET['id'];
@@ -59,7 +67,15 @@ if (isset($_GET['add'])) {
     $id = $_GET['id'];
 
     $ch = curl_init();
-    $url = "$base/check?id=$id";
+    $url = "$base/status?id=$id";
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+    
+    $body = curl_exec($ch);
+    print $body;
+} else if (isset($_GET['random'])) {
+    $ch = curl_init();
+    $url = "$base/random";
     curl_setopt($ch,CURLOPT_URL,$url);
     curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
     

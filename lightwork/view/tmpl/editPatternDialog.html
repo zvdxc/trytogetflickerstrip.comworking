@@ -3,12 +3,48 @@
     <div class="patternPreview"></div>
     <div class="buttonPanel">
         <a class="sharePattern btn btn-primary btn-sm" href='#'>Share Lightwork</a>
+        <a class="generateGif btn btn-success btn-sm" href='#'>Generate GIF</a>
+
+        <!--
         <a class="btn btn-success arduinoDownload btn-sm" href="#">Download as Arduino code</a>
         <a class="btn btn-success imageDownload btn-sm" href="#">Download as image</a>
-        <div class="imageUpload btn btn-default file btn-sm"><input type="file">Import Image</div>
         <a class="savePattern btn btn-success btn-sm" href='#'>Save</a>
+
+        <div class="imageUpload btn btn-default file btn-sm"><input type="file">Import Image</div>
         <div class="openPattern btn btn-default file btn-sm"><input type="file">Load</div>
-        <a class="generateGif btn btn-success btn-sm" href='#'>Generate GIF</a>
+        -->
+
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Open.. <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="imageUpload file"><input type="file">Import Image</a>
+                </li>
+                <li>
+                    <a class="openPattern file"><input type="file">Load</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Download as.. <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#" class='arduinoDownload'>Arduino code</a>
+                </li>
+                <li>
+                    <a href="#" class='imageDownload'>Image</a>
+                </li>
+                <li>
+                    <a href="#" class='savePattern'>Pattern</a>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="patternControls">
         <div class="controls"></div>

@@ -174,6 +174,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
 
             this.$el.append(desktop_template);
             this.$el = this.$el.children();
+            this.$el.find(".dropdown-toggle").dropdown();
 
             this.$el.find(".hideButton").click(_.bind(function(e) {
                 e.preventDefault();
@@ -223,46 +224,105 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 this.$el.find(".titletext").text(this.pattern.name);
             },this));
 
+            function fetchDisplayGif() {
+                $.get("./mirror.php?random").done(function(body) {
+                    var id = body;
+                    var url = 'http://' + window.location.hostname+"/lightwork/mirror?get&id="+id;
+                    $(".gifsample img").attr("src",url);
+                });
+            }
+            fetchDisplayGif();
+            var displayGifTimer = setInterval(fetchDisplayGif,10000);
+
+            $(".gifsample img").click(function() {
+                fetchDisplayGif();
+                if (displayGifTimer != null) {
+                    clearInterval(displayGifTimer);
+                }
+                displayGifTimer = setInterval(fetchDisplayGif,10000);
+            });
+
+            var self = this;
+            var inProgress = false;
             this.$el.find(".generateGif").click(_.bind(function(e) {
             	e.preventDefault();
+
+                if (inProgress) {
+                    $(".queueModal").modal("show");
+                    return;
+                }
+
+                //this.$el.find(".generateGif").addClass("disabled").text("Queued");
+                this.$el.find(".generateGif").text("Queued");
             	var b64 = serializePattern(this.pattern);
             	function queuePattern(email) {
-	            	$.post("./mirror.php?add"+(email ? "&email="+email : ""),b64,function(result) {
-	            		if (result.trim() == "NEEDEMAIL") {
-	            			$(".subscribeModal").modal("show");
-	            			$(".subscribeModal #mc-embedded-subscribe").off("click").click(function()  {
-	            				var email = $(".subscribeModal #mce-EMAIL").val()
-        						console.log("got email",email);
-		            			$(".subscribeModal").modal("hide");
-	            				queuePattern(email);
-	            			});
-	            			return;
-	            		} else if (result.trim() == "CONFIRMEMAIL") {
-	            			$(".confirmModal").modal("show");
-	            			
-	            			$(".confirmModal .retryButton").off("click").click(function()  {
-	            				queuePattern();
-		            			$(".confirmModal").modal("hide");
-	            			});
-	            			
-	            			return;
-	            		}
-	            		var requestId = result;
-	            		var timeoutCount = 0;
-	            		var t = setInterval(function() {
-	            			$.get("./mirror.php?check&id="+requestId)
-		        				.done(function(res) {
-		        					if (timeoutCount ++ > 20) clearInterval(t);
-		        					
-		        					if (res == 0) return;
-		        					
-	            					clearInterval(t);
-	            					
-	            					$("<img />").attr("src","./mirror?get&id="+requestId).appendTo(document.body);
-	            				})
-	            		},5000);
-	            	});
+	            	$.post("./mirror.php?add"+(email ? "&email="+email : ""),b64)
+                        .fail(function() {
+                            $(".errorModal").modal("show");
+                            self.$el.find(".generateGif").removeClass("disabled").text("Generate GIF");
+                            inProgress = false;
+                        })
+                        .done(function(result) {
+                            $(".queueModal").modal("show");
+                            if (result.trim() == "NEEDEMAIL") {
+                                $(".subscribeModal").modal("show");
+                                $(".subscribeModal #mc-embedded-subscribe").off("click").click(function()  {
+                                    var email = $(".subscribeModal #mce-EMAIL").val()
+                                    $(".subscribeModal").modal("hide");
+                                    queuePattern(email);
+                                });
+                                return;
+                            } else if (result.trim() == "CONFIRMEMAIL") {
+                                $(".confirmModal").modal("show");
+                                
+                                $(".confirmModal .retryButton").off("click").click(function()  {
+                                    queuePattern();
+                                    $(".confirmModal").modal("hide");
+                                });
+                                
+                                return;
+                            }
+                            var requestId = result;
+                            var timeoutCount = 0;
+                            var url = 'http://' + window.location.hostname+"/lightwork/mirror?get&id="+requestId;
+                            var t;
+                            var $modal = $(".queueModal");
+                            function checkStatus() {
+                                $.get("./mirror.php?check&id="+requestId)
+                                    .done(function(body) {
+                                        if (timeoutCount ++ > 20) clearInterval(t);
+
+                                        var res = JSON.parse(body);
+
+                                        self.$el.find(".generateGif").text("Queued ["+(res.position+1)+"]");
+                                        $modal.find(".id").text(requestId);
+                                        $modal.find(".position").text(res.position+1);
+                                        $modal.find(".estimated").text(Math.ceil(res.estimated / 60)+" minute(s)");
+                                        $modal.find(".link").empty().append($("<a href='"+url+"' target='_blank'>"+url+"</a>"));
+
+                                        if (res.status == "complete") {
+                                            clearInterval(t);
+                                            
+                                            inProgress = false;
+                                            self.$el.find(".generateGif").removeClass("disabled").text("Generate GIF");
+                                            $modal.find(".position").text("complete");
+                                            $modal.find(".estimated").text("complete");
+                                            $(".queueModal .loadingIndicator").hide();
+                                            $(".queueModal .gif").show();
+                                            $(".queueModal .gif").attr("src",url);
+                                            $(".gifsample img").attr("src",url);
+                                            clearInterval(displayGifTimer);
+                                            displayGifTimer = null;
+                                        }
+                                    })
+                            }
+                            checkStatus();
+                            t = setInterval(checkStatus,5000);
+                        });
             	}
+                $(".queueModal .gif").hide();
+                $(".queueModal .loadingIndicator").show();
+                inProgress = true;
             	queuePattern();
             },this));
             
@@ -353,6 +413,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
 
             this.$el.find(".imageUpload input").change(_.bind(function(e) {
                 getFileFromInput(e.target,_.bind(function(dataUrl) {
+                    $(e.target).val("");
                     var $img = $("<img />").attr("src",dataUrl).hide();
                     $img.load(_.bind(function(e) {
                         var w = $img.get(0).width;
