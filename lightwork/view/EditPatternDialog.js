@@ -284,7 +284,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                             }
                             var requestId = result;
                             var timeoutCount = 0;
-                            var url = 'http://' + window.location.hostname+"/lightwork/mirror?get&id="+requestId;
+                            var url = 'http://' + window.location.hostname+"/lightwork/mirror.php?get&id="+requestId;
                             var t;
                             var $modal = $(".queueModal");
                             function checkStatus() {
