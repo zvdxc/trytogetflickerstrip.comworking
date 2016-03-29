@@ -79,6 +79,7 @@ define(['jquery','underscore','tinycolor',"view/util.js"],function($,_,tinycolor
             this.canvas.ownerDocument.defaultView.requestAnimationFrame(_.bind(this.repaint,this));
 		},
         setLightColors:function(colorData) {
+            if (!this.lights) return;
             for (var i=0; i<this.lights.length; i++) {
                 var dataIndex = i % colorData.width;
                 var r = colorData.data[dataIndex*4];
