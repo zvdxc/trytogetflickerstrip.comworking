@@ -13,9 +13,11 @@ requirejs.config({
 
 require(['jquery','view/EditPatternDialog.js'],function($,EditPatternDialog) {
     $(document).ready(function() {
-        window.platform = "desktop";
-        var editPatternDialog = new EditPatternDialog({"type":"bitmap"});
-        $(".lightworkEditor").empty().append(editPatternDialog.$el);
+        setTimeout(function() {
+            window.platform = "desktop";
+            var editPatternDialog = new EditPatternDialog({"type":"bitmap"});
+            $(".lightworkEditor").empty().append(editPatternDialog.$el);
+        },500);
     });
 });
 
