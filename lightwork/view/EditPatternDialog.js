@@ -228,7 +228,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 $.get("./mirror.php?random").done(function(body) {
                     var id = body;
                     var url = 'http://' + window.location.hostname+"/lightwork/mirror.php?get&id="+id;
-                    $(".gifsample img").attr("src",url);
+                    $(".gifsample img").attr("src",url).css("visibility","visible");
                 });
             }
             fetchDisplayGif();
