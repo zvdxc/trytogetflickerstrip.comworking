@@ -49,26 +49,9 @@ header: min
 
 <h2>Photos</h2>
 <div class="photogallery">
-	<a href='resources/images/mediakit/photos/0.jpg'><img src='resources/images/mediakit/photos/smaller/0.jpg' /></a>
-	<a href='resources/images/mediakit/photos/1.jpg'><img src='resources/images/mediakit/photos/smaller/1.jpg' /></a>
-	<a href='resources/images/mediakit/photos/2.jpg'><img src='resources/images/mediakit/photos/smaller/2.jpg' /></a>
-	<a href='resources/images/mediakit/photos/3.jpg'><img src='resources/images/mediakit/photos/smaller/3.jpg' /></a>
-	<a href='resources/images/mediakit/photos/4.jpg'><img src='resources/images/mediakit/photos/smaller/4.jpg' /></a>
-	<a href='resources/images/mediakit/photos/5.jpg'><img src='resources/images/mediakit/photos/smaller/5.jpg' /></a>
-	<a href='resources/images/mediakit/photos/6.jpg'><img src='resources/images/mediakit/photos/smaller/6.jpg' /></a>
-	<a href='resources/images/mediakit/photos/7.jpg'><img src='resources/images/mediakit/photos/smaller/7.jpg' /></a>
-	<a href='resources/images/mediakit/photos/9.jpg'><img src='resources/images/mediakit/photos/smaller/9.jpg' /></a>
-	<a href='resources/images/mediakit/photos/10.jpg'><img src='resources/images/mediakit/photos/smaller/10.jpg' /></a>
-	<a href='resources/images/mediakit/photos/11.jpg'><img src='resources/images/mediakit/photos/smaller/11.jpg' /></a>
-	<a href='resources/images/mediakit/photos/12.jpg'><img src='resources/images/mediakit/photos/smaller/12.jpg' /></a>
-	<a href='resources/images/mediakit/photos/13.jpg'><img src='resources/images/mediakit/photos/smaller/13.jpg' /></a>
-	<a href='resources/images/mediakit/photos/14.jpg'><img src='resources/images/mediakit/photos/smaller/14.jpg' /></a>
-	<a href='resources/images/mediakit/photos/15.jpg'><img src='resources/images/mediakit/photos/smaller/15.jpg' /></a>
-	<a href='resources/images/mediakit/photos/16.jpg'><img src='resources/images/mediakit/photos/smaller/16.jpg' /></a>
-	<a href='resources/images/mediakit/photos/17.jpg'><img src='resources/images/mediakit/photos/smaller/17.jpg' /></a>
-	<a href='resources/images/mediakit/photos/18.jpg'><img src='resources/images/mediakit/photos/smaller/18.jpg' /></a>
-	<a href='resources/images/mediakit/photos/19.jpg'><img src='resources/images/mediakit/photos/smaller/19.jpg' /></a>
-	<a href='resources/images/mediakit/photos/20.jpg'><img src='resources/images/mediakit/photos/smaller/20.jpg' /></a>
+    {% directory path: resources/images/mediakit/photos exclude: smaller %}
+        <a href='{{ file.path }}'><img src='/resources/images/mediakit/photos/smaller/{{ file.name }}' /></a>
+    {% enddirectory %}
 </div>
 
 <br/>

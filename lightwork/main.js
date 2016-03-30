@@ -11,7 +11,7 @@ requirejs.config({
     }
 });
 
-require(['jquery','view/EditPatternDialog.js'],function($,EditPatternDialog) {
+require(['jquery','view/EditPatternDialog.js','bootstrap'],function($,EditPatternDialog) {
     $(document).ready(function() {
         //setTimeout(function() {
             window.platform = "desktop";
