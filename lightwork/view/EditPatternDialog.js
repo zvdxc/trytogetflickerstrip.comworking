@@ -253,7 +253,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 }
 
                 //this.$el.find(".generateGif").addClass("disabled").text("Queued");
-                this.$el.find(".generateGif").text("Queued");
             	var b64 = serializePattern(this.pattern);
             	function queuePattern(email) {
 	            	$.post("./mirror.php?add"+(email ? "&email="+email : ""),b64)
@@ -263,7 +262,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                             inProgress = false;
                         })
                         .done(function(result) {
-                            $(".queueModal").modal("show");
                             if (result.trim() == "NEEDEMAIL") {
                                 $(".subscribeModal").modal("show");
                                 $(".subscribeModal #mc-embedded-subscribe").off("click").click(function()  {
@@ -282,6 +280,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                 
                                 return;
                             }
+                            self.$el.find(".generateGif").text("Queued");
+                            $(".queueModal").modal("show");
                             var requestId = result;
                             var timeoutCount = 0;
                             var url = 'http://' + window.location.hostname+"/lightwork/mirror.php?get&id="+requestId;

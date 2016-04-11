@@ -2,8 +2,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-//$mirrorIP = "73.220.41.15:17245";
-$mirrorIP = "192.168.0.16:17245";
+$mirrorIP = "73.220.41.15:17245";
+//$mirrorIP = "192.168.0.16:17245";
 $base = "http://$mirrorIP";
 $mailchimp = "907d6c8d55950ce2b1d855aad7f2f09c-us8";
 $listId = "d61b64d495";
