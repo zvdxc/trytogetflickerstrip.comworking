@@ -48,20 +48,32 @@ if (isset($_GET['add'])) {
 } else if (isset($_GET['get'])) {
     $id = $_GET['id'];
 
-    $ch = curl_init();
-    $url = "$base/get?id=$id";
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
-    
-    $body = curl_exec($ch);
-    $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-    if ($httpcode == 200) {
-        header("Content-Type:$content_type");
-        print $body;
+    $gifDir = "/tmp/gifcache";
+    if (file_exists("$gifDir/$id.gif")) {
+        header("Content-Type:image/gif");
+        echo readfile("$gifDir/$id.gif");
     } else {
-        http_response_code($httpcode);
+        if (!is_dir("$gifDir")) {
+            mkdir("$gifDir", 0777);
+        }
+
+        $ch = curl_init();
+        $url = "$base/get?id=$id";
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+        
+        $body = curl_exec($ch);
+        $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if ($httpcode == 200) {
+            file_put_contents("$gifDir/$id.gif",$body);
+
+            header("Content-Type:$content_type");
+            print $body;
+        } else {
+            http_response_code($httpcode);
+        }
     }
 } else if (isset($_GET['check'])) {
     $id = $_GET['id'];

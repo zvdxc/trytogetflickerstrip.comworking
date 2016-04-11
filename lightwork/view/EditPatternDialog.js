@@ -232,14 +232,16 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 });
             }
             fetchDisplayGif();
-            var displayGifTimer = setInterval(fetchDisplayGif,10000);
+            //var displayGifTimer = setInterval(fetchDisplayGif,10000);
 
             $(".gifsample img").click(function() {
                 fetchDisplayGif();
+                /*
                 if (displayGifTimer != null) {
                     clearInterval(displayGifTimer);
                 }
                 displayGifTimer = setInterval(fetchDisplayGif,10000);
+                */
             });
 
             var self = this;
@@ -251,6 +253,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                     $(".queueModal").modal("show");
                     return;
                 }
+
+                ga('send', 'event', 'activity', 'lightwork', 'GenerateGif');
 
                 //this.$el.find(".generateGif").addClass("disabled").text("Queued");
             	var b64 = serializePattern(this.pattern);
@@ -291,6 +295,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                             var t;
                             var $modal = $(".queueModal");
                             function checkStatus() {
+                                console.log("checking status..");
                                 $.get("./mirror.php?check&id="+requestId)
                                     .done(function(body) {
                                         if (timeoutCount ++ > 20) clearInterval(t);
@@ -303,6 +308,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                         $modal.find(".estimated").text(Math.ceil(res.estimated / 60)+" minute(s)");
                                         $modal.find(".link").empty().append($("<a href='"+url+"' target='_blank'>"+url+"</a>"));
 
+                                        console.log("got response status: ",res.status);
                                         if (res.status == "complete") {
                                             clearInterval(t);
                                             
@@ -314,8 +320,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                             $(".queueModal .gif").show();
                                             $(".queueModal .gif").attr("src",url);
                                             $(".gifsample img").attr("src",url);
-                                            clearInterval(displayGifTimer);
-                                            displayGifTimer = null;
                                         }
                                     })
                             }
@@ -343,6 +347,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
 
             this.$el.find(".sharePattern").click(_.bind(function(e) {
                 e.preventDefault();
+
+                ga('send', 'event', 'activity', 'lightwork', 'SharePattern');
 
                 $(".socialShare").modal("show");
 
