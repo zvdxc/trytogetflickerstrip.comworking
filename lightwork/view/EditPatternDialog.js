@@ -269,6 +269,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                     $(".subscribeModal").modal("hide");
                                     queuePattern(email);
                                 });
+                                inProgress = false;
                                 return;
                             } else if (result.trim() == "CONFIRMEMAIL") {
                                 $(".confirmModal").modal("show");
@@ -277,7 +278,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                     queuePattern();
                                     $(".confirmModal").modal("hide");
                                 });
-                                
+                                inProgress = false;
                                 return;
                             }
                             self.$el.find(".generateGif").text("Queued");
