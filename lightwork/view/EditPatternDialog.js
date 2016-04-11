@@ -267,6 +267,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                 $(".subscribeModal #mc-embedded-subscribe").off("click").click(function()  {
                                     var email = $(".subscribeModal #mce-EMAIL").val()
                                     $(".subscribeModal").modal("hide");
+
                                     queuePattern(email);
                                 });
                                 inProgress = false;
@@ -275,8 +276,9 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                 $(".confirmModal").modal("show");
                                 
                                 $(".confirmModal .retryButton").off("click").click(function()  {
-                                    queuePattern();
                                     $(".confirmModal").modal("hide");
+
+                                    queuePattern();
                                 });
                                 inProgress = false;
                                 return;
