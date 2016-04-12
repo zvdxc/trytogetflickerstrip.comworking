@@ -3,7 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 $mirrorIP = "98.208.56.56";
-//$mirrorIP = "192.168.0.16:17245";
+//$mirrorIP = "192.168.0.16";
 $base = "http://$mirrorIP";
 $mailchimp = "907d6c8d55950ce2b1d855aad7f2f09c-us8";
 $listId = "d61b64d495";
@@ -92,6 +92,17 @@ if (isset($_GET['add'])) {
     curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
     
     $body = curl_exec($ch);
+    print $body;
+} else if (isset($_GET['recent'])) {
+    $ch = curl_init();
+    $url = "$base/recent";
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+
+    $body = curl_exec($ch);
+
+    $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+    header("Content-Type:$content_type");
     print $body;
 }
 

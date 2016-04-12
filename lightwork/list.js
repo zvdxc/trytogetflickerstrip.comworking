@@ -55,11 +55,14 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
     var $lw = $(".lightworks");
 
     function renderShared(shared) {
+        console.log("renderingShared",shared);
         var created = moment(shared.created).format("MMMM Do YYYY, h:mm a");
         var renderer = new LEDStripRenderer(150);
         var $div = $("<div></div>");
-        var url = "index.html#"+shared.id;
-        $div.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
+        if (shared.id) {
+            var url = "index.html#"+shared.id;
+            $div.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
+        }
         $div.append(renderer.$el);
         renderer.$el.hover(function() {
             renderer.start();
@@ -122,16 +125,29 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
         return $el;
     }
 
-    $.get("lightworks.php?list",function(data) {
-        sharedPatterns = data;
-        var pages = sharedPatterns.length / pageSize;
-
-        var $pagination = renderPagination(pages);
-        $(".pagination").each(function() {
-            $(this).replaceWith($pagination.clone(true));
+    if (window.location.hash == "#MIRROR") {
+        var $el = $(".elements").empty();
+        $.get("mirror.php?recent",function(data) {
+            _.each(data,function(pattern) {
+                $el.append(renderShared({
+                    id: null,
+                    created: pattern.completed,
+                    payload: pattern.b64
+                }));
+            });
         });
-        renderPage(0);
-    });
+    } else {
+        $.get("lightworks.php?list",function(data) {
+            sharedPatterns = data;
+            var pages = sharedPatterns.length / pageSize;
+
+            var $pagination = renderPagination(pages);
+            $(".pagination").each(function() {
+                $(this).replaceWith($pagination.clone(true));
+            });
+            renderPage(0);
+        });
+    }
 });
 
 
