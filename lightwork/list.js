@@ -55,12 +55,14 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
     var $lw = $(".lightworks");
 
     function renderShared(shared) {
-        console.log("renderingShared",shared);
         var created = moment(shared.created).format("MMMM Do YYYY, h:mm a");
         var renderer = new LEDStripRenderer(150);
         var $div = $("<div></div>");
-        if (shared.id) {
+        if (shared.id.length < 5) {
             var url = "index.html#"+shared.id;
+            $div.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
+        } else {
+            var url = "mirror.php?get&id="+shared.id;
             $div.append("<div class='posted'><a href='"+url+"'>#"+shared.id+"</a> "+created+"</div>");
         }
         $div.append(renderer.$el);
@@ -130,7 +132,7 @@ require(['jquery','underscore','moment','view/LEDStripRenderer.js','view/util.js
         $.get("mirror.php?recent",function(data) {
             _.each(data,function(pattern) {
                 $el.append(renderShared({
-                    id: null,
+                    id: pattern.id,
                     created: pattern.completed,
                     payload: pattern.b64
                 }));
