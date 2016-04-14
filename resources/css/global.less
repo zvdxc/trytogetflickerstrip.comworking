@@ -103,6 +103,22 @@ a {
     height: 200px;
 }
 
+ul.smalllinks {
+    li {
+        display: inline;
+    }
+
+    li:after {
+        content:' | ';
+        color: white;
+    }
+
+    li:last-child:after {
+        content:' | ';
+        color: white;
+    }
+}
+
 .smalllinks a:after {
 	content:' | ';
     color: white;
@@ -146,6 +162,10 @@ h1 {
 
 h1, h2, h3, h4, h5, h6 {
 	color: white;
+}
+
+h4 {
+    font-size: 19px;
 }
 
 .main {

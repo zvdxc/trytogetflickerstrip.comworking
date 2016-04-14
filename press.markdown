@@ -27,6 +27,28 @@ header: min
 	</div>
 </div>
 
+<h2>Press Releases and Articles</h2>
+<div class="press_releases">
+    {% directory path: press exclude: smaller %}
+        {% capture path %}press/{{ file.name }}/name.txt{% endcapture %}
+        <div class="release">
+            <h4>{% include_relative {{path}} %}</h4>
+            <ul class='smalllinks'>
+                <li>
+                    <a href='press/{{ file.name }}/web.html'>web</a>
+                </li>
+                <li>
+                    <a href='press/{{ file.name }}/{{ file.name }}.pdf'>pdf</a>
+                </li>
+                <li>
+                    <a href='press/{{ file.name }}/{{ file.name }}.markdown'>markdown</a>
+                </li>
+            </ul>
+        </div>
+    {% enddirectory %}
+</div>
+
+
 <h2>Logo</h2>
 <div class="textcentered">
 	<div class="logobg">
@@ -50,7 +72,7 @@ header: min
 <h2>Photos</h2>
 <div class="photogallery">
     {% directory path: resources/images/mediakit/photos exclude: smaller %}
-        <a href='{{ file.path }}'><img src='/resources/images/mediakit/photos/smaller/{{ file.name }}' /></a>
+        <a href='/resources/images/mediakit/photos/{{ file.name }}'><img src='/resources/images/mediakit/photos/smaller/{{ file.name }}' /></a>
     {% enddirectory %}
 </div>
 
