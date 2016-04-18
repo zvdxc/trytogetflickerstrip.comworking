@@ -248,10 +248,12 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             var inProgress = false;
             this.$el.find(".generateGif").click(_.bind(function(e) {
             	e.preventDefault();
+                /*
                 if (this.pattern.frames >= 30) {
                     alert("Sorry, maximum of 30 frames for GIFs for now. Try next week!");
                     return;
                 }
+                */
 
                 if (inProgress) {
                     $(".queueModal").modal("show");
