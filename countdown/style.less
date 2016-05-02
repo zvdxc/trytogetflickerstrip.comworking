@@ -128,6 +128,42 @@ h3 {
     }
 }
 
+.countdown.final {
+    .seconds {
+        position: absolute;
+        margin: 0 auto;
+        display: block;
+        position: absolute;
+        width: auto;
+        max-width: auto;
+        left: 0;
+        color: white;
+        right: 0;
+        background: transparent;
+        font-size: 115px;
+        top: 9px;
+    }
+    .seconds:before {
+        display: none;
+    }
+
+    .days, .hours, .minutes {
+        visibility: hidden;
+    }
+}
+
+body.past .prelaunch {
+    display: none;
+}
+
+.postlaunch {
+    display: none;
+}
+
+body.past .postlaunch {
+    display: block;
+}
+
 .countdown { font-size: 6vw; }
 .countdown span { padding-top: 16px; }
 .phonerow { font-size: 3.5vw; }

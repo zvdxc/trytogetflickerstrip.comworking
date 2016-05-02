@@ -4,9 +4,24 @@ var launchDate = moment(launchDateString);
 $(document).ready(function() {
 	
 	$(".launch").text(launchDate.format("MMMM Do YYYY, h:mm a"));
-	
+
+	var updateInterval;
 	var update = function() {
 		var seconds = launchDate.diff(moment(),"seconds");
+
+        if (seconds == 0) {
+            clearTimeout(updateInterval);
+            window.location.href = "http://ks.flickerstrip.com";
+        }
+
+        if (seconds <= 60) $(".countdown").addClass("final");
+
+        if (seconds < 0) {
+            $("body").addClass("past");
+            $(".countdown").removeClass("final").addClass("past");
+            clearTimeout(updateInterval);
+        }
+
 		var duration = moment.duration(seconds,"seconds");
 	    $(".countdown .days").text(pad(Math.floor(duration.asDays()),2));
 	    $(".countdown .hours").text(pad(duration.hours(),2));
@@ -17,7 +32,7 @@ $(document).ready(function() {
 	$(".youtubelink").jqueryVideoLightning({ id: "SN5VDPl2nCE", autoplay: true, color: "white" });
 	
 	update();
-	setInterval(update,1000);
+	updateInterval = setInterval(update,1000);
 	
     var $sidebar   = $(".floatdown"), 
         $window    = $(window),
