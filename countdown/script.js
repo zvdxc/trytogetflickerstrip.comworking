@@ -11,7 +11,7 @@ $(document).ready(function() {
 
         if (seconds == 0) {
             clearTimeout(updateInterval);
-            window.location.href = "http://ks.flickerstrip.com";
+            window.location.href = "https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show?utm_source=flickerstrip&utm_medium=site&utm_campaign=countdown_link";
         }
 
         if (seconds <= 60) $(".countdown").addClass("final");
