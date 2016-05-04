@@ -1,6 +1,6 @@
-var shareUrl = 'http://flickerstrip.com';
+var shareUrl = 'https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show?utm_source=share_page&utm_medium=click&utm_campaign=share_page_click';
 var tagLine = 'Bring your creativity to light with Flickerstrip';
-var kickstarterUrl = 'http://flickerstrip.com';
+var kickstarterUrl = 'https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show?utm_source=share_page&utm_medium=click&utm_campaign=share_page_click';
 
 $(function() {
     var clicks = 0;
