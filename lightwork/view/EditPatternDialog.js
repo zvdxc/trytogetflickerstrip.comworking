@@ -224,7 +224,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 this.$el.find(".titletext").text(this.pattern.name);
             },this));
 
-            /*
             function fetchDisplayGif() {
                 $.get("./mirror.php?random").done(function(body) {
                     var id = body;
@@ -233,7 +232,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 });
             }
             fetchDisplayGif();
-            */
             //var displayGifTimer = setInterval(fetchDisplayGif,10000);
 
             $(".gifsample img").click(function() {
