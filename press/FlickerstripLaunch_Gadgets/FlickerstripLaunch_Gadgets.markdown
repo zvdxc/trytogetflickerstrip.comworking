@@ -15,7 +15,7 @@ Multiple Flickerstrips can be joined into groups and controlled together. Groupe
 
 A powerful and open API makes Flickerstrip easy to integrate into home automation ecosystems, react to music or events, or interface with other applications.
 
-* **Campaign page:** [https://www.kickstarter.com/projects/hohmbody/1703842508?token=c141b3ff](https://www.kickstarter.com/projects/hohmbody/1703842508?token=c141b3ff)
+* **Campaign page:** [https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show](https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show)
 * **Flickerstrip home page:** [http://flickerstrip.com](http://flickerstrip.com)
 * **Media inquiries:** julian@flickerstrip.com
 

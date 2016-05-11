@@ -23,7 +23,7 @@ HOhmBody is offering Flickerstrip in 10ft base segments with optional extensions
 
 While HOhmBody hasn't yet announced any specific technology partnerships, Flickerstrip boasts a powerful and open API that promises easy integrations into existing ecosystems and.
 
-* **Campaign page:** [https://www.kickstarter.com/projects/hohmbody/1703842508?token=c141b3ff](https://www.kickstarter.com/projects/hohmbody/1703842508?token=c141b3ff)
+* **Campaign page:** [https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show](https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show)
 * **Flickerstrip home page:** [http://flickerstrip.com](http://flickerstrip.com)
 * **Media inquiries:** julian@flickerstrip.com
 
