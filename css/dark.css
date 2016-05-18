@@ -1,0 +1,947 @@
+/**
+ * Description: Doux Layout Styles.
+ * Version: 1.0.0
+ * Last update: 01/01/2016
+ * Author: Habaza <support@fobles.com>
+ *
+ ============================================================================
+ * Table of Content:
+ ============================================================================
+ *  0. CSS Reset
+ *  1. Main Styles
+ *      - 1.1. Loading Animation
+ *      - 1.2. Magnific Popup
+ *  2. Header
+ *      - 2.1. Logo
+ *      - 2.2. Main Menu
+ *      - 2.3. Navigation
+ *      - 2.4. Main Menu (Layout 2)
+ *      - 2.5. Social Icons
+ *  3.Slider
+ *      - 3.1. Revolution Slider Customization
+ *  4.About Us Section
+ *      - 4.1. About Us Section (Layout 2)
+ *  5.Meet Our Team Section
+ *      - 5.1. Our Team (Layout 2)
+ *  6.Our Services Section
+ *      - 6.1. Our Services (Layout 2)
+ *  7.Our Portfolio Section
+ *      - 7.1. Portfolio (Layout 2)
+ *  8.Video Background Section
+ *  9.Pricing Tables Section
+ *      - 9.1. Pricing (Layout 2)
+ *  10.Latest News Section
+ *      - 10.1. Latest News (Layout 2)
+ *  11.Clients & Testmonials Section
+ *  12.Footer Section
+ *  13.Blog Style
+ *      - 13.1. Blog Single
+ *      - 13.2. Sidebar
+ *  14.Responsive Styles
+ *      - 14.1. Extra small devices (phones, up to 319px)
+ *      - 14.2. Extra small devices (phones, from 320px up to 479px)
+ *      - 14.3. Small devices (phones, from 480px up to 767px)
+ *      - 14.4. Small devices (tablets, from 768px up to 991px)
+ *      - 14.5. Medium devices (tablets/desktops, from 992px up to 1199px)
+ *      - 14.6. Large devices (tablets/desktops, from 1200px up to 1599px)
+ *      - 14.7. Large devices (tablets/desktops, from 1600px and up)
+
+ ============================================================================
+ */
+
+/* ==========================================================================
+   1. Main Styles
+   ========================================================================== */
+
+body {
+    color: #c6c6c6;
+    background: #141414;
+}
+
+.smoked-bg {
+    background: #2e2e2e;
+}
+
+a.action-btn {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+a.action-btn:hover {
+    background-color: #966A39;
+    color: #fff;
+    border-color: #966A39;
+}
+
+a.action-btn2 {
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    color: #141414;
+}
+
+a.action-btn2:hover {
+    color: #ffffff;
+    background-color: #966A39;
+    border-color: #966A39;
+}
+
+a.reverse-btn {
+    border: 1px solid #966a39;
+}
+
+a.reverse-btn span {
+    background: #966a39;
+    color: #fff;
+}
+
+a.reverse-btn:hover {
+    border: 1px solid #ffffff;
+}
+
+a.reverse-btn:hover span {
+    background: #ffffff;
+    color: #966a39;
+}
+
+a.gold-btn, button.gold-btn {
+    background: #966a39;
+    color: #fff;
+}
+
+a.gold-btn:hover, button.gold-btn:hover {
+    background: #7f5122;
+    color: #fff;
+}
+
+.overlay-bg {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.video-overlay-bg {
+    background: rgba(0,0,0,0.3);
+}
+
+
+section .title h1 {
+    color: #ffffff;
+}
+
+section .title h4 {
+    color: #c6c6c6;
+}
+
+section .title.light h1 {
+    color: #fff;
+}
+
+section .title.light h4 {
+    color: #c6c6c6;
+}
+
+.page-title.bg-img-1 {
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/bg/title-bg-1.jpg);
+}
+
+.page-title.bg-img-2 {
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/bg/title-bg-2.jpg);
+}
+
+.page-title.bg-img-3 {
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/bg/title-bg-3.jpg);
+}
+
+.page-title.bg-img-4 {
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/bg/title-bg-4.jpg);
+}
+
+.page-title h1 {
+    color: #fff;
+}
+
+.page-title .doux-icon-divider {
+    color: #ffffff;
+}
+
+.page-title h4 {
+    color: #c6c6c6;
+}
+
+/* - 1.1. Loading Animation
+   ========================================================================== */
+.loading-container {
+    background-color: #141414;
+}
+
+.double-bounce1,
+.double-bounce2 {
+    background-color: #966a39;
+}
+
+/* - 1.2. Magnific Popup
+   ========================================================================== */
+
+.mfp-bg {
+    background: #f1f1f1;
+}
+
+.mfp-preloader,
+.mfp-preloader a {
+    color: #141414;
+}
+
+.mfp-preloader a:hover {
+    color: #966a39;
+}
+
+
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+    color: #141414;
+}
+
+.mfp-figure:after {
+    -webkit-box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+    -moz-box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+    box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+}
+
+.mfp-figure.hastitle:after {
+    -webkit-box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+    -moz-box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+    box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+}
+
+.mfp-figure.hastitle .mfp-title {
+    background: #fff;
+    -webkit-box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+    -moz-box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+    box-shadow: 0px 5px 5px rgba(23, 22, 16, 0.07);
+}
+
+.mfp-title span.p-title {
+    color: #fff;
+    background-color: #966a39;
+}
+
+.mfp-title span.p-category {
+    background: #141414;
+    color: #fff;
+}
+
+.mfp-title p.p-text {
+    color: #6f6f6f;
+}
+
+.mfp-title a.p-external {
+    color: #141414;
+}
+
+.mfp-title a.p-external:hover {
+    color: #966A39;
+}
+
+button.mfp-arrow {
+    background: #141414;
+}
+
+button.mfp-arrow:after {
+    color: #fff;
+}
+
+.mfp-counter {
+    color: #fff;
+}
+
+/* ==========================================================================
+   2. Header
+   ========================================================================== */
+
+.mainHeader {
+    background-color: #141414;
+}
+
+.mainHeader.isStuck {
+    -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.15);
+    background: rgba(20, 20, 20, 0.97);
+}
+
+
+/* - 2.1. Logo
+   ========================================================================== */
+
+.logo {
+    background: url(../resources/images/logo_header.png);
+    /*
+    width: 186px;
+    height: 44px;
+    */
+    width: 325px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: 106px;
+    display: block;
+    position: absolute;
+    top: -30px;
+    transition: all 0.4s ease-in-out;
+}
+
+.mainHeader.isStuck .logo {
+    width: 188px;
+    top: -10px;
+    height: 65px
+}
+
+
+/* - 2.2. Main Menu
+   ========================================================================== */
+
+
+
+/* - 2.3. Navigation
+   ========================================================================== */
+
+.nav > li > a {
+    color: #c6c6c6;
+}
+
+.nav > li:hover > a,
+.nav > li.active > a,
+.nav > li.active > a:focus {
+    background-color: transparent;
+    color: #cba675;
+}
+
+.nav > li > a:focus {
+    background: transparent;
+    color: auto;
+}
+
+.parent .sub-menu {
+    background: #FFFFFF;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.parent .sub-menu > li {
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.parent .sub-menu > li > a {
+    color: #707070;
+}
+
+.parent .sub-menu > li:hover > a {
+    background: rgb(243, 243, 243);
+    color: #815426;
+}
+
+
+/* - 2.4. Main Menu (Layout 2)
+   ========================================================================== */
+
+a.menu-collapse {
+    color: #ffffff;
+    border-left: 1px solid #cecece;
+}
+
+.menu-holder {
+    background: #141414;
+}
+.layout-2 .nav > li > a {
+    color: #c6c6c6;
+}
+
+.layout-2 .nav > li:hover > a,
+.layout-2 .nav > li.active > a,
+.layout-2 .nav > li.active > a:focus {
+    background-color: transparent;
+    color: #cba675;
+}
+
+.layout-2 .nav > li > a:focus {
+    background: transparent;
+    color: auto;
+}
+
+.layout-2 .parent .sub-menu {
+    background: #141414;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.layout-2 .parent .sub-menu > li {
+    border-bottom: 1px solid #3C3C3C;
+}
+
+.layout-2 .parent .sub-menu > li > a {
+    color: #c6c6c6;
+    background: transparent;
+}
+
+.layout-2 .parent .sub-menu > li:hover > a {
+    background: #191919;
+    color: #cba675;
+}
+
+
+/* - 2.5. Social Icons
+   ========================================================================== */
+
+.socialIcons li a i {
+    color: #ffffff;
+}
+
+.socialIcons li a:hover i {
+    color: #C3A070;
+}
+
+
+/* ==========================================================================
+   3. Slider
+   ========================================================================== */
+   
+.rev_slider .layer-text-big span.revers{
+    color: #af8655;
+}
+.tp-caption {
+    color: #ffffff;
+}
+
+/* - 3.1. Revolution Slider Customization
+   ========================================================================== */
+
+.tp-bgimg:after {
+    background-image: linear-gradient(to right, #000, rgba(0, 0, 0, 0));
+}
+
+#slider-hero .tp-bgimg:after,#slider-hero-image .tp-bgimg:after, #slider-text-rotator .tp-bgimg:after {
+    background-image: none;
+}
+
+.tparrows:hover:before {
+    color: #966a39;
+}
+
+.tp-bullet, .hephaistos .tp-bullet {
+    background: #f5f5f5;
+}
+
+.tp-bullet:hover,
+.tp-bullet.selected,
+.hephaistos .tp-bullet:hover,
+.hephaistos .tp-bullet.selected {
+    background: #966a39;
+}
+
+.s-caption h1 {
+    color: #fff;
+}
+
+.s-caption h1 span {
+    color: #af8655;
+}
+
+.s-caption .doux-icon-divider {
+    color: #fff;
+}
+
+.s-caption p {
+    color: #fff;
+}
+
+.scroll-icon {
+    color: #ffffff;
+}
+
+.scroll-icon a {
+    color: #fff;
+}
+
+/* ==========================================================================
+   4. About Us Section
+   ========================================================================== */
+#AboutUs{
+    padding-bottom: 0;
+}
+.introduction {
+    -webkit-box-shadow: 5px -5px 0px #966a39;
+    -moz-box-shadow: 5px -5px 0px #966a39;
+    box-shadow: 5px -5px 0px #966a39;
+}
+
+.stats {
+    border-top: transparent;
+    background: #1e1e1e;
+    padding-bottom: 60px;
+}
+
+.state .state-count {
+    color: #ffffff;
+}
+
+.state .state-icon {
+    color: #ffffff;
+}
+
+
+/* - 4.1. About Us Section (Layout 2)
+   ========================================================================== */
+
+#AboutUs.layout-2 .stats {
+    background: #1e1e1e;
+}
+
+
+/* ==========================================================================
+   5. Meet Our Team Section
+   ========================================================================== */
+
+.member-photo {
+    background: #2e2e2e;
+}
+
+.member-details {
+    background: #fff;
+}
+
+.member-title h4 {
+    color: #141414;
+}
+
+.member-title p {
+    color: #6f6f6f;
+}
+
+.member-contact ul li {
+    border-right: 1px solid #cecece;
+}
+
+.member-contact ul li a {
+    color: #6f6f6f;
+}
+
+.member-contact ul li a:hover {
+    color: #966a39;
+}
+
+.join-team {
+    -webkit-box-shadow: 7px -7px 0px #966a39;
+    -moz-box-shadow: 7px -7px 0px #966a39;
+    box-shadow: 7px -7px 0px #966a39;
+}
+
+
+/* - 5.1. Our Team (Layout 2)
+   ========================================================================== */
+
+.member-details.layout-2 {
+    background: #f5f5f5;
+}
+
+
+/* ==========================================================================
+   6. Our Services Section
+   ========================================================================== */
+
+.service {
+    border-bottom: 1px solid #323232;
+}
+
+.service .service-icon:after {
+    background: #323232;
+}
+
+.service .service-icon span i {
+    color: #fff;
+}
+
+.service h1 {
+    color: #fff;
+}
+
+.service p {
+    color: #c6c6c6;
+}
+
+.srv-left {
+    border-right: 1px solid #323232;
+}
+
+
+/* - 6.1. Our Services (Layout 2)
+   ========================================================================== */
+
+.layout-2 .service .service-icon {
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   7. Our Portfolio Section
+   ========================================================================== */
+
+.filters .filters-btn {
+    color: #c6c6c6;
+}
+
+.filters .filters-btn i {
+    color: #966a39;
+}
+
+.p-filters {
+    background: #1e1e1e;
+}
+
+.p-filters ul:after {
+    border-left: 10px solid #1e1e1e;
+    border-bottom: 5px solid transparent;
+}
+
+.p-filters ul li a {
+    color: #c6c6c6;
+}
+
+.p-filters ul li a:hover,
+.p-filters ul li a.current {
+    color: #CAA574;
+}
+
+h4.portfolio-title {
+    color: #141414;
+}
+
+.project-hover {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.project-details h2 {
+    color: #fff;
+    border-bottom: 1px solid #966a39;
+}
+
+.project-details h4 {
+    color: #6f6f6f;
+}
+
+.project-details a {
+    color: #fff;
+}
+
+.project-details a:hover {
+    color: #966a39;
+}
+
+
+/* - 7.1. Portfolio (Layout 2)
+   ========================================================================== */
+
+.layout-2 .p-filters ul li a {
+    border: 1px solid #c6c6c6;
+    color: #ffffff;
+}
+
+.layout-2 .p-filters ul li a:hover,
+.layout-2 .p-filters ul li a.current {
+    background: #966a39;
+    border-color: #966a39;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   8. Video Background Section
+   ========================================================================== */
+.video-overlay h1 {
+    color: #fff;
+}
+
+.video-overlay h4 {
+    color: #c6c6c6;
+}
+
+.video-controls a.play {
+    color: #966a39;
+}
+
+.video-controls a.play:hover {
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   9. Pricing Tables Section
+   ========================================================================== */
+
+.plan {
+    background: #141414;
+}
+
+.plan.selected {
+    -webkit-box-shadow: -7px -7px 0px #966a39;
+    -moz-box-shadow: -7px -7px 0px #966a39;
+    box-shadow: -7px -7px 0px #966a39;
+}
+
+.plan.selected a.action-btn {
+    background: #966a39;
+    border-color: #966a39;
+    color: #fff;
+}
+
+.plan-header {
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.plan-header h3 {
+    color: #ffffff;
+}
+
+.plan-header .hr-line {
+    border-bottom: 3px solid #909090;
+}
+
+.plan-header h1 {
+    color: #ffffff;
+}
+
+.plan-features {
+    border-bottom: 1px solid #1e1e1e;
+}
+
+
+/* - 9.1. Pricing (Layout 2)
+   ========================================================================== */
+
+.pricing.layout-2 .plan {
+    background: #141414;
+}
+
+.pricing.layout-2 .selected {
+    background: #141414;
+    color: #c6c6c6;
+}
+
+.pricing.layout-2 .plan-header,
+.pricing.layout-2 .plan-features {
+    border-bottom-color: #323232;
+}
+
+.pricing.layout-2 .selected .plan-header,
+.pricing.layout-2 .selected .plan-features {
+    border-bottom-color: #323232;
+}
+
+.pricing.layout-2 .selected .plan-header h3 {
+    color: #ffffff;
+}
+
+.pricing.layout-2 .selected .plan-header .hr-line {
+    border-color: #909090;
+}
+
+.pricing.layout-2 .selected .plan-header h1 {
+    color: #ffffff;
+}
+
+.pricing.layout-2 .plan-header h1 span {
+    color: #6f6f6f;
+}
+
+.pricing.layout-2 .selected .plan-header h1 span {
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   10. Latest News Section
+   ========================================================================== */
+
+.n-post-date {
+    background: rgba(144, 144, 144, 0.50);
+    color: #fff;
+}
+
+.n-post-details a h4 {
+    color: #fff;
+}
+
+.n-post-details a:hover h4 {
+    color: #966a39;
+}
+
+.n-post-details p {
+    color: #c6c6c6;
+}
+
+.n-post-details p a.n-more {
+    color: #c6c6c6;
+}
+
+.n-post-details p a.n-more:hover {
+    color: #966a39;
+}
+
+
+/* - 10.1. Latest News (Layout 2)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   11. Clients & Testmonials Section
+   ========================================================================== */
+
+.testmonials-bg {
+    -webkit-box-shadow: inset 7px 7px 0px #966a39;
+    -moz-box-shadow: inset 7px 7px 0px #966a39;
+    box-shadow: inset 7px 7px 0px #966a39;
+    background: #1e1e1e;
+}
+
+.testmonial-photo {
+    border: 2px solid #cecece;
+}
+
+.testmonial-photo img {
+    border-color: transparent;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.50);
+    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.50);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.50);
+}
+
+.testmonial-details h5 {
+    color: #ffffff;
+}
+
+.testmonial-details p {
+    color: #c6c6c6;
+}
+
+.testmonial-quote {
+    background: #2e2e2e;
+}
+
+.testmonial-quote:before {
+    border-right: 15px solid #2e2e2e;
+}
+
+.owl-theme .owl-controls .owl-page span {
+    background: #c6c6c6;
+}
+
+.owl-theme .owl-controls .owl-page.active span {
+    background: #966a39;
+}
+
+
+/* ==========================================================================
+   12. Footer Section
+   ========================================================================== */
+
+#Footer {
+    background: #141414;
+}
+
+.main-footer {
+    border-bottom: 1px solid #1e1e1e;
+}
+
+ul.contact-details li {
+    color: #c6c6c6;
+}
+
+ul.contact-details li i {
+    color: #966a39;
+}
+
+ul.contact-details li a {
+    color: #c6c6c6;
+}
+
+.folow-us h5 {
+    color: #fff;
+}
+
+.folow-us ul.footer-social li a {
+    color: #6f6f6f;
+}
+
+.folow-us ul.footer-social li a:hover {
+    color: #966a39;
+}
+
+.contact-form input,
+.contact-form textarea {
+    background-image: -webkit-linear-gradient(#141414, #141414 38px, #1e1e1e 38px, #1e1e1e 40px, #141414 40px);
+    background-image: -moz-linear-gradient(#141414, #141414 38px, #1e1e1e 38px, #1e1e1e 40px, #141414 40px);
+    background-image: -ms-linear-gradient(#141414, #141414 38px, #1e1e1e 38px, #1e1e1e 40px, #141414 40px);
+    background-image: -o-linear-gradient(#141414, #141414 38px, #1e1e1e 38px, #1e1e1e 40px, #141414 40px);
+    background-image: linear-gradient(#141414, #141414 38px, #1e1e1e 38px, #1e1e1e 40px, #141414 40px);
+    color: #c6c6c6;
+}
+
+/* ==========================================================================
+   14. Responsive Styles
+   ========================================================================== */
+
+.navbar-toggle {
+    color: #ffffff;
+}
+
+
+/* - 14.1. Extra small devices (phones, up to 319px)
+   ========================================================================== */
+@media screen and (max-width: 319px) {
+    .menu-holder {
+        background: rgb(20, 20, 20);
+    }
+    .state .state-icon {
+        color: #6F6F6F;
+    }
+    .layout-2 .service.srv-bottom {
+        border-bottom: 1px solid #323232;
+    }
+}
+
+/* - 14.2. Extra small devices (phones, from 320px up to 479px)
+   ========================================================================== */
+@media screen and (min-width: 320px) and (max-width: 479px) {
+    .menu-holder {
+        background: rgb(20, 20, 20);
+    }
+    .state .state-icon {
+        color: #6F6F6F;
+    }
+    .layout-2 .service.srv-bottom {
+        border-bottom: 1px solid #323232;
+    }
+}
+
+/* - 14.3. Small devices (phones, from 480px up to 767px)
+   ========================================================================== */
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    .menu-holder {
+        background: rgb(20, 20, 20);
+    }
+    .state .state-icon {
+        color: #6F6F6F;
+    }
+    .layout-2 .service.srv-bottom {
+        border-bottom: 1px solid #323232;
+    }
+}
+
+/* - 14.4. Small devices (tablets, from 768px up to 991px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+    .state .state-icon {
+        color: #6F6F6F;
+    }
+    .layout-2 .service.srv-bottom {
+        border-bottom: 1px solid #323232;
+    }
+}

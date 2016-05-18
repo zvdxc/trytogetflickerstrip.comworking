@@ -1,0 +1,90 @@
+---
+layout: splash
+title: Flickerstrip, bring your creativity to light
+description: Flickerstrip is the neopixel LED light strip that lets you upload custom patterns via Wi-Fi
+navigation:
+    exclude: true
+author: Julian Hartline
+---
+
+<div class="glow youtube firstlookVideo" width="560" height="315" data-youtubeid="SN5VDPl2nCE" data-bg="/resources/images/flickerstrip_logo_frame.png"></div>
+
+<div class="photos">
+	<div>
+        <img class="showcase glow" src="/resources/images/arduinoAngle/flickerstrip.jpg">
+    </div>
+</div>
+
+<div class="tagline">
+	Create your own light show, just the way you want it
+	<span>
+		Flickerstrip is the LED light strip that lets you upload custom, animated patterns or "lightworks". The addressable neopixel light strip means that you can set each pixel to one of 16 million colors. Build your own peronsonalized sequences and light shows to liven up any party and decorate your life with light.
+		<br/>
+		<br/>
+		Try the <a href="/lightwork/">lightwork designer</a> out for yourself!
+		<br/>
+		<br/>
+		Or check out the <a href="/countdown/">launch countdown page</a> for more pictures.
+	</span>
+</div>
+
+<div class="featureBoxes">
+	<div class="featureBox glow">
+		<div class="imageHolder">
+			<img src="/resources/images/featureIcons/wifi.png" />
+		</div>
+		<div>Control LED strips with your phone or computer via Wi-Fi</div>
+	</div>
+	
+	<div class="featureBox glow">
+		<div class="imageHolder">
+			<img src="/resources/images/featureIcons/paintpallet.png" class="invert"/>
+		</div>
+		<div>Configure existing patterns or create your own</div>
+	</div>
+	
+	<div class="featureBox glow">
+		<div class="imageHolder">
+			<img src="/resources/images/featureIcons/terminal.png"/>
+		</div>
+		<div>Leverage a powerful API to script your own behavior</div>
+	</div>
+</div>
+
+<div class="photos">
+	<div>
+		<span>Decorate your life with vibrant colors</span>
+		<img class="showcase glow" src="/resources/images/photos/coiltwinkle.png">
+	</div>
+	<div>
+		<span>Control every pixel to create patterns with your own personal touch</span>
+		<img class="showcase glow" src="/resources/images/photos/ssbuild.png">
+	</div>
+	
+	<div>
+		<span>Share your patterns and download popular patterns shared by others</span>
+		<img class="showcase glow" src="/resources/images/photos/ssdownload.png">
+	</div>
+</div>
+
+
+{% comment %}
+{% for post in site.posts %}
+	{% if post.categories contains 'news' %}
+		<h2>{{ post.date | date_to_string }} - <a href="{{ post.url }}">{{ post.title }}</a></h2>
+		{{ post.excerpt }}
+		<a href="{{ post.url }}">read more..</a>
+		<br/>
+		<br/>
+	{% endif %}
+	
+	{% if post.categories contains 'blog' %}
+		<h2 class="blog">{{ post.date | date_to_string }} - Blog: <a href="{{ post.url }}">{{ post.title }}</a></h2>
+		{{ post.excerpt }}
+		<a href="{{ post.url }}">read more..</a>
+		<br/>
+		<br/>
+	{% endif %}
+{% endfor %}
+
+{% endcomment %}

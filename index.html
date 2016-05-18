@@ -1,90 +1,894 @@
----
-layout: splash
-title: Flickerstrip, bring your creativity to light
-description: Flickerstrip is the neopixel LED light strip that lets you upload custom patterns via Wi-Fi
-navigation:
-    exclude: true
-author: Julian Hartline
----
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
 
-<div class="glow youtube firstlookVideo" width="560" height="315" data-youtubeid="SN5VDPl2nCE" data-bg="/resources/images/flickerstrip_logo_frame.png"></div>
+<head>
+    <!--========================================
+	=            Basic Page Needs            =
+	========================================-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doux - Creative One Page HTML Template</title>
+    <meta name="description" content="Doux - Creative One-Page HTML Template">
+    <meta name="author" content="Habaza">
+    <!--===================================
+	=            Mobile Meta            =
+	===================================-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--======================================
+	=            CSS References            =
+	======================================-->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- Web Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500italic,700,700italic,500' rel='stylesheet' type='text/css'>
+    <!-- Icon Fonts -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/stroke-gap-font.css">
+    <link rel="stylesheet" type="text/css" href="css/doux-icons-font.css">
+    <!-- Animate.css Framwork -->
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <!-- Responsive Nav -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/responsive-nav/responsive-nav.css">
+    <!-- Revolution Slider -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/revolution/css/navigation.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/owl-carousel/owl.transitions.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/magnific-popup/magnific-popup.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/dark.css">
+    <!-- Modernizr -->
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+    <script src="js/modernizr-3.1.0.min.js" type="text/javascript"></script>
+    <!--================================
+	=            Favicons            =
+	================================-->
+    <link rel="shortcut icon" href="images/favicon/favicon.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png">
+</head>
 
-<div class="photos">
-	<div>
-        <img class="showcase glow" src="/resources/images/arduinoAngle/flickerstrip.jpg">
+<body data-spy="scroll" data-target="#mainMenu">
+    <div class="loading-container" id="preloader">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
     </div>
-</div>
+    <!--======================================
+=            Primary Page Layout            =
+======================================-->
+    <!-- Main Wrapper -->
+    <div id="mainWrapper">
+        <!-- Header -->
+        <header class="mainHeader sticky">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-2 navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <i class="fa fa-navicon"></i>
+                        </button>
+                        <a href="#" class="navbar-brand logo">
+                             
+                        </a>
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <div class="mainMenu navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+                            <!-- Social Icons -->
+                            <ul class="socialIcons hidden-sm hidden-xs">
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li> <!-- TODO fix me -->
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                            </ul>
+                            <!-- / Social Icons -->
+                            <!-- Navigation -->
+                            <nav id="mainMenu" class="navigation">
+                                <ul class="nav navbar-nav" role="tablist">
+                                    <li class="active"><a href="#mainWrapper">Home</a></li>
+                                    <li><a href="#AboutUs">About</a></li>
+                                    <li><a href="#OurServices">Services</a></li>
+                                    <li><a href="#OurPortfolio">Portfolio</a></li>
+                                    <li><a href="#PricingTables">Pricing</a></li>
+                                    <li><a href="#LatestNews">Blog</a></li>
+                                    <li><a href="#Footer">Contact</a></li>
+                                </ul>
+                            </nav>
+                            <!-- / Navigation -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- / Header -->
+        <!-- Slider Section -->
+        <section id="MainSlider">
+            <!-- START REVOLUTION SLIDER 5.0 -->
+            <div class="rev_slider_wrapper">
+                <div id="slider-full" class="rev_slider" data-version="5.0">
+                    <ul>
+                        <li data-index="rs-1" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="resources/images/carousel/cards.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
+                            <!-- MAIN IMAGE -->
+                            <img src="resources/images/carousel/cards.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+                            <!-- LAYERS -->
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption layer-text-big   tp-resizeme" id="slide-1-layer-1" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-75','-75','-75','-75']" data-fontsize="['75','70','60','50']" data-lineheight="['80','75','65','55']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1080;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; white-space: nowrap;text-align:left;">We’re
+                                <br/>
+                                <span class="revers">Doux</span> Agency
+                            </div>
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption Devider   tp-resizeme" id="slide-1-layer-2" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['40','40','40','40']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:300;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1430" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 6; white-space: nowrap;">
+                                <div class="doux-icon-divider"></div>
+                            </div>
+                            <!-- LAYER NR. 3 -->
+                            <div class="tp-caption layer-text   tp-resizeme" id="slide-1-layer-3" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['100','100','100','100']" data-fontsize="['20','20','20','16']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1410;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-mask_in="x:0px;y:0px;" data-start="1720" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap; font-size: 20px;">Branding, Photography, and Web Design Services
+                            </div>
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption scroll-icon" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['40','40','40','40']" data-whitespace="nowrap" data-transform_idle="o:1;" data-style_hover="cursor:pointer;" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:50px;opacity:0;s:1000;s:1000;" data-start="1300" data-splitin="none" data-splitout="none" data-basealign="slide" data-responsive_offset="on" data-responsive="on">
+                                <span>Scroll Down</span>
+                                <a href="#AboutUs" class="navTo"><i class="icon icon-Mouse animated fadeInDown"></i></a>
+                            </div>
+                        </li>
+                        <li data-index="rs-2" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="resources/images/carousel/talking.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
+                            <!-- MAIN IMAGE -->
+                            <img src="resources/images/carousel/talking.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+                            <!-- LAYERS -->
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption layer-text-big   tp-resizeme" id="slide-2-layer-1" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-75','-75','-75','-75']" data-fontsize="['75','70','60','50']" data-lineheight="['80','75','65','55']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1080;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; white-space: nowrap;text-align:left;">Incredible
+                                <br/>
+                                <span class="revers">Features</span> Added
+                            </div>
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption Devider   tp-resizeme" id="slide-2-layer-2" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['40','40','40','40']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:300;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1430" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 6; white-space: nowrap;">
+                                <div class="doux-icon-divider"></div>
+                            </div>
+                            <!-- LAYER NR. 3 -->
+                            <div class="tp-caption layer-text   tp-resizeme" id="slide-2-layer-3" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['100','100','100','100']" data-fontsize="['20','20','20','16']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1410;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-mask_in="x:0px;y:0px;" data-start="1720" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap; font-size: 20px;">Awesome Services Sections, Pricing Boxes and Working Contact Form
+                            </div>
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption scroll-icon" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['40','40','40','40']" data-whitespace="nowrap" data-transform_idle="o:1;" data-style_hover="cursor:pointer;" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:50px;opacity:0;s:1000;s:1000;" data-start="1300" data-splitin="none" data-splitout="none" data-basealign="slide" data-responsive_offset="on" data-responsive="on">
+                                <span>Scroll Down</span>
+                                <a href="#AboutUs" class="navTo"><i class="icon icon-Mouse animated fadeInDown"></i></a>
+                            </div>
+                        </li>
+                        <li data-index="rs-3" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="resources/images/carousel/lights.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
+                            <!-- MAIN IMAGE -->
+                            <img src="resources/images/carousel/lights.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+                            <!-- LAYERS -->
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption layer-text-big   tp-resizeme" id="slide-3-layer-1" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-75','-75','-75','-75']" data-fontsize="['75','70','60','50']" data-lineheight="['80','75','65','55']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1080;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; white-space: nowrap;text-align:left;">Responsive &
+                                <br/>
+                                <span class="revers">Mobile</span> Friendly
+                            </div>
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption Devider   tp-resizeme" id="slide-3-layer-2" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['40','40','40','40']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:300;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1430" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 6; white-space: nowrap;">
+                                <div class="doux-icon-divider"></div>
+                            </div>
+                            <!-- LAYER NR. 3 -->
+                            <div class="tp-caption layer-text   tp-resizeme" id="slide-3-layer-3" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['100','100','100','100']" data-fontsize="['20','20','20','16']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1410;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-mask_in="x:0px;y:0px;" data-start="1720" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap; font-size: 20px;">The Template is Responsive and Fit to All Screen Views
+                            </div>
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption scroll-icon" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['40','40','40','40']" data-whitespace="nowrap" data-transform_idle="o:1;" data-style_hover="cursor:pointer;" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:50px;opacity:0;s:1000;s:1000;" data-start="1300" data-splitin="none" data-splitout="none" data-basealign="slide" data-responsive_offset="on" data-responsive="on">
+                                <span>Scroll Down</span>
+                                <a href="#AboutUs" class="navTo"><i class="icon icon-Mouse animated fadeInDown"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END REVOLUTION SLIDER -->
+            </div>
+            <!-- END OF SLIDER WRAPPER -->
+        </section>
+        <!-- / Slider Section -->
+        <!-- About Us Section -->
+        <section id="AboutUs">
+            <div class="container">
+                <div class="title txt-center">
+                    <h1>About Us</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>Let’s Take you in a Tour</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4">
+                        <p>Handshake startup return on investment android client supply chain virality stealth. Supply chain iPad pivot termsheet infographic leverage seed round business model canvas focus partner network business plan branding virality ecosystem. Low hanging fruit series A financing hypotheses channels investor backing.</p>
+                        <a href="#OurPortfolio" class="action-btn navTo">Work Samples</a>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <p>Ramen lean startup partnership supply chain virality responsive web design customer strategy success interaction design graphical user interface network effects. Research & development scrum project creative bootstrapping venture assets beta leverage backing. Stock beta influencer learning curve scrum project ramen agile development vesting period.</p>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="introduction">
+                            <a href="https://vimeo.com/45830194" class="reverse-btn popup-video"><span>Watch Introduction</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row stats" id="stats" data-appear-top-offset="-1200">
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="state">
+                            <div class="state-count"><span data-from="0" data-to="105">0</span></div>
+                            <div class="state-details">
+                                <h5 class="state-title">Cups of Tea</h5><i class="fa fa-coffee state-icon"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="state">
+                            <div class="state-count"><span data-from="0" data-to="18">0</span></div>
+                            <div class="state-details">
+                                <h5 class="state-title">Happy Clients</h5><i class="fa fa-smile-o state-icon"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="state">
+                            <div class="state-count"><span data-from="0" data-to="36">0</span></div>
+                            <div class="state-details">
+                                <h5 class="state-title">Awesome Projects</h5><i class="fa fa-suitcase state-icon"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="state">
+                            <div class="state-count"><span data-from="0" data-to="5">0</span></div>
+                            <div class="state-details">
+                                <h5 class="state-title">Awards Win</h5><i class="fa fa-diamond state-icon"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / About Us Section -->
+        <!-- Meet Our Team Section -->
+        <section id="OurTeam" class="smoked-bg">
+            <div class="container">
+                <div class="title txt-left">
+                    <h1>Meet Our Team</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>We have a bunch of creative people</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="member-block">
+                            <div class="member-photo">
+                                <img src="images/team/member_1.png" alt="Member-Photo">
+                            </div>
+                            <div class="member-details">
+                                <div class="member-title">
+                                    <h4>John Doe</h4>
+                                    <p>Creative Director</p>
+                                </div>
+                                <div class="member-contact">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="member-block">
+                            <div class="member-photo">
+                                <img src="images/team/member_2.png" alt="Member-Photo">
+                            </div>
+                            <div class="member-details">
+                                <div class="member-title">
+                                    <h4>Mohamed Habaza</h4>
+                                    <p>Senior UX Research</p>
+                                </div>
+                                <div class="member-contact">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="member-block">
+                            <div class="member-photo">
+                                <img src="images/team/member_3.png" alt="Member-Photo">
+                            </div>
+                            <div class="member-details">
+                                <div class="member-title">
+                                    <h4>Mark Doe</h4>
+                                    <p>Designer</p>
+                                </div>
+                                <div class="member-contact">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="join-team">
+                            <a href="#" class="reverse-btn"><span>Join Our Team</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / About Us Section -->
+        <!-- Our Services Section -->
+        <section id="OurServices" class="no-ver-padding parallax background-image1">
+            <div class="container overlay-bg inner-wrapper extra-padding">
+                <div class="title light txt-center">
+                    <h1>Our Services</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>Order Now and Get a Special Gift</h4>
+                </div>
+                <div class="col-xs-12 col-md-6 service srv-left">
+                    <div class="service-icon">
+                        <span><i class="icon icon-DSLRCamera"></i></span>
+                    </div>
+                    <h1>Photography</h1>
+                    <p>Flannel Thundercats tofu keytar, drinking vinegar locavore tattooed fingerstache PBR put a bird on it fashion axe Kickstarter. Chambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Tofu selfies skateboard freegan, lo-fi Brooklyn Echo Park photo booth tousled Williamsburg meggings Austin cred DIY.</p>
+                </div>
+                <div class="col-xs-12 col-md-6 service srv-right">
+                    <div class="service-icon">
+                        <span><i class="icon icon-Bulb"></i></span>
+                    </div>
+                    <h1>Branding & Logo Design</h1>
+                    <p>Flannel Thundercats tofu keytar, drinking vinegar locavore tattooed fingerstache PBR put a bird on it fashion axe Kickstarter. Chambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Tofu selfies skateboard freegan, lo-fi Brooklyn Echo Park photo booth tousled Williamsburg meggings Austin cred DIY.</p>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3 service srv-center">
+                    <div class="service-icon">
+                        <span><i class="icon icon-Web"></i></span>
+                    </div>
+                    <h1>Web Design & Development</h1>
+                    <p>Flannel Thundercats tofu keytar, drinking vinegar locavore tattooed fingerstache PBR put a bird on it fashion axe Kickstarter. Chambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Tofu selfies skateboard freegan, lo-fi Brooklyn Echo Park photo booth tousled Williamsburg meggings Austin cred DIY.</p>
+                </div>
+                <div class="col-md-12 txt-center">
+                    <a href="#" class="gold-btn">Order a Service</a>
+                </div>
+            </div>
+        </section>
+        <!-- / Our Services Section -->
+        <!-- Our Portfolio Section -->
+        <section id="OurPortfolio" class="smoked-bg">
+            <div class="container">
+                <div class="title">
+                    <h1>Our Portfolio</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>We build Ideas & Inspirational Works</h4>
+                </div>
+                <div class="row filters">
+                    <a href="#" class="filters-btn">Filter<i class="fa fa-th"></i></a>
+                    <div class="p-filters">
+                        <ul>
+                            <li><a href="#" class="p-filter current" data-filter="*">All</a></li>
+                            <li><a href="#" class="p-filter" data-filter=".f-video">Video</a></li>
+                            <li><a href="#" class="p-filter" data-filter=".f-photography">Photography</a></li>
+                            <li><a href="#" class="p-filter" data-filter=".f-print">Print</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-1 f-photography">
+                        <img src="images/portfolio/project_380_250_1.jpg" height="250" width="380" alt="Doux Creative One Page HTML Template">
+                        <div class="project-hover animated">
+                            <div class="project-details">
+                                <h2>Project Title</h2>
+                                <h4>Photography</h4>
+                                <a href="images/portfolio/preview/project_770_500_1.jpg" class="project-open">[ Expand ]</a>
+                            </div>
+                        </div>
+                        <div class="project-data">
+                            <div><span class="p-title">Project Title</span></div>
+                            <span class="p-category">Photography</span>
+                            <p class="p-text">
+                                hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee.
+                            </p>
+                            <a href="#" class="p-external"><i class="fa fa-link"></i>Visit Website</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-2 f-photography">
+                        <img src="images/portfolio/project_380_350_1.jpg" height="350" width="380" alt="Doux Creative One Page HTML Template">
+                        <div class="project-hover animated">
+                            <div class="project-details">
+                                <h2>Project Title</h2>
+                                <h4>Photography</h4>
+                                <a href="images/portfolio/preview/project_770_500_2.jpg" class="project-open">[ Expand ]</a>
+                            </div>
+                        </div>
+                        <div class="project-data">
+                            <div><span class="p-title">Project Title</span></div>
+                            <span class="p-category">Photography</span>
+                            <p class="p-text">
+                                hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee.
+                            </p>
+                            <a href="#" class="p-external"><i class="fa fa-link"></i>Visit Website</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-1 f-video">
+                        <img src="images/portfolio/project_380_250_2.jpg" height="250" width="380" alt="Doux Creative One Page HTML Template">
+                        <a href="https://vimeo.com/45830194" class="project-video"><i class="fa fa-play"></i></a>
+                        <div class="project-hover animated">
+                            <div class="project-details">
+                                <h2>Project Title</h2>
+                                <h4>Video</h4>
+                                <a href="images/portfolio/preview/project_770_500_3.jpg" class="project-open">[ Expand ]</a>
+                            </div>
+                        </div>
+                        <div class="project-data">
+                            <div><span class="p-title">Project Title</span></div>
+                            <span class="p-category">Video</span>
+                            <p class="p-text">
+                                hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee.
+                            </p>
+                            <a href="#" class="p-external"><i class="fa fa-link"></i>Visit Website</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-2 f-print">
+                        <img src="images/portfolio/project_380_350_2.jpg" height="350" width="380" alt="Doux Creative One Page HTML Template">
+                        <div class="project-hover animated">
+                            <div class="project-details">
+                                <h2>Project Title</h2>
+                                <h4>Photography</h4>
+                                <a href="images/portfolio/preview/project_770_500_4.jpg" class="project-open">[ Expand ]</a>
+                            </div>
+                        </div>
+                        <div class="project-data">
+                            <div><span class="p-title">Project Title</span></div>
+                            <span class="p-category">Photography</span>
+                            <p class="p-text">
+                                hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee.
+                            </p>
+                            <a href="#" class="p-external"><i class="fa fa-link"></i>Visit Website</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-2 f-print">
+                        <img src="images/portfolio/project_380_350_4.jpg" height="350" width="380" alt="Doux Creative One Page HTML Template">
+                        <div class="project-hover animated">
+                            <div class="project-details">
+                                <h2>Project Title</h2>
+                                <h4>Photography</h4>
+                                <a href="images/portfolio/preview/project_770_500_6.jpg" class="project-open">[ Expand ]</a>
+                            </div>
+                        </div>
+                        <div class="project-data">
+                            <div><span class="p-title">Project Title</span></div>
+                            <span class="p-category">Photography</span>
+                            <p class="p-text">
+                                hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee.
+                            </p>
+                            <a href="#" class="p-external"><i class="fa fa-link"></i>Visit Website</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-1 f-video">
+                        <img src="images/portfolio/project_380_250_3.jpg" height="250" width="380" alt="Doux Creative One Page HTML Template">
+                        <a href="https://vimeo.com/45830194" class="project-video"><i class="fa fa-play"></i></a>
+                        <div class="project-hover animated">
+                            <div class="project-details">
+                                <h2>Project Title</h2>
+                                <h4>Video</h4>
+                                <a href="images/portfolio/preview/project_770_500_5.jpg" class="project-open">[ Expand ]</a>
+                            </div>
+                        </div>
+                        <div class="project-data">
+                            <div><span class="p-title">Project Title</span></div>
+                            <span class="p-category">Video</span>
+                            <p class="p-text">
+                                hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free. Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee.
+                            </p>
+                            <a href="#" class="p-external"><i class="fa fa-link"></i>Visit Website</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / Our Portfolio Section -->
+        <!-- Video Background Section -->
+        <section id="VideoBackground" class="no-ver-padding">
+            <div class="video-background" style="width: 100%; height: 550px;">
+                <div class="video-overlay txt-center video-overlay-bg">
+                    <h1>Video Background Support</h1>
+                    <div class="video-controls"><a href="https://vimeo.com/45830194" class="play popup-video"><i class="icon icon-Play"></i></a></div>
+                    <h4>Take a Look Right Now!</h4>
+                </div>
+            </div>
+        </section>
+        <!-- / Video Background Section -->
+        <!-- Pricing Tables Section -->
+        <section id="PricingTables" class="smoked-bg">
+            <div class="container">
+                <div class="title txt-center">
+                    <h1>Pricing</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>Take a Look at our Professional Prices</h4>
+                </div>
+                <div class="row pricing">
+                    <div class="col-xs-12 col-xs-offset-0 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-4">
+                        <div class="plan txt-center">
+                            <div class="plan-header">
+                                <h3>Lite Plan</h3>
+                                <div class="col-md-2 col-md-offset-5 hr-line"></div>
+                                <h1>$15<span>per month</span></h1>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li>Unlimited Access</li>
+                                    <li>Free Tokens</li>
+                                    <li>5 E-mail Accounts</li>
+                                    <li>Free Support</li>
+                                </ul>
+                            </div>
+                            <div class="plan-footer">
+                                <a href="#" class="action-btn">Sign Up Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-xs-offset-0 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-4">
+                        <div class="plan txt-center selected">
+                            <div class="plan-header">
+                                <h3>Special Plan</h3>
+                                <div class="col-md-2 col-md-offset-5 hr-line"></div>
+                                <h1>$20<span>per month</span></h1>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li>Unlimited Access</li>
+                                    <li>Unlimited Tokens & Features</li>
+                                    <li>15 E-mail Accounts</li>
+                                    <li>Free Support via Phone</li>
+                                </ul>
+                            </div>
+                            <div class="plan-footer">
+                                <a href="#" class="gold-btn">Sign Up Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-xs-offset-0 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-4">
+                        <div class="plan last txt-center">
+                            <div class="plan-header">
+                                <h3>Pro Plan</h3>
+                                <div class="col-md-2 col-md-offset-5 hr-line"></div>
+                                <h1>$30<span>per month</span></h1>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li>Unlimited Access</li>
+                                    <li>Free Tokens</li>
+                                    <li>25 E-mail Accounts</li>
+                                    <li>Free Support</li>
+                                </ul>
+                            </div>
+                            <div class="plan-footer">
+                                <a href="#" class="action-btn">Sign Up Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / Pricing Tables Section -->
+        <!-- Latest News Section -->
+        <section id="LatestNews" class="no-ver-padding parallax background-image2">
+            <div class="overlay-bg inner-wrapper">
+                <div class="container">
+                    <div class="title light txt-center">
+                        <h1>Latest News</h1>
+                        <div class="doux-icon-divider"></div>
+                        <h4>Read More about our Activities</h4>
+                    </div>
+                    <div class="row news-posts">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="news-post">
+                                <div class="row">
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="n-post-date txt-center"><span>18</span><span>July</span></div>
+                                    </div>
+                                    <div class="col-xs-9 col-md-9">
+                                        <div class="n-post-details">
+                                            <a href="#"><h4>Tofu selfies skateboard freegan, lo-fi Brooklyn</h4></a>
+                                            <p>hambray four loko wayfarers, crucifix Pinterest quinoa Austin try-hard mlkshk PBR pop-up mixtape actually bespoke Marfa. Tote bag asymmetrical Marfa brunch gastropub gluten-free...
+                                                <a href="#" class="n-more">[ read more ]</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="news-post">
+                                <div class="row">
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="n-post-date txt-center"><span>09</span><span>May</span></div>
+                                    </div>
+                                    <div class="col-xs-9 col-md-9">
+                                        <div class="n-post-details">
+                                            <a href="#"><h4>Messenger bag actually occupy polaroid leggings, PBR</h4></a>
+                                            <p>Salvia McSweeney's ugh, beard literally meditation bicycle rights normcore drinking vinegar trust fund kogi skateboard wolf next level single-origin coffee...
+                                                <a href="#" class="n-more">[ read more ]</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="news-post">
+                                <div class="row">
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="n-post-date txt-center"><span>22</span><span>Feb</span></div>
+                                    </div>
+                                    <div class="col-xs-9 col-md-9">
+                                        <div class="n-post-details">
+                                            <a href="#"><h4>Polaroid master cleanse single</h4></a>
+                                            <p>Gentrify McSweeney's High Life typewriter pug synth, PBR DIY migas lo-fi wolf. Etsy umami keffiyeh pickled, yr meh fashion axe iPhone crucifix dreamcatcher wayfarers chambray irony Godard. Chambray Pinterest swag, scenester taxidermy bespoke post-ironic...
+                                                <a href="#" class="n-more">[ read more ]</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 txt-center"><a href="#" class="gold-btn">Read All Posts</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / Latest News Section -->
+        <!-- Clients & Testmonials Section -->
+        <section id="Clients" class="no-bottom-padding smoked-bg">
+            <div class="container-fluid">
+                <div class="title txt-center">
+                    <h1>Clients & Testimonials</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>See what our customers say about our services</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-5">
+                        <div class="col-xs-12 col-md-12 col-lg-11 pull-right clients">
+                            <div class="col-xs-6 col-md-6 client"><img src="images/clients/client-1-white.png" alt="Client-Photo"></div>
+                            <div class="col-xs-6 col-md-6 client"><img src="images/clients/client-4-white.png" alt="Client-Photo"></div>
+                            <div class="col-xs-6 col-md-6 client"><img src="images/clients/client-3-white.png" alt="Client-Photo"></div>
+                            <div class="col-xs-6 col-md-6 client"><img src="images/clients/client-2-white.png" alt="Client-Photo"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-7 testmonials-bg">
+                        <div class="col-md-12 col-lg-11">
+                            <div class="testmonial-carousel">
+                                <div class="testmonial-item">
+                                    <div class="testmonial">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2">
+                                                <div class="testmonial-photo">
+                                                    <img src="images/testmonials/testmonial-1.jpg" alt="Client-Photo">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-3 col-md-3 testmonial-details">
+                                                <h5>M. Baghagho</h5>
+                                                <p>UX Designer, 7oroof</p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                                                <div class="testmonial-quote">
+                                                    <p>“ Venture business plan deployment client angel investor. Monetization assets incubator. Bandwidth market alpha conversion disruptive channels. ”</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testmonial">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2">
+                                                <div class="testmonial-photo">
+                                                    <img src="images/testmonials/testmonial-2.jpg" alt="Client-Photo">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-3 col-md-3 testmonial-details">
+                                                <h5>A. Essam</h5>
+                                                <p>Art Director, Google</p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                                                <div class="testmonial-quote">
+                                                    <p>“ Series A financing release hackathon bandwidth. Business plan gamification investor analytics direct mailing business model canvas partnership MVP return on investment. ”</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testmonial-item">
+                                    <div class="testmonial">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2">
+                                                <div class="testmonial-photo">
+                                                    <img src="images/testmonials/testmonial-2.jpg" alt="Client-Photo">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-3 col-md-3 testmonial-details">
+                                                <h5>A. Essam</h5>
+                                                <p>Art Director, Google</p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                                                <div class="testmonial-quote">
+                                                    <p>“ Series A financing release hackathon bandwidth. Business plan gamification investor analytics direct mailing business model canvas partnership MVP return on investment. ”</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testmonial">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2">
+                                                <div class="testmonial-photo">
+                                                    <img src="images/testmonials/testmonial-1.jpg" alt="Client-Photo">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-3 col-md-3 testmonial-details">
+                                                <h5>M. Baghagho</h5>
+                                                <p>UX Designer, 7oroof</p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                                                <div class="testmonial-quote">
+                                                    <p>“ Venture business plan deployment client angel investor. Monetization assets incubator. Bandwidth market alpha conversion disruptive channels. ”</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testmonial-item">
+                                    <div class="testmonial">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2">
+                                                <div class="testmonial-photo">
+                                                    <img src="images/testmonials/testmonial-1.jpg" alt="Client-Photo">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-3 col-md-3 testmonial-details">
+                                                <h5>M. Baghagho</h5>
+                                                <p>UX Designer, 7oroof</p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                                                <div class="testmonial-quote">
+                                                    <p>“ Venture business plan deployment client angel investor. Monetization assets incubator. Bandwidth market alpha conversion disruptive channels. ”</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testmonial">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2">
+                                                <div class="testmonial-photo">
+                                                    <img src="images/testmonials/testmonial-2.jpg" alt="Client-Photo">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-3 col-md-3 testmonial-details">
+                                                <h5>A. Essam</h5>
+                                                <p>Art Director, Google</p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                                                <div class="testmonial-quote">
+                                                    <p>“ Series A financing release hackathon bandwidth. Business plan gamification investor analytics direct mailing business model canvas partnership MVP return on investment. ”</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / Clients & Testmonials Section -->
+        <!-- Footer Sections -->
+        <section id="Footer" class="no-bottom-padding">
+            <div class="container">
+                <div class="title light">
+                    <h1>Contact Us</h1>
+                    <div class="doux-icon-divider"></div>
+                    <h4>Let’s Talk about your Needs, we’re Here to Help!</h4>
+                </div>
+                <div class="main-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <ul class="contact-details">
+                                        <li><i class="fa fa-map-marker"></i>36 Street Name, 3rd Floor
+                                            <br>New York, 10200
+                                            <br>United States.</li>
+                                        <li><i class="fa fa-phone"></i>+1 (888) 520-1234</li>
+                                        <li><i class="fa fa-mobile-phone"></i><a href="#">info@domain.com</a></li>
+                                    </ul>
+                                    <div class="folow-us">
+                                        <h5>Follow Us</h5>
+                                        <ul class="footer-social">
+                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="row">
+                                <div class="contact-form">
+                                    <form action="#" id="contact" name="contact">
+                                        <div class="col-md-6">
+                                            <input type="text" name="name" placeholder="Your Name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="email" placeholder="E-mail">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea rows="3" name="message" placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit"  class="gold-btn">Submit</button>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div id="success" class="contact-message success">
+                                                <p>Your message was sent succssfully!<br>We will contact you soon.</p>
+                                            </div>
+                                            <div id="error" class="contact-message error">
+                                                <p>Something went wrong, try refreshing and submitting the form again.</p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright txt-center">
+                    <p>© 2016, Doux Agency. All Rights Reserved</p>
+                </div>
+            </div>
+        </section>
+        <!-- / Footer Sections -->
+    </div>
+    <!-- End Main Wrapper -->
+    <!--=====  End of Primary Page Layout  ======-->
+    <!--=====================================
+=            JS References            =
+=====================================-->
+    <!-- Jquery -->
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- Third party Plugins -->
+    <script type="text/javascript" src="js-plugins/smoothscroll/jquery.smooth-scroll.js"></script>
+    <script type="text/javascript" src="js-plugins/SmoothScroll.js"></script>
+    <script type="text/javascript" src="js-plugins/easing/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js-plugins/responsive-nav/responsive-nav.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script type="text/javascript" src="js-plugins/isotope/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="js-plugins/vide/jquery.vide.js"></script>
+    <script type="text/javascript" src="js-plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js-plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery-beacons.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery.countTo.js"></script>
+    <script type="text/javascript" src="js-plugins/responsive-nav/responsive-nav.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery.form.js"></script>
+    <script type="text/javascript" src="js-plugins/morphext.min.js"></script>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
 
-<div class="tagline">
-	Create your own light show, just the way you want it
-	<span>
-		Flickerstrip is the LED light strip that lets you upload custom, animated patterns or "lightworks". The addressable neopixel light strip means that you can set each pixel to one of 16 million colors. Build your own peronsonalized sequences and light shows to liven up any party and decorate your life with light.
-		<br/>
-		<br/>
-		Try the <a href="/lightwork/">lightwork designer</a> out for yourself!
-		<br/>
-		<br/>
-		Or check out the <a href="/countdown/">launch countdown page</a> for more pictures.
-	</span>
-</div>
-
-<div class="featureBoxes">
-	<div class="featureBox glow">
-		<div class="imageHolder">
-			<img src="/resources/images/featureIcons/wifi.png" />
-		</div>
-		<div>Control LED strips with your phone or computer via Wi-Fi</div>
-	</div>
-	
-	<div class="featureBox glow">
-		<div class="imageHolder">
-			<img src="/resources/images/featureIcons/paintpallet.png" class="invert"/>
-		</div>
-		<div>Configure existing patterns or create your own</div>
-	</div>
-	
-	<div class="featureBox glow">
-		<div class="imageHolder">
-			<img src="/resources/images/featureIcons/terminal.png"/>
-		</div>
-		<div>Leverage a powerful API to script your own behavior</div>
-	</div>
-</div>
-
-<div class="photos">
-	<div>
-		<span>Decorate your life with vibrant colors</span>
-		<img class="showcase glow" src="/resources/images/photos/coiltwinkle.png">
-	</div>
-	<div>
-		<span>Control every pixel to create patterns with your own personal touch</span>
-		<img class="showcase glow" src="/resources/images/photos/ssbuild.png">
-	</div>
-	
-	<div>
-		<span>Share your patterns and download popular patterns shared by others</span>
-		<img class="showcase glow" src="/resources/images/photos/ssdownload.png">
-	</div>
-</div>
-
-
-{% comment %}
-{% for post in site.posts %}
-	{% if post.categories contains 'news' %}
-		<h2>{{ post.date | date_to_string }} - <a href="{{ post.url }}">{{ post.title }}</a></h2>
-		{{ post.excerpt }}
-		<a href="{{ post.url }}">read more..</a>
-		<br/>
-		<br/>
-	{% endif %}
-	
-	{% if post.categories contains 'blog' %}
-		<h2 class="blog">{{ post.date | date_to_string }} - Blog: <a href="{{ post.url }}">{{ post.title }}</a></h2>
-		{{ post.excerpt }}
-		<a href="{{ post.url }}">read more..</a>
-		<br/>
-		<br/>
-	{% endif %}
-{% endfor %}
-
-{% endcomment %}
+</html>
