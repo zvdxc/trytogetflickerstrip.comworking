@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <!--========================================
+        =            Basic Page Needs          =
+        ========================================-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doux - Creative One Page HTML Template</title>
+    <meta name="description" content="Doux - Creative One-Page HTML Template">
+    <meta name="author" content="Habaza">
+    <!--===================================
+        =            Mobile Meta            =
+        ===================================-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--======================================
+        =            CSS References          =
+        ======================================-->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- Web Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500italic,700,700italic,500' rel='stylesheet' type='text/css'>
+    <!-- Icon Fonts -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/stroke-gap-font.css">
+    <link rel="stylesheet" type="text/css" href="css/doux-icons-font.css">
+    <!-- Animate.css Framwork -->
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <!-- Responsive Nav -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/responsive-nav/responsive-nav.css">
+    <!-- Revolution Slider -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/revolution/css/navigation.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="js-plugins/owl-carousel/owl.transitions.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" type="text/css" href="js-plugins/magnific-popup/magnific-popup.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/dark.css">
+    <!-- Modernizr -->
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+    <script src="js/modernizr-3.1.0.min.js" type="text/javascript"></script>
+    <!--================================
+        =            Favicons          =
+        ================================-->
+    <link rel="shortcut icon" href="images/favicon/favicon.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png">
+
+    {% include analytics.html %}
+    
+    {% if page.custom_head %}
+        {{ page.custom_head }}
+    {% endif %}
+</head>
+
+<body data-spy="scroll" data-target="#mainMenu">
+    <div id="fb-root"></div>
+    <!-- Facebook SDK -->
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','//connect.facebook.net/en_US/fbevents.js');
+    
+    fbq('init', '1548229575495047');
+    fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1548229575495047&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <div class="loading-container" id="preloader">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+
+    {{ content }}
+
+    <!--=====================================
+        =            JS References          =
+        =====================================-->
+    <!-- Jquery -->
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- Third party Plugins -->
+    <script type="text/javascript" src="js-plugins/smoothscroll/jquery.smooth-scroll.js"></script>
+    <script type="text/javascript" src="js-plugins/SmoothScroll.js"></script>
+    <script type="text/javascript" src="js-plugins/easing/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js-plugins/responsive-nav/responsive-nav.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript" src="js-plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script type="text/javascript" src="js-plugins/isotope/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="js-plugins/vide/jquery.vide.js"></script>
+    <script type="text/javascript" src="js-plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js-plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery-beacons.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery.countTo.js"></script>
+    <script type="text/javascript" src="js-plugins/responsive-nav/responsive-nav.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js-plugins/jquery.form.js"></script>
+    <script type="text/javascript" src="js-plugins/morphext.min.js"></script>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <!--
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56a72764676db853" async="async"></script>
+    -->
+</body>
+
+</html>

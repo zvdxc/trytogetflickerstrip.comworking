@@ -1,5 +1,5 @@
 ---
-layout: padded
+layout: legacy
 title: Flickerstrip
 description: Take control of your lights. Flickerstrip lets you set the mood, create your own light show, or 
 navigation:

@@ -1,5 +1,5 @@
 ---
-layout: padded
+layout: legacy
 title: Flickerstrip, the decorative lightstrip for your smarthome
 description: Flickerstrip combines the ESP8266 and a neopixel strip to make a graphical interface for building LED patterns
 navigation:

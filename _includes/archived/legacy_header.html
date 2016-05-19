@@ -1,0 +1,37 @@
+<header class="pageHeader {% if page.header == "min" %}minimalHeader{% endif %}">
+    <div class="container">
+        <div class="flexdisplay">
+        	<div class="flexshrink">
+		    	<div class="header-logo">
+		    		<div class="logo">
+			    		<a href="/">
+				        	<img src="/resources/images/logo_no_outline.png" />
+			            </a>
+		            </div>
+		            <div class="logoText">
+		                <a class="title" href="/" >lickerstrip</a><span class="tm"></span>
+		                <span class="tag">Bring your creativity to light</span>
+	                </div>
+		        </div>
+	        </div>
+	        
+	        <div class="flexgrow"></div>
+	        
+            <div class="flexshrink">
+               	<div class="header-nav">
+			        {% if page.header != "min" %}
+						<div class="subscribe-form glow">
+							Coming soon to<br/>
+							<img style='height: 20px;' src="/resources/images/kickstarter-logo-dark.png" alt="Kickstarter"><br/>
+							<span style="position: relative; top: 9px;">Don't miss out, subscribe:</span>
+							{% include subscribeform.html %}
+						</div>
+					{% endif %}
+
+		            <!--{% include navigation.html %}-->
+		            <!--<a href="http://store.reflowster.com/products/reflowster" class="ordernow">Order Now</a>-->
+	            </div>
+            </div>
+        </div>
+    </div>
+</header>

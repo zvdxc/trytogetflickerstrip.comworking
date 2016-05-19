@@ -1,5 +1,5 @@
 ---
-layout: padded
+layout: legacy
 title: Flickerstrip
 description: We take your privacy very seriously and will never use or share your data in a way other than what you have explicitly consented to.
 navigation:

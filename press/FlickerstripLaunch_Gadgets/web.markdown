@@ -1,5 +1,5 @@
 ---
-layout: padded
+layout: legacy
 title: Flickerstrip Gadget Spotlight
 description: Flickerstrip raises the bar on home light strips by offering individually controlled pixels and animated patterns
 navigation:

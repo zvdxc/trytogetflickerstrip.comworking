@@ -49,6 +49,30 @@
  ============================================================================
  */
 
+/* HACKS TO BE SORTED */
+.liveonkickstarter {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 20px;
+}
+.liveonkickstarter span {
+    z-index: 10000;
+    text-decoration: none;
+    color: white;
+    height: 40px;
+    display: block;
+    margin-top: 10px;
+    background-image: url(/resources/images/kickstarter-logo-dark.png);
+    background-size: cover;
+    width: 350px;
+    font-size: 0px;
+}
+
+.liveonkickstarter:hover {
+    color: #cba675;
+}
+/* HACKS TO BE SORTED */
+
 /* ==========================================================================
    1. Main Styles
    ========================================================================== */
@@ -548,8 +572,8 @@ a.menu-collapse {
    6. Our Services Section
    ========================================================================== */
 
-.service {
-    border-bottom: 1px solid #323232;
+.srv-center {
+    border-top: 1px solid #323232;
 }
 
 .service .service-icon:after {

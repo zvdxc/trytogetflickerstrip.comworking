@@ -1,0 +1,38 @@
+<!-- Our Portfolio Section -->
+<section id="Photos" class="smoked-bg">
+    <div class="container">
+        <div class="title">
+            <h1>Photos</h1>
+            <div class="doux-icon-divider"></div>
+            <h4>Bring your creativity to light</h4>
+        </div>
+        <!--
+        <div class="row filters">
+            <a href="#" class="filters-btn">Filter<i class="fa fa-th"></i></a>
+            <div class="p-filters">
+                <ul>
+                    <li><a href="#" class="p-filter current" data-filter="*">All</a></li>
+                    <li><a href="#" class="p-filter" data-filter=".f-video">Video</a></li>
+                    <li><a href="#" class="p-filter" data-filter=".f-photography">Photography</a></li>
+                    <li><a href="#" class="p-filter" data-filter=".f-print">Print</a></li>
+                </ul>
+            </div>
+        </div>
+        -->
+        <div class="portfolio-grid">
+            {% for item in page.photos %}
+                <div class="col-xs-12 col-sm-6 col-md-4 no-ver-padding portfolio-project height-1 f-photography" style='background-image: url({{ item.image}});'>
+                    <!--<img src="{{ item.image }}" alt="Foo">-->
+                    <div class="project-hover animated">
+                        <div class="project-details">
+                            <!--<h2>Project Title</h2>-->
+                            <h4>{{ item.text }}</h4>
+                            <a href="{{ item.link }}" class="p-external">[ Expand ]</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- / Our Portfolio Section -->

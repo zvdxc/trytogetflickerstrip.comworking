@@ -68,7 +68,7 @@ body {
 
 p {
     font-family: "Ubuntu", sans-serif;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 24px;
     margin-bottom: 20px;
 }
@@ -142,7 +142,7 @@ section {
 }
 
 section.background-image1 {
-    background-image: url(../images/bg/bg-1.jpg);
+    background-image: url(../resources/images/parallax.jpg);
 }
 
 section.background-image2 {
@@ -938,7 +938,7 @@ width: 80%;}
    ========================================================================== */
 
 .introduction {
-    background: url(../images/bg/introduction.png);
+    background: url(../resources/images/introduction.jpg);
     height: 167px;
     -webkit-border-radius: 15px 15px 0px 0px;
     -moz-border-radius: 15px 15px 0px 0px;
@@ -1155,7 +1155,6 @@ width: 80%;}
 
 .srv-center {
     text-align: center;
-    border: 0 !important;
 }
 
 .srv-center .service-icon span {
@@ -1308,6 +1307,8 @@ h4.portfolio-title {
     padding: 0;
     float: left;
     overflow: hidden;
+    background-size: cover;
+    background-position: center center;
 }
 
 .portfolio-grid2 .portfolio-project {

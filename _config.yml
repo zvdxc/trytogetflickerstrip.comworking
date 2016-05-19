@@ -1,6 +1,6 @@
 name: Flickerstrip
 titletagline: Bring your creativity to light
-companyname: Reflowster
+companyname: HOhmBody
 markdown: redcarpet
 kickstarterurl: https://www.flickerstrip.com
 highlighter: pygments
@@ -17,5 +17,5 @@ authors:
     gravatar: 300aa4fabf894a18d740058bbcad03e6
     email: julianh2o@gmail.com
     web: http://www.julianhartline.com/
-    twitter: reflowster
+    twitter: julianhartline
     github: julianh2o

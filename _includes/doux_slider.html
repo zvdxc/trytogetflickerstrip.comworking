@@ -1,0 +1,38 @@
+<!-- Slider Section -->
+<section id="MainSlider">
+    <!-- START REVOLUTION SLIDER 5.0 -->
+    <div class="rev_slider_wrapper">
+        <div id="slider-full" class="rev_slider" data-version="5.0">
+            <ul>
+                {% for item in page.slider %}
+                    <li data-index="rs-{{ forloop.index }}" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="{{ item.image }}" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ item.image }}" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+                        <!-- LAYERS -->
+                        <!-- LAYER NR. 1 -->
+                        <div class="tp-caption layer-text-big   tp-resizeme" id="slide-1-layer-1" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-75','-75','-75','-75']" data-fontsize="['75','70','60','50']" data-lineheight="['80','75','65','55']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1080;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; white-space: nowrap;text-align:left;">{{ item.header }}
+                        </div>
+                        <!-- LAYER NR. 2 -->
+                        <div class="tp-caption Devider   tp-resizeme" id="slide-1-layer-2" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['40','40','40','40']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:300;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1430" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 6; white-space: nowrap;">
+                            <div class="doux-icon-divider"></div>
+                        </div>
+                        <!-- LAYER NR. 3 -->
+                        <div class="tp-caption layer-text   tp-resizeme" id="slide-1-layer-3" data-x="['left','left','left','center']" data-hoffset="['70','90','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['100','100','100','100']" data-fontsize="['20','20','20','16']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1410;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-mask_in="x:0px;y:0px;" data-start="1720" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap; font-size: 20px;">{{ item.text }}
+                        </div>
+                        <!-- LAYER NR. 4 -->
+                        <div class="tp-caption scroll-icon" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['40','40','40','40']" data-whitespace="nowrap" data-transform_idle="o:1;" data-style_hover="cursor:pointer;" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:50px;opacity:0;s:1000;s:1000;" data-start="1300" data-splitin="none" data-splitout="none" data-basealign="slide" data-responsive_offset="on" data-responsive="on">
+                            <a class="liveonkickstarter" href="https://www.kickstarter.com/projects/hohmbody/flickerstrip-create-your-own-personal-light-show">
+                                Now live on <span>Kickstarter</span>
+                            </a>
+                            <span>Scroll Down</span>
+                            <a href="#AboutUs" class="navTo"><i class="icon icon-Mouse animated fadeInDown"></i></a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- END REVOLUTION SLIDER -->
+    </div>
+    <!-- END OF SLIDER WRAPPER -->
+</section>
+<!-- / Slider Section -->

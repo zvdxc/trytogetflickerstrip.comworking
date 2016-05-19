@@ -1,37 +1,37 @@
-<header class="pageHeader {% if page.header == "min" %}minimalHeader{% endif %}">
-    <div class="container">
-        <div class="flexdisplay">
-        	<div class="flexshrink">
-		    	<div class="header-logo">
-		    		<div class="logo">
-			    		<a href="/">
-				        	<img src="/resources/images/logo_no_outline.png" />
-			            </a>
-		            </div>
-		            <div class="logoText">
-		                <a class="title" href="/" >lickerstrip</a><span class="tm"></span>
-		                <span class="tag">Bring your creativity to light</span>
-	                </div>
-		        </div>
-	        </div>
-	        
-	        <div class="flexgrow"></div>
-	        
-            <div class="flexshrink">
-               	<div class="header-nav">
-			        {% if page.header != "min" %}
-						<div class="subscribe-form glow">
-							Coming soon to<br/>
-							<img style='height: 20px;' src="/resources/images/kickstarter-logo-dark.png" alt="Kickstarter"><br/>
-							<span style="position: relative; top: 9px;">Don't miss out, subscribe:</span>
-							{% include subscribeform.html %}
-						</div>
-					{% endif %}
-
-		            <!--{% include navigation.html %}-->
-		            <!--<a href="http://store.reflowster.com/products/reflowster" class="ordernow">Order Now</a>-->
-	            </div>
+<!-- Header -->
+<header class="mainHeader sticky">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-2 navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <i class="fa fa-navicon"></i>
+                </button>
+                <a href="#" class="navbar-brand logo">
+                     
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-10">
+                <div class="mainMenu navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+                    <!-- Social Icons -->
+                    <ul class="socialIcons hidden-sm hidden-xs">
+                        <li><a href="http://facebook.com/flickerstrip"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="http://twitter.com/twitter"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                    <!-- / Social Icons -->
+                    <!-- Navigation -->
+                    <nav id="mainMenu" class="navigation">
+                        <ul class="nav navbar-nav" role="tablist">
+                            <li class="active"><a href="#mainWrapper">Home</a></li>
+                            <li><a href="#AboutUs">About</a></li>
+                            <li><a href="#Features">Features</a></li>
+                            <li><a href="#Photos">Photos</a></li>
+                            <li><a href="#Footer">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <!-- / Navigation -->
+                </div>
             </div>
         </div>
     </div>
 </header>
+<!-- / Header -->
