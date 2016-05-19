@@ -12,9 +12,20 @@
         ========================================-->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Doux - Creative One Page HTML Template</title>
-    <meta name="description" content="Doux - Creative One-Page HTML Template">
-    <meta name="author" content="Habaza">
+
+    <title>{{ page.title }} | {{ site.titletagline }}</title>
+    <meta name="Description" content="{{ page.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="{{ site.url }}{{ page.fbimage | default:'/resources/images/FlickerstripFBShare.png' }}"/>
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ page.description }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="fb:app_id" content="{{ site.fb_appid }}"/>
+    <meta property="fb:admins" content="{{ site.fb_admins }}"/>
+    <link rel="icon" href="/resources/images/favicon_16.png" />
+    <link rel="me" href="https://twitter.com/flickerstrip">
+
     <!--===================================
         =            Mobile Meta            =
         ===================================-->
