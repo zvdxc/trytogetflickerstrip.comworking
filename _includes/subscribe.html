@@ -1,0 +1,53 @@
+<!-- Subscribe Section -->
+<section id="Subscribe">
+    <div class="container">
+        <div class="title txt-center">
+            <!-- Begin MailChimp Signup Form -->
+            Get notified when Flickerstrip is available
+            <br/>
+            <div id="mc_embed_signup" class="contact-form">
+                <form action="//reflowster.us8.list-manage.com/subscribe/post?u=ff96b7e65b1af044dc5a90dce&amp;id=d61b64d495" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                    <div id="mce-responses" class="clear">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <div class="emailrow">
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+                        <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="gold-btn">Subscribe</button>
+                    </div>
+                    <!--
+                    <div class="emailrow subscribetype">
+                        <div class="item">
+                            <input type="radio" value="Newsletter updates" name="TYPE" id="mce-TYPE-0" checked>
+                            <label for="mce-TYPE-0">
+                                <span>Newsletter</span>
+                            </label>
+                        </div>
+                        <div class="item">
+                            <input type="radio" value="One-time Kickstarter launch notification" name="TYPE" id="mce-TYPE-1">
+                            <label for="mce-TYPE-1">
+                                <span>Launch notification <b>only</b></span>
+                            </label>
+                        </div>
+                    </div>
+                    -->
+                    <div style="position: absolute; left: -5000px;"><input type="text" name="b_ff96b7e65b1af044dc5a90dce_d61b64d495" tabindex="-1" value=""></div>
+                </form>
+            </div>
+            <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+            <script type='text/javascript'>
+                $(document).ready(function() {
+                    $("#mc_embed_signup input[type='submit']").click(function() {
+                        fbq('track', 'CompleteRegistration', {
+                            content_name:"subscribe",
+                        });
+                        ga('send', 'event', 'goal', 'subscribe', 'EmailSubscription');
+                    });
+                });
+            </script>
+            <!--End mc_embed_signup-->
+        </div>
+    </div>
+</section>
+<!-- / Subscribe Section -->
+
