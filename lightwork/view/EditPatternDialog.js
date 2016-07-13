@@ -141,7 +141,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
     }
 
     $.extend(This.prototype, {
-        init:function(pattern) {
+        init:function(main,pattern) {
+            this.main = main;
             this.pattern = $.extend({},pattern);
 			this.widgets = [];
             this.$el = $("<div class='editPatternDialog'/>");
@@ -150,7 +151,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 var id = window.location.hash.substring(1);
                 $.get("lightworks.php?id="+id,_.bind(function(data) {
                     this.pattern = deserializePattern(data.body);
-                    console.log("deser",this.pattern);
 
                     var datastring = this.pattern.datastring;
                     delete this.pattern.datastring;
@@ -190,7 +190,11 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 e.preventDefault();
             },this));
 
+
             if (!this.pattern.name) this.pattern.name = "New Lightwork";
+            this.$el.find(".lightworkName").val(this.pattern.name).change(_.bind(function(e) {
+                this.pattern.name = $(e.target).val();
+            },this));
 
             this.$pretty = this.$el.find(".prettyRender");
             this.prettyRenderer = new PrettyRenderer();
@@ -301,7 +305,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                             var t;
                             var $modal = $(".queueModal");
                             function checkStatus() {
-                                console.log("checking status..");
                                 $.get("./mirror.php?check&id="+requestId)
                                     .done(function(body) {
                                         if (timeoutCount ++ > 20) clearInterval(t);
@@ -314,7 +317,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                                         $modal.find(".estimated").text(Math.ceil(res.estimated / 60)+" minute(s)");
                                         $modal.find(".link").empty().append($("<a href='"+url+"' target='_blank'>"+url+"</a>"));
 
-                                        console.log("got response status: ",res.status);
                                         if (res.status == "complete") {
                                             clearInterval(t);
                                             
@@ -343,11 +345,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             this.$el.find(".savePattern").click(_.bind(function(e) {
                 var target = e.target;
                 var pattern = this.pattern;
-                var name = prompt("Choose a name for your pattern: ",pattern.name);
-                if (!name) return;
-                pattern.name = name;
                 var b64 = serializePatternForDownload(pattern);
-                target.download=name+".pattern";
+                target.download=pattern.name+".pattern";
                 target.href="data:;base64,"+b64;
             },this));
 
@@ -369,6 +368,14 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                     addthis.update('share', 'title', "");
                     addthis.update('share', 'url', shareUrl);
                 });
+            },this));
+
+            this.$el.find(".saveLightwork").click(_.bind(function(e) {
+                e.preventDefault();
+
+                ga('send', 'event', 'activity', 'lightwork', 'SavePattern');
+
+                $(this.main).trigger("SavePattern",[this.pattern]);
             },this));
 
             if (localStorage.getItem("helpViewed") == "true") {
@@ -395,9 +402,7 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                         itop: parseInt(target.css("top")),
                         ileft: parseInt(target.css("left")),
                     };
-                    console.log("setting drag",drag);
                 } else if (e.type == "mousemove" && drag) {
-                    console.log("moving..");
                     target.css("left",(drag.ileft + x - drag.x)+"px");
                     target.css("top",(drag.itop + y - drag.y)+"px");
                 } else if (e.type == "mouseup") {
@@ -406,7 +411,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                     this.$el.find(".helpOverlay div").each(function() {
                         out += "."+$(this).get(0).className+" {top: "+$(this).css("top")+"; left:"+$(this).css("left")+"};\n";
                     });
-                    console.log(out);
                 }
             },this));
             */
@@ -460,14 +464,9 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                         throw "Invalid pattern file!";
                     }
                     var b64 = dataUrl.substring(preamble.length);
-                    this.pattern = deserializePatternForDownload(b64);
+                    var pattern = deserializePatternForDownload(b64);
 
-                    this.canvas = util.renderPattern(this.pattern.body,this.pattern.pixels,this.pattern.frames,null,null,false,false);
-                    this.editor.setImage(this.canvas);
-                    this.editor.setFps(this.pattern.fps);
-
-                    this.updateEditor();
-                    this.updatePattern();
+                    this.loadPattern(pattern);
                 },this));
             },this));
 
@@ -516,6 +515,18 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             this.pattern.body = util.canvasToBytes(this.canvas);
             this.updateRendered();
         },
+        loadPattern:function(pattern) {
+            this.pattern = pattern;
+
+            this.$el.find(".lightworkName").val(this.pattern.name)
+
+            this.canvas = util.renderPattern(this.pattern.pixelData,this.pattern.pixels,this.pattern.frames,null,null,false,false);
+            this.editor.setImage(this.canvas);
+            this.editor.setFps(this.pattern.fps);
+
+            this.updateEditor();
+            this.updatePattern();
+        },
         updateEditor:function() {
             this.$frames.val(this.pattern.frames);
             this.$pixels.val(this.pattern.pixels);
@@ -528,26 +539,13 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             $(this).trigger("Save",this.pattern);
         },
         updatePattern:function() {
-            if (this.pattern.type == "javascript") {
-                this.pattern.body = this.editor.getValue();
-            } else if (this.pattern.type == "bitmap") {
-                this.pattern.body = util.canvasToBytes(this.canvas,false);
-            }
-
-            /*
-            var serialized=serializePattern(this.pattern);
-            if (serialized.length <= 2000) {
-                window.location.hash = serialized;
-            } else {
-                window.location.hash = "";
-            }
-            */
+            this.pattern.body = util.canvasToBytes(this.canvas,false);
 
             this.updateRendered();
         },
         updateRendered:function() {
-            util.evaluatePattern(this.pattern);
-            this.stripRenderer.setPattern(this.pattern.rendered);
+            this.pattern.data = this.pattern.body;
+            this.stripRenderer.setPattern(this.pattern);
         },
         doUpdateDelay:function() {
             if (this.updateDelay) clearTimeout(this.updateDelay);

@@ -1,5 +1,5 @@
 ---
-layout: legacy
+layout: empty
 title: Lightwork Editor
 description: Edit, save, and share Flickerstrip lightworks using the intuitive graphical interface
 fbimage: /resources/images/LightworkDesignerFBShare.jpg
@@ -8,39 +8,22 @@ navigation:
 author: Julian Hartline
 custom_head: | 
     <link rel="stylesheet" href="./view/less/style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel='stylesheet' href='./view/lib/spectrum.css'>
     <script src="./view/lib/illuminated.js"></script>
     <script src="./main-built.js"></script>
-header: min
+addthis: false
 ---
 
+<div class="loginPanel"></div>
 <div class="row">
-    <div class="col-md-8">
-        <h3>Lightwork Editor</h3>
-        <p>
-            The lightwork editor lets you build your own lightworks to upload to Flickerstrip.
-            This web-based version allows you to edit works, but cannot upload them to your Flickerstrip due to browser security restrictions.
-            To upload patterns to your Flickerstrip, download the smartphone app or <a href="https://github.com/Flickerstrip/FlickerstripApp/releases">desktop application</a>.
-        </p>
-
-        <p>
-            <a href="https://www.youtube.com/watch?v=SN5VDPl2nCE" class="btn btn-success">Watch the video</a>
-            <br/>
-            <br/>
-            <a href="/lightwork/list.html">View lightworks that other users have submitted</a>
-        </p>
-        <br/>
-        <br/>
+    <div class="col-md-2">
+        <div class="lightworkBrowser"></div>
     </div>
-    <div class="col-md-4 gifsample">
-        <img src="">
-        <div>
-            View your pattern on the Flickerstrip infinity mirror. Click <i>"Generate GIF"</i> below.
-        </div>
+    <div class="col-md-10">
+        <div class="lightworkEditor"></div>
     </div>
 </div>
-
-<div class="lightworkEditor"></div>
 
 <div class="socialShare modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">

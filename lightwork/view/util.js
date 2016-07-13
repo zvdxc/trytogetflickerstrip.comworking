@@ -206,58 +206,6 @@ define(['jquery','underscore','tinycolor'],function($,_,tinycolor) {
             }
             return data;
         },
-        evaluatePattern:function(pattern,values) {
-            if (!pattern.type || pattern.type == "javascript") {
-                try {
-                    var evaluatedPattern = eval("("+pattern.body+")");
-                } catch (e) {
-					throw e;
-                    console.log("Error evaluating pattern",pattern.body);
-                }
-
-                var args = {};
-                if (evaluatedPattern.controls) {
-                    _.each(evaluatedPattern.controls,function(item) {
-                        args[item.id] = item.default; //TODO arg processing?
-                    });
-                }
-                $.extend(args,values)
-
-                var patternFunction = typeof(evaluatedPattern.pattern) === "function" ? evaluatedPattern.pattern(args) : evaluatedPattern.pattern;
-
-                var patternRenderFunction = patternFunction.render;
-
-                var fps = patternFunction.fps || pattern.fps;
-                var pixels = patternFunction.pixels || pattern.pixels;
-                var frames = patternFunction.frames || pattern.frames;
-
-                var pixelData = [];
-                for (var t=0;t<frames; t++) {
-                    for (var x=0;x<pixels; x++) {
-                        var result = patternRenderFunction.apply(evaluatedPattern,[x,t]);
-                        var c = new tinycolor(result).toRgb();
-                        pixelData.push(c.r,c.g,c.b);
-                    }
-                }
-
-                pattern.rendered = {
-                    fps:fps,
-                    frames:frames,
-                    pixels:pixels,
-                    args:args,
-                    controls:evaluatedPattern.controls,
-                    data:pixelData,
-                }
-            } else if (pattern.type == "bitmap") {
-                pattern.rendered = {
-                    fps:pattern.fps,
-                    frames:pattern.frames,
-                    pixels:pattern.pixels,
-                    data:pattern.body,
-                }
-            }
-            return pattern;
-        },
         getCursorPosition:function(canvas, event,marginLeft,marginTop) {
             var x, y;
 
@@ -267,6 +215,7 @@ define(['jquery','underscore','tinycolor'],function($,_,tinycolor) {
 				ex = event.clientX || (event.center && event.center.x) || (event.originalEvent.touches && event.originalEvent.touches[0].clientX);
 				ey = event.clientY || (event.center && event.center.y) || (event.originalEvent.touches && event.originalEvent.touches[0].clientY);
 			} catch(e) {
+                console.log("got error",e);
 				return null;
 			}
 					
@@ -274,6 +223,16 @@ define(['jquery','underscore','tinycolor'],function($,_,tinycolor) {
             y = ey + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
 
             return [x-marginLeft,y-marginTop];
+        },
+        bindClickEvent:function($el,fn) {
+            if ($el.length == 0) return;
+            if (platform == "mobile") {
+                $el.each(function() {
+                    new Hammer($(this).get(0)).on("tap",fn);
+                });
+            } else {
+				$el.click(fn);
+            }
         },
         openFileDialog:function($el,opts,cb) {
             var win = require('nw.gui').Window.get();
@@ -316,4 +275,5 @@ define(['jquery','underscore','tinycolor'],function($,_,tinycolor) {
 
     return This;
 });
+
 
