@@ -15,13 +15,14 @@ custom_head: |
 addthis: false
 ---
 
-<div class="loginPanel"></div>
-<div class="row">
-    <div class="col-md-2">
-        <div class="lightworkBrowser"></div>
+<div class="flexParent flexVertical mainContainer">
+    <div class="loginPanel flexShrink flexParent flexHorizontal"></div>
+    <div class="flexParent flexHorizontal flexStretch flexGrow editorMode">
+        <div class="flexShrink lightworkBrowser"></div>
+        <div class="flexGrow lightworkEditor"></div>
     </div>
-    <div class="col-md-10">
-        <div class="lightworkEditor"></div>
+    <div class="flexParent flexHorizontal flexStretch flexGrow browseMode">
+        <div class="lightworkRepository flexGrow"></div>
     </div>
 </div>
 

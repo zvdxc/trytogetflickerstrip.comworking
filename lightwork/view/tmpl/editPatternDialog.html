@@ -1,76 +1,66 @@
-<div class="patternEditor">
-    <div class="prettyRender" style="height: 100px;"></div>
-    <div class="patternPreview"></div>
-    <div class="buttonPanel">
-        <div>
-            <input type="text" class="lightworkName"></input>
-        </div>
-        <a class="saveLightwork btn btn-success btn-sm" href='#'>Save</a>
-        <a class="sharePattern btn btn-primary btn-sm" href='#'>Share Lightwork</a>
-        <a class="generateGif btn btn-success btn-sm" href='#'>Generate GIF</a>
+<div class="panel panel-default flexParent flexVertical">
+    <div class="panel-heading flexShrink">
+        <div class="buttonPanel">
+            <input type="text" class="lightworkName floatLeft"></input>
 
-        <!--
-        <a class="btn btn-success arduinoDownload btn-sm" href="#">Download as Arduino code</a>
-        <a class="btn btn-success imageDownload btn-sm" href="#">Download as image</a>
-        <a class="savePattern btn btn-success btn-sm" href='#'>Save</a>
+            <a class="publishLightwork btn btn-default btn-sm" href='#' title='Set this Lightwork to public so that others can view it, download it, and rate it'>Publish</a>
+            <a class="saveLightwork btn btn-success btn-sm" href='#' title='Save this lightwork, replacing the existing version'>Save</a>
+            <a class="sharePattern btn btn-primary btn-sm" title='Get a link to share this lightwork with others' href='#'>Share</a>
+            <a class="generateGif btn btn-success btn-sm" href='#' title='Generate a GIF to see what it looks like on a real Flickerstrip'>Generate GIF</a>
 
-        <div class="imageUpload btn btn-default file btn-sm"><input type="file">Import Image</div>
-        <div class="openPattern btn btn-default file btn-sm"><input type="file">Load</div>
-        -->
-
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Import.. <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="imageUpload file"><input type="file">Image</a>
-                </li>
-                <li>
-                    <a class="openPattern file"><input type="file">Pattern</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Download as.. <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="#" class='arduinoDownload'>Arduino code</a>
-                </li>
-                <li>
-                    <a href="#" class='imageDownload'>Image</a>
-                </li>
-                <li>
-                    <a href="#" class='savePattern'>Pattern</a>
-                </li>
-            </ul>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="imageUpload file"><input type="file">Import image</a>
+                    </li>
+                    <li>
+                        <a class="openPattern file"><input type="file">Import pattern</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a href="#" class='arduinoDownload'>Export Arduino code</a>
+                    </li>
+                    <li>
+                        <a href="#" class='imageDownload'>Export image</a>
+                    </li>
+                    <li>
+                        <a href="#" class='savePattern'>Export pattern</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="patternControls">
-        <div class="controls"></div>
-        <div class="right metricsPanel">
-            <label>FPS: <input type="number" class="fps" /></label>
-            <label>Frames: <input type="number" class="frames" /></label>
-            <label>Pixels: <input type="number" class="pixels" /></label>
+    <div class="panel-body flexGrow flexExpandContent">
+        <div class="patternEditor">
+            <!--<div class="prettyRender" style="height: 100px;"></div>-->
+            <div class="patternPreview"></div>
+            <div class="patternControls">
+                <div class="controls"></div>
+                <div class="right metricsPanel">
+                    <label>FPS: <input type="number" class="fps" /></label>
+                    <label>Frames: <input type="number" class="frames" /></label>
+                    <label>Pixels: <input type="number" class="pixels" /></label>
+                </div>
+            </div>
+            <div class="editorcontainer"></div>
+            <div class="helpIcon"><span class="glyphicon glyphicon-question-sign" /></div>
+            <div class="helpOverlay">
+                <div class="illuminate">A rendered version of part of the LED strip displays up here</div>
+                <div class="entirestrip"><span class="glyphicon glyphicon-arrow-down"></span>This bar shows a compact version of the entire 150 pixel strip</div>
+                <div class="timeexpanded">This area shows a "time expanded" view with the current frame highlighted</div>
+                <div class="colorpicker"><span class="glyphicon glyphicon-arrow-down"></span>Click to choose a fg/bg color from a picker</div>
+                <div class="palettehelp"><span class="glyphicon glyphicon-arrow-up"></span>This is the palette, left click to select the color, right click to use the color. (shift for bg color)</div>
+                <div class="metricshelp"><span class="glyphicon glyphicon-arrow-down"></span>Adjust the pattern metrics here</div>
+                <div class="downloadupload">Download/upload patterns to/from<span class="glyphicon glyphicon-arrow-up"></span><br/> your computer to load onto your Flickerstrip</div>
+                <div class="mainarea">Each pixel represents an LED on the strip, the ghosts are for lining up cycling patterns</div>
+                <div class="timeaxis">Time</div>
+                <div class="pixelsaxis">Pixels</div>
+                <div class="arrowkeys">Use the arrow keys to nudge the current color by lightness/hue</div>
+            </div>
         </div>
-    </div>
-    <div class="editorcontainer"></div>
-    <div class="helpIcon"><span class="glyphicon glyphicon-question-sign" /></div>
-    <div class="helpOverlay">
-        <div class="illuminate">A rendered version of part of the LED strip displays up here</div>
-        <div class="entirestrip"><span class="glyphicon glyphicon-arrow-down"></span>This bar shows a compact version of the entire 150 pixel strip</div>
-        <div class="timeexpanded">This area shows a "time expanded" view with the current frame highlighted</div>
-        <div class="colorpicker"><span class="glyphicon glyphicon-arrow-down"></span>Click to choose a fg/bg color from a picker</div>
-        <div class="palettehelp"><span class="glyphicon glyphicon-arrow-up"></span>This is the palette, left click to select the color, right click to use the color. (shift for bg color)</div>
-        <div class="metricshelp"><span class="glyphicon glyphicon-arrow-down"></span>Adjust the pattern metrics here</div>
-        <div class="downloadupload">Download/upload patterns to/from<span class="glyphicon glyphicon-arrow-up"></span><br/> your computer to load onto your Flickerstrip</div>
-        <div class="mainarea">Each pixel represents an LED on the strip, the ghosts are for lining up cycling patterns</div>
-        <div class="timeaxis">Time</div>
-        <div class="pixelsaxis">Pixels</div>
-        <div class="arrowkeys">Use the arrow keys to nudge the current color by lightness/hue</div>
     </div>
 </div>
+

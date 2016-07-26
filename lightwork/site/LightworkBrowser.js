@@ -1,5 +1,5 @@
-define(["jquery","site/Pattern.js","text!site/LightworkBrowser.html","bootstrap"],
-function($,Pattern,template) {
+define(["jquery","view/SelectList.js","site/Pattern.js","text!site/LightworkBrowser.html","bootstrap"],
+function($,SelectList,Pattern,template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
@@ -32,7 +32,7 @@ function($,Pattern,template) {
             this.$el = $("<div class='lightworkBrowser'/>");
             this.$el.html(template);
 
-            $(this.main.loginPanel).on("UserUpdated",_.bind(this.loadPatterns,this));
+            $(this.main.loginPanel).on("UserUpdated",_.bind(this.loadUserPatterns,this));
 
             $(this.main).on("SavePattern",_.bind(this.savePattern,this));
         },
@@ -53,7 +53,7 @@ function($,Pattern,template) {
                     url:this.main.host+"/pattern/"+pattern.id+"/update"
                 };
 
-                $.ajax(opt).done(_.bind(this.loadPatterns,this));
+                $.ajax(opt).done(_.bind(this.loadUserPatterns,this));
             } else {
                 var opt = {
                     type:"POST",
@@ -62,10 +62,27 @@ function($,Pattern,template) {
                     url:this.main.host+"/pattern/create",
                 };
 
-                $.ajax(opt).done(_.bind(this.loadPatterns,this));
+                $.ajax(opt).done(_.bind(this.loadUserPatterns,this));
             }
         },
-        loadPatterns:function() {
+        populateList:function(patterns) {
+            this.patternSelectList = new SelectList(patterns,this.patternOptionRenderer,{multiple:false});
+            this.$el.find(".lightworkList").empty().append(this.patternSelectList.$el);
+
+            $(this.patternSelectList).on("change",_.bind(this.patternSelected,this));
+        },
+        patternOptionRenderer:function(pattern,$el) {
+            if ($el) {
+                $el.find(".name").text(pattern.name);
+                $el.find(".published").toggle(pattern.published);
+            } else {
+                $el = $("<li class='list-group-item listElement' />");
+                $el.append($("<span class='name'></span>").text(pattern.name));
+                $el.append($("<span class='published glyphicon glyphicon-globe'></span>").toggle(pattern.published));
+            }
+            return $el;
+        },
+        loadUserPatterns:function() {
             var opt = {
                 type:"GET",
                 dataType:"json",
@@ -74,18 +91,13 @@ function($,Pattern,template) {
 
             $.ajax(opt).success(_.bind(function(patterns) {
                 var $lightworkList = this.$el.find(".lightworkList").empty();
-                _.each(patterns,_.bind(function(pattern) {
-                    var $el = $("<li class='list-group-item'></li>");
-                    $el.text(pattern.name);
-                    $el.click(_.bind(function() {
-                        this.loadLightwork(pattern);
-                    },this));
-
-                    $lightworkList.append($el);
-                },this));
+                this.populateList(patterns);
             },this));
         },
-        loadLightwork:function(pattern) {
+        patternSelected:function(e,selectedObjects,selectedIndexes) {
+            if (selectedObjects.length != 1) return;
+            var pattern = selectedObjects[0];
+
             var opt = {
                 type:"GET",
                 url:this.main.host+"/pattern/"+pattern.id,

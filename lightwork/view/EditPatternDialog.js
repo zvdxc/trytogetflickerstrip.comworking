@@ -197,11 +197,17 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             },this));
 
             this.$pretty = this.$el.find(".prettyRender");
-            this.prettyRenderer = new PrettyRenderer();
-            this.$pretty.empty().append(this.prettyRenderer.$el);
-            setTimeout(_.bind(function() {
-                this.prettyRenderer.resizeToParent();
-            },this),5);
+            if (this.$pretty.length) {
+                this.prettyRenderer = new PrettyRenderer();
+                this.$pretty.empty().append(this.prettyRenderer.$el);
+                setTimeout(_.bind(function() {
+                    this.prettyRenderer.resizeToParent();
+                },this),5);
+
+                $(this.stripRenderer).on("frame",_.bind(function(e,frameData) {
+                    this.prettyRenderer.setLightColors(frameData);
+                },this));
+            }
 
             this.$preview = this.$el.find(".patternPreview");
             this.stripRenderer = new LEDStripRenderer(150);
@@ -209,10 +215,6 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             setTimeout(_.bind(function() {
                 this.stripRenderer.resizeToParent();
             },this),5);
-
-            $(this.stripRenderer).on("frame",_.bind(function(e,frameData) {
-                this.prettyRenderer.setLightColors(frameData);
-            },this));
 
             $(window).on("resize",_.bind(function() {
                 this.stripRenderer.resizeToParent();
@@ -368,6 +370,16 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                     addthis.update('share', 'title', "");
                     addthis.update('share', 'url', shareUrl);
                 });
+            },this));
+
+            this.$el.find(".publishLightwork").click(_.bind(function(e) {
+                e.preventDefault();
+
+                ga('send', 'event', 'activity', 'lightwork', 'PublishLightwork');
+
+                this.pattern.published = !this.pattern.published;
+
+                $(this.main).trigger("SavePattern",[this.pattern]);
             },this));
 
             this.$el.find(".saveLightwork").click(_.bind(function(e) {

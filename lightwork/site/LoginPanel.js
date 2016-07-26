@@ -21,6 +21,12 @@ function($,template) {
               };
             });
 
+            if (this.main.editorActive) {
+                this.$el.find(".editorLink").addClass("active");
+            } else {
+                this.$el.find(".browseLink").addClass("active");
+            }
+
             this.refreshCurrentUser();
 
             var $loginModal = this.$el.find(".loginModal");
