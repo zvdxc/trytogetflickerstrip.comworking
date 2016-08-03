@@ -9,6 +9,11 @@ body:not(.loggedIn) .showloggedIn { display:none; }
     .browseMode { display: none; }
 }
 
+.loadingIndicator {
+    font-size: 120px;
+    color: white;
+}
+
 .mainContainer:not(.editorActive) {
     .editorMode { display: none; }
 }
@@ -38,8 +43,13 @@ body:not(.loggedIn) .showloggedIn { display:none; }
     }
 }
 
+.scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .lightworkBrowser {
-    width: 200px;
+    width: 250px;
     position: relative;
 }
 
@@ -48,8 +58,16 @@ body:not(.loggedIn) .showloggedIn { display:none; }
     min-height: 37px;
 }
 
+.marginRight {
+    margin-right: 3px;
+}
+
 .flexParent {
     .flex-display;
+}
+
+.flexAlignCenter {
+    .align-items(center);
 }
 
 .flexHorizontal {
@@ -91,6 +109,14 @@ body:not(.loggedIn) .showloggedIn { display:none; }
     margin: 0;
 }
 
+.moreLink {
+    text-align: center;
+    width: 100%;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
 .lightworks {
     >* {
         border: 1px solid #ccc;
@@ -100,7 +126,7 @@ body:not(.loggedIn) .showloggedIn { display:none; }
     }
 
     .left {
-        width: 150px;
+        width: 165px;
     }
 
     .middle {

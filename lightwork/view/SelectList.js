@@ -3,9 +3,24 @@ define(['jquery','view/util.js'],function($,util) {
         this.init.apply(this,arguments);
     }
 
+    jQuery.fn.insertAt = function(index, element) {
+        var lastIndex = this.children().size()
+        if (index < 0) {
+            index = Math.max(0, lastIndex + 1 + index)
+        }
+        this.append(element)
+        if (index < lastIndex) {
+            this.children().eq(index).before(this.children().last())
+        }
+        return this;
+    }
+
     $.extend(This.prototype, {
         defaultOpts:{
             multiple:true,
+            moreRenderer:function() {
+                return $("<a href='#'>more</a>");
+            }
         },
         init:function(data,renderer,rendererthis,opts,grouprenderer) {
             this.rendererthis = rendererthis;
@@ -19,6 +34,26 @@ define(['jquery','view/util.js'],function($,util) {
             this.renderer = renderer;
             this.grouprenderer = grouprenderer;
 
+            this.addElements(data);
+
+            this.$el.focus(_.bind(this.focused,this));
+            this.$el.blur(_.bind(this.blurred,this));
+            this.$el.keydown(_.bind(this.keyDown,this));
+        },
+        processPagination(data) {
+            if (data && data.results) {
+                this.pagination = data;
+                data = data.results;
+                delete(this.pagination.results);
+            } else {
+                this.pagination = null;
+            }
+
+            return data;
+        },
+        addElements:function(data) {
+            data = this.processPagination(data);
+
             var self = this;
             function addGroup(items,group) {
                 _.each(items,_.bind(function(value,index) {
@@ -27,6 +62,7 @@ define(['jquery','view/util.js'],function($,util) {
                     $el.data("index",index);
                     $el.data("object",value);
                     $el.data("group",group);
+                    this.addBehavior($el);
                     this.$el.append($el);
                 },self));
             }
@@ -39,18 +75,13 @@ define(['jquery','view/util.js'],function($,util) {
                 });
             }
             this.refreshGroupings();
-
-            this.addBehavior();
-
-            this.$el.focus(_.bind(this.focused,this));
-            this.$el.blur(_.bind(this.blurred,this));
-            this.$el.keydown(_.bind(this.keyDown,this));
         },
-        addElement:function(element,group) {
+        addElement:function(element,group,index) {
+            var index = index === undefined ?  this.$el.find(".listElement").length-1 : index;
             var $el = this.renderer.call(this.rendererthis,element);
-            this.$el.append($el);
+
+            this.$el.insertAt(index,$el);
             this.addBehavior($el);
-            var index = this.$el.find(".listElement").length-1;
             $el.data("index",index);
             $el.data("object",element);
             $el.data("group",group);
@@ -58,6 +89,8 @@ define(['jquery','view/util.js'],function($,util) {
             this.refreshGroupings();
         },
         refreshGroupings:function() {
+            this.$el.find(".moreLink").remove();
+
             var groupMap = {};
             groupMap[""] = [];
             this.$el.find(".listElement").each(function() {
@@ -95,6 +128,16 @@ define(['jquery','view/util.js'],function($,util) {
                     this.$el.append(item);
                 },this));
             },this));
+
+
+            if (this.pagination && this.pagination.page < this.pagination.totalPages-1) {
+                var $more = this.opts.moreRenderer();
+                $more.addClass("moreLink");
+                $more.click(_.bind(function() {
+                    $(this).trigger("MoreClicked",[this.pagination]);
+                },this));
+                this.$el.append($more);
+            }
         },
         updateElement:function(element) {
             var self = this;

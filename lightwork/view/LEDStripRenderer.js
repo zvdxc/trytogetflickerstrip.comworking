@@ -50,9 +50,11 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
 			this.running = true;
 
             $(document).on("visibilitychange",_.bind(function(e) {
-                if (document.hidden) {
+                if (document.hidden && this.running) {
+                    this.pausedForVisibility = true;
                     this.stop();
-                } else {
+                } else if (this.pausedForVisibility) {
+                    this.pausedForVisibility = false;
                     this.start();
                 }
             },this));
@@ -163,7 +165,7 @@ define(['jquery','tinycolor',"view/util.js"],function($,tinycolor,util) {
             var patternDuration = this.pattern.frames/this.pattern.fps;
             var renderDuration = patternDuration;
 
-            var loc = {x:padding.left,y:padding.top+ledHeight+5,width:usableWidth,height:50};
+            var loc = {x:padding.left,y:padding.top+ledHeight+8,width:usableWidth,height:50};
             g.fillStyle = "#000";
             g.fillRect(loc.x-1,loc.y-1,loc.width+2,loc.height+2);
 

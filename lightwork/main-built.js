@@ -435,7 +435,7 @@ define('text',['module'], function (module) {
 });
 
 
-define('text!site/Pagination.html',[],function () { return '<nav>\n  <ul class="pagination"></ul>\n</nav>\n';});
+define('text!site/Pagination.html',[],function () { return '<div class="btn-group sorting">\n    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n         <span class="currentSort"></span><span class="caret"></span>\n    </button>\n    <ul class="dropdown-menu sortTypes"> </ul>\n</div>\n\n<nav>\n  <ul class="pagination"></ul>\n</nav>\n';});
 
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
@@ -452,7 +452,7 @@ function($,template) {
         this.init.apply(this,arguments);
     }
     $.extend(This.prototype, {
-        init:function(results) {
+        init:function(results,sortTypes) {
             this.$el = $("<div class='paginationContainer'/>");
             this.$el.html(template);
 
@@ -465,6 +465,25 @@ function($,template) {
                     $(this).trigger("PageSelected",[$(e.target).closest("li").data("page")]);
                 },this));
                 $pagination.append($el);
+            }
+
+            var sorting = this.$el.find(".sorting").toggle(sortTypes != undefined);
+            if (sortTypes) {
+                var currentSorting = results.sortBy.split(" ");
+                sorting.find(".currentSort").text(sortTypes[currentSorting[0]].display);
+                var $sortTypes = sorting.find(".sortTypes");
+                _.each(sortTypes,_.bind(function(item,key) {
+                    var $el = $("<li><a href='#' class=''></a></li>");
+                    $el.data("sortBy",key);
+                    $el.data("ascending",key == currentSorting[0] ? currentSorting[1] == "DESC" : item.defaultAscending);
+                    $el.find("a").text(item.display).click(_.bind(function(e) {
+                        var sortBy = $(e.target).closest("li").data("sortBy");
+                        var ascending = $(e.target).closest("li").data("ascending");
+                        $(this).trigger("SortingUpdated",[sortBy,ascending]);
+                    },this));
+                    $sortTypes.append($el);
+                },this));
+                sorting.find("button").dropdown()
             }
         },
     });
@@ -3204,19 +3223,25 @@ define('view/util.js',['jquery','underscore','tinycolor'],function($,_,tinycolor
         canvasToBytes:function(canvas,transpose) {
             var ctx=canvas.getContext("2d");
             var data = ctx.getImageData(0,0,canvas.width,canvas.height);
-            var out = [];
+            var out = new Uint8Array(data.width*data.height*3);
             if (transpose) {
                 for (var x=0; x<data.width; x++) {
                     for (var y=0; y<data.height; y++) {
                         var pixel = This.getPixelFromImageData(data,x,y);
-                        out = out.concat(pixel);
+                        var index = 3*(x * data.height + y);
+                        out[index] = pixel[0];
+                        out[index+1] = pixel[1];
+                        out[index+2] = pixel[2];
                     }
                 }
             } else {
                 for (var y=0; y<data.height; y++) {
                     for (var x=0; x<data.width; x++) {
                         var pixel = This.getPixelFromImageData(data,x,y);
-                        out = out.concat(pixel);
+                        var index = 3*(y * data.width + x);
+                        out[index] = pixel[0];
+                        out[index+1] = pixel[1];
+                        out[index+2] = pixel[2];
                     }
                 }
             }
@@ -3388,9 +3413,11 @@ define('view/LEDStripRenderer.js',['jquery','tinycolor',"view/util.js"],function
 			this.running = true;
 
             $(document).on("visibilitychange",_.bind(function(e) {
-                if (document.hidden) {
+                if (document.hidden && this.running) {
+                    this.pausedForVisibility = true;
                     this.stop();
-                } else {
+                } else if (this.pausedForVisibility) {
+                    this.pausedForVisibility = false;
                     this.start();
                 }
             },this));
@@ -3501,7 +3528,7 @@ define('view/LEDStripRenderer.js',['jquery','tinycolor',"view/util.js"],function
             var patternDuration = this.pattern.frames/this.pattern.fps;
             var renderDuration = patternDuration;
 
-            var loc = {x:padding.left,y:padding.top+ledHeight+5,width:usableWidth,height:50};
+            var loc = {x:padding.left,y:padding.top+ledHeight+8,width:usableWidth,height:50};
             g.fillStyle = "#000";
             g.fillRect(loc.x-1,loc.y-1,loc.width+2,loc.height+2);
 
@@ -3628,19 +3655,36 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
+
+    var sortTypes = {
+        "createdAt":{
+            display:"recent",
+            defaultAscending:false,
+        },
+        "rating":{
+            display:"popular",
+            defaultAscending:false,
+        },
+        "name":{
+            display:"name",
+            defaultAscending:true,
+        },
+    }
+
     $.extend(This.prototype, {
         init:function(main) {
             this.main = main;
             this.$el = $("<div class='lightworkRepository'/>");
             this.$el.html(template);
             this.page = 0;
+            this.sortBy = [_.keys(sortTypes)[0],sortTypes[_.keys(sortTypes)[0]].defaultAscending ? "ASC" : "DESC"];
 
             $(this.main.loginPanel).on("UserUpdated",_.bind(this.refreshLightworks,this));
 
             this.refreshLightworks();
         },
         refreshLightworks:function() {
-            $.getJSON(this.main.host+"/pattern?includeData&page="+this.page).done(_.bind(function(data) {
+            $.getJSON(this.main.host+"/pattern?includeData&page="+this.page+"&sortBy="+this.sortBy.join(" ")).done(_.bind(function(data) {
                 var $lightworks = this.$el.find(".lightworks").empty();
                 _.each(data.results,_.bind(function(item) {
                     var renderer = new LEDStripRenderer(150);
@@ -3683,11 +3727,17 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
                 },this));
 
                 this.$el.find(".paginationContainer").each(_.bind(function(index,oldPaginationElement) {
-                    var pagination = new Pagination(data)
+                    var pagination = new Pagination(data,sortTypes)
                     $(pagination).on("PageSelected",_.bind(this.pageSelected,this));
+                    $(pagination).on("SortingUpdated",_.bind(this.sortingUpdated,this));
                     $(oldPaginationElement).replaceWith(pagination.$el);
                 },this));
             },this));
+        },
+        sortingUpdated:function(e,sortBy,ascending) {
+            console.log("sorting updated",sortBy,ascending);
+            this.sortBy = [sortBy,ascending ? "ASC" : "DESC"];
+            this.refreshLightworks();
         },
         pageSelected:function(e,page) {
             this.page = page;
@@ -6543,14 +6593,635 @@ define('view/CanvasPixelEditor',['jquery','tinycolor',"view/util.js", 'text!tmpl
 });
 
 
-define('text!tmpl/editPatternDialog.html',[],function () { return '<div class="panel panel-default flexParent flexVertical">\n    <div class="panel-heading flexShrink">\n        <div class="buttonPanel">\n            <input type="text" class="lightworkName floatLeft"></input>\n\n            <a class="publishLightwork btn btn-default btn-sm" href=\'#\' title=\'Set this Lightwork to public so that others can view it, download it, and rate it\'>Publish</a>\n            <a class="saveLightwork btn btn-success btn-sm" href=\'#\' title=\'Save this lightwork, replacing the existing version\'>Save</a>\n            <a class="sharePattern btn btn-primary btn-sm" title=\'Get a link to share this lightwork with others\' href=\'#\'>Share</a>\n            <a class="generateGif btn btn-success btn-sm" href=\'#\' title=\'Generate a GIF to see what it looks like on a real Flickerstrip\'>Generate GIF</a>\n\n            <div class="btn-group">\n                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n                     <span class="caret"></span>\n                </button>\n                <ul class="dropdown-menu dropdown-menu-right">\n                    <li>\n                        <a class="imageUpload file"><input type="file">Import image</a>\n                    </li>\n                    <li>\n                        <a class="openPattern file"><input type="file">Import pattern</a>\n                    </li>\n                    <li role="separator" class="divider"></li>\n                    <li>\n                        <a href="#" class=\'arduinoDownload\'>Export Arduino code</a>\n                    </li>\n                    <li>\n                        <a href="#" class=\'imageDownload\'>Export image</a>\n                    </li>\n                    <li>\n                        <a href="#" class=\'savePattern\'>Export pattern</a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n    <div class="panel-body flexGrow flexExpandContent">\n        <div class="patternEditor">\n            <!--<div class="prettyRender" style="height: 100px;"></div>-->\n            <div class="patternPreview"></div>\n            <div class="patternControls">\n                <div class="controls"></div>\n                <div class="right metricsPanel">\n                    <label>FPS: <input type="number" class="fps" /></label>\n                    <label>Frames: <input type="number" class="frames" /></label>\n                    <label>Pixels: <input type="number" class="pixels" /></label>\n                </div>\n            </div>\n            <div class="editorcontainer"></div>\n            <div class="helpIcon"><span class="glyphicon glyphicon-question-sign" /></div>\n            <div class="helpOverlay">\n                <div class="illuminate">A rendered version of part of the LED strip displays up here</div>\n                <div class="entirestrip"><span class="glyphicon glyphicon-arrow-down"></span>This bar shows a compact version of the entire 150 pixel strip</div>\n                <div class="timeexpanded">This area shows a "time expanded" view with the current frame highlighted</div>\n                <div class="colorpicker"><span class="glyphicon glyphicon-arrow-down"></span>Click to choose a fg/bg color from a picker</div>\n                <div class="palettehelp"><span class="glyphicon glyphicon-arrow-up"></span>This is the palette, left click to select the color, right click to use the color. (shift for bg color)</div>\n                <div class="metricshelp"><span class="glyphicon glyphicon-arrow-down"></span>Adjust the pattern metrics here</div>\n                <div class="downloadupload">Download/upload patterns to/from<span class="glyphicon glyphicon-arrow-up"></span><br/> your computer to load onto your Flickerstrip</div>\n                <div class="mainarea">Each pixel represents an LED on the strip, the ghosts are for lining up cycling patterns</div>\n                <div class="timeaxis">Time</div>\n                <div class="pixelsaxis">Pixels</div>\n                <div class="arrowkeys">Use the arrow keys to nudge the current color by lightness/hue</div>\n            </div>\n        </div>\n    </div>\n</div>\n\n';});
+define('text!tmpl/editPatternDialog.html',[],function () { return '<div class="panel panel-default flexParent flexVertical">\n    <div class="panel-heading flexShrink flexParent flexAlignCenter">\n        <input type="text" class="lightworkName flexShrink"></input>\n        <div class="spacer flexGrow"></div>\n\n        <a class="marginRight publishLightwork btn btn-default btn-sm" href=\'#\' title=\'Set this Lightwork to public so that others can view it, download it, and rate it\'>Publish</a>\n        <a class="marginRight saveLightwork btn btn-success btn-sm" href=\'#\' title=\'Save this lightwork, replacing the existing version\'>Save</a>\n        <a class="marginRight sharePattern btn btn-primary btn-sm" title=\'Get a link to share this lightwork with others\' href=\'#\'>Share</a>\n        <a class="marginRight generateGif btn btn-success btn-sm" href=\'#\' title=\'Generate a GIF to see what it looks like on a real Flickerstrip\'>Generate GIF</a>\n\n        <div class="btn-group">\n            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n                 <span class="caret"></span>\n            </button>\n            <ul class="dropdown-menu dropdown-menu-right">\n                <li>\n                    <a class="imageUpload file"><input type="file">Import image</a>\n                </li>\n                <li>\n                    <a class="openPattern file"><input type="file">Import pattern</a>\n                </li>\n                <li role="separator" class="divider"></li>\n                <li>\n                    <a href="#" class=\'arduinoDownload\'>Export Arduino code</a>\n                </li>\n                <li>\n                    <a href="#" class=\'imageDownload\'>Export image</a>\n                </li>\n                <li>\n                    <a href="#" class=\'savePattern\'>Export pattern</a>\n                </li>\n                <li role="separator" class="divider"></li>\n                <li>\n                    <a href="#" class=\'deleteLightwork\' title=\'Permanently delete this Lightwork\'>Delete Lightwork</a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div class="panel-body flexGrow flexExpandContent">\n        <div class="patternEditor">\n            <!--<div class="prettyRender" style="height: 100px;"></div>-->\n            <div class="patternPreview"></div>\n            <div class="patternControls">\n                <div class="controls"></div>\n                <div class="right metricsPanel">\n                    <label>FPS: <input type="number" class="fps" /></label>\n                    <label>Frames: <input type="number" class="frames" /></label>\n                    <label>Pixels: <input type="number" class="pixels" /></label>\n                </div>\n            </div>\n            <div class="editorcontainer"></div>\n            <div class="helpIcon"><span class="glyphicon glyphicon-question-sign" /></div>\n            <div class="helpOverlay">\n                <div class="illuminate">A rendered version of part of the LED strip displays up here</div>\n                <div class="entirestrip"><span class="glyphicon glyphicon-arrow-down"></span>This bar shows a compact version of the entire 150 pixel strip</div>\n                <div class="timeexpanded">This area shows a "time expanded" view with the current frame highlighted</div>\n                <div class="colorpicker"><span class="glyphicon glyphicon-arrow-down"></span>Click to choose a fg/bg color from a picker</div>\n                <div class="palettehelp"><span class="glyphicon glyphicon-arrow-up"></span>This is the palette, left click to select the color, right click to use the color. (shift for bg color)</div>\n                <div class="metricshelp"><span class="glyphicon glyphicon-arrow-down"></span>Adjust the pattern metrics here</div>\n                <div class="downloadupload">Download/upload patterns to/from<span class="glyphicon glyphicon-arrow-up"></span><br/> your computer to load onto your Flickerstrip</div>\n                <div class="mainarea">Each pixel represents an LED on the strip, the ghosts are for lining up cycling patterns</div>\n                <div class="timeaxis">Time</div>\n                <div class="pixelsaxis">Pixels</div>\n                <div class="arrowkeys">Use the arrow keys to nudge the current color by lightness/hue</div>\n            </div>\n        </div>\n    </div>\n</div>\n\n';});
 
-define('view/EditPatternDialog.js',["jquery","tinycolor","view/util.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","bootstrap"],
+/*!
+ * jQuery blockUI plugin
+ * Version 2.70.0-2014.11.23
+ * Requires jQuery v1.7 or later
+ *
+ * Examples at: http://malsup.com/jquery/block/
+ * Copyright (c) 2007-2013 M. Alsup
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ * Thanks to Amir-Hossein Sobhi for some excellent contributions!
+ */
+
+;(function() {
+/*jshint eqeqeq:false curly:false latedef:false */
+
+
+	function setup($) {
+		$.fn._fadeIn = $.fn.fadeIn;
+
+		var noOp = $.noop || function() {};
+
+		// this bit is to ensure we don't call setExpression when we shouldn't (with extra muscle to handle
+		// confusing userAgent strings on Vista)
+		var msie = /MSIE/.test(navigator.userAgent);
+		var ie6  = /MSIE 6.0/.test(navigator.userAgent) && ! /MSIE 8.0/.test(navigator.userAgent);
+		var mode = document.documentMode || 0;
+		var setExpr = $.isFunction( document.createElement('div').style.setExpression );
+
+		// global $ methods for blocking/unblocking the entire page
+		$.blockUI   = function(opts) { install(window, opts); };
+		$.unblockUI = function(opts) { remove(window, opts); };
+
+		// convenience method for quick growl-like notifications  (http://www.google.com/search?q=growl)
+		$.growlUI = function(title, message, timeout, onClose) {
+			var $m = $('<div class="growlUI"></div>');
+			if (title) $m.append('<h1>'+title+'</h1>');
+			if (message) $m.append('<h2>'+message+'</h2>');
+			if (timeout === undefined) timeout = 3000;
+
+			// Added by konapun: Set timeout to 30 seconds if this growl is moused over, like normal toast notifications
+			var callBlock = function(opts) {
+				opts = opts || {};
+
+				$.blockUI({
+					message: $m,
+					fadeIn : typeof opts.fadeIn  !== 'undefined' ? opts.fadeIn  : 700,
+					fadeOut: typeof opts.fadeOut !== 'undefined' ? opts.fadeOut : 1000,
+					timeout: typeof opts.timeout !== 'undefined' ? opts.timeout : timeout,
+					centerY: false,
+					showOverlay: false,
+					onUnblock: onClose,
+					css: $.blockUI.defaults.growlCSS
+				});
+			};
+
+			callBlock();
+			var nonmousedOpacity = $m.css('opacity');
+			$m.mouseover(function() {
+				callBlock({
+					fadeIn: 0,
+					timeout: 30000
+				});
+
+				var displayBlock = $('.blockMsg');
+				displayBlock.stop(); // cancel fadeout if it has started
+				displayBlock.fadeTo(300, 1); // make it easier to read the message by removing transparency
+			}).mouseout(function() {
+				$('.blockMsg').fadeOut(1000);
+			});
+			// End konapun additions
+		};
+
+		// plugin method for blocking element content
+		$.fn.block = function(opts) {
+			if ( this[0] === window ) {
+				$.blockUI( opts );
+				return this;
+			}
+			var fullOpts = $.extend({}, $.blockUI.defaults, opts || {});
+			this.each(function() {
+				var $el = $(this);
+				if (fullOpts.ignoreIfBlocked && $el.data('blockUI.isBlocked'))
+					return;
+				$el.unblock({ fadeOut: 0 });
+			});
+
+			return this.each(function() {
+				if ($.css(this,'position') == 'static') {
+					this.style.position = 'relative';
+					$(this).data('blockUI.static', true);
+				}
+				this.style.zoom = 1; // force 'hasLayout' in ie
+				install(this, opts);
+			});
+		};
+
+		// plugin method for unblocking element content
+		$.fn.unblock = function(opts) {
+			if ( this[0] === window ) {
+				$.unblockUI( opts );
+				return this;
+			}
+			return this.each(function() {
+				remove(this, opts);
+			});
+		};
+
+		$.blockUI.version = 2.70; // 2nd generation blocking at no extra cost!
+
+		// override these in your code to change the default behavior and style
+		$.blockUI.defaults = {
+			// message displayed when blocking (use null for no message)
+			message:  '<h1>Please wait...</h1>',
+
+			title: null,		// title string; only used when theme == true
+			draggable: true,	// only used when theme == true (requires jquery-ui.js to be loaded)
+
+			theme: false, // set to true to use with jQuery UI themes
+
+			// styles for the message when blocking; if you wish to disable
+			// these and use an external stylesheet then do this in your code:
+			// $.blockUI.defaults.css = {};
+			css: {
+				padding:	0,
+				margin:		0,
+				width:		'30%',
+				top:		'40%',
+				left:		'35%',
+				textAlign:	'center',
+				color:		'#000',
+				border:		'3px solid #aaa',
+				backgroundColor:'#fff',
+				cursor:		'wait'
+			},
+
+			// minimal style set used when themes are used
+			themedCSS: {
+				width:	'30%',
+				top:	'40%',
+				left:	'35%'
+			},
+
+			// styles for the overlay
+			overlayCSS:  {
+				backgroundColor:	'#000',
+				opacity:			0.6,
+				cursor:				'wait'
+			},
+
+			// style to replace wait cursor before unblocking to correct issue
+			// of lingering wait cursor
+			cursorReset: 'default',
+
+			// styles applied when using $.growlUI
+			growlCSS: {
+				width:		'350px',
+				top:		'10px',
+				left:		'',
+				right:		'10px',
+				border:		'none',
+				padding:	'5px',
+				opacity:	0.6,
+				cursor:		'default',
+				color:		'#fff',
+				backgroundColor: '#000',
+				'-webkit-border-radius':'10px',
+				'-moz-border-radius':	'10px',
+				'border-radius':		'10px'
+			},
+
+			// IE issues: 'about:blank' fails on HTTPS and javascript:false is s-l-o-w
+			// (hat tip to Jorge H. N. de Vasconcelos)
+			/*jshint scripturl:true */
+			iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank',
+
+			// force usage of iframe in non-IE browsers (handy for blocking applets)
+			forceIframe: false,
+
+			// z-index for the blocking overlay
+			baseZ: 1000,
+
+			// set these to true to have the message automatically centered
+			centerX: true, // <-- only effects element blocking (page block controlled via css above)
+			centerY: true,
+
+			// allow body element to be stetched in ie6; this makes blocking look better
+			// on "short" pages.  disable if you wish to prevent changes to the body height
+			allowBodyStretch: true,
+
+			// enable if you want key and mouse events to be disabled for content that is blocked
+			bindEvents: true,
+
+			// be default blockUI will supress tab navigation from leaving blocking content
+			// (if bindEvents is true)
+			constrainTabKey: true,
+
+			// fadeIn time in millis; set to 0 to disable fadeIn on block
+			fadeIn:  200,
+
+			// fadeOut time in millis; set to 0 to disable fadeOut on unblock
+			fadeOut:  400,
+
+			// time in millis to wait before auto-unblocking; set to 0 to disable auto-unblock
+			timeout: 0,
+
+			// disable if you don't want to show the overlay
+			showOverlay: true,
+
+			// if true, focus will be placed in the first available input field when
+			// page blocking
+			focusInput: true,
+
+            // elements that can receive focus
+            focusableElements: ':input:enabled:visible',
+
+			// suppresses the use of overlay styles on FF/Linux (due to performance issues with opacity)
+			// no longer needed in 2012
+			// applyPlatformOpacityRules: true,
+
+			// callback method invoked when fadeIn has completed and blocking message is visible
+			onBlock: null,
+
+			// callback method invoked when unblocking has completed; the callback is
+			// passed the element that has been unblocked (which is the window object for page
+			// blocks) and the options that were passed to the unblock call:
+			//	onUnblock(element, options)
+			onUnblock: null,
+
+			// callback method invoked when the overlay area is clicked.
+			// setting this will turn the cursor to a pointer, otherwise cursor defined in overlayCss will be used.
+			onOverlayClick: null,
+
+			// don't ask; if you really must know: http://groups.google.com/group/jquery-en/browse_thread/thread/36640a8730503595/2f6a79a77a78e493#2f6a79a77a78e493
+			quirksmodeOffsetHack: 4,
+
+			// class name of the message block
+			blockMsgClass: 'blockMsg',
+
+			// if it is already blocked, then ignore it (don't unblock and reblock)
+			ignoreIfBlocked: false
+		};
+
+		// private data and functions follow...
+
+		var pageBlock = null;
+		var pageBlockEls = [];
+
+		function install(el, opts) {
+			var css, themedCSS;
+			var full = (el == window);
+			var msg = (opts && opts.message !== undefined ? opts.message : undefined);
+			opts = $.extend({}, $.blockUI.defaults, opts || {});
+
+			if (opts.ignoreIfBlocked && $(el).data('blockUI.isBlocked'))
+				return;
+
+			opts.overlayCSS = $.extend({}, $.blockUI.defaults.overlayCSS, opts.overlayCSS || {});
+			css = $.extend({}, $.blockUI.defaults.css, opts.css || {});
+			if (opts.onOverlayClick)
+				opts.overlayCSS.cursor = 'pointer';
+
+			themedCSS = $.extend({}, $.blockUI.defaults.themedCSS, opts.themedCSS || {});
+			msg = msg === undefined ? opts.message : msg;
+
+			// remove the current block (if there is one)
+			if (full && pageBlock)
+				remove(window, {fadeOut:0});
+
+			// if an existing element is being used as the blocking content then we capture
+			// its current place in the DOM (and current display style) so we can restore
+			// it when we unblock
+			if (msg && typeof msg != 'string' && (msg.parentNode || msg.jquery)) {
+				var node = msg.jquery ? msg[0] : msg;
+				var data = {};
+				$(el).data('blockUI.history', data);
+				data.el = node;
+				data.parent = node.parentNode;
+				data.display = node.style.display;
+				data.position = node.style.position;
+				if (data.parent)
+					data.parent.removeChild(node);
+			}
+
+			$(el).data('blockUI.onUnblock', opts.onUnblock);
+			var z = opts.baseZ;
+
+			// blockUI uses 3 layers for blocking, for simplicity they are all used on every platform;
+			// layer1 is the iframe layer which is used to supress bleed through of underlying content
+			// layer2 is the overlay layer which has opacity and a wait cursor (by default)
+			// layer3 is the message content that is displayed while blocking
+			var lyr1, lyr2, lyr3, s;
+			if (msie || opts.forceIframe)
+				lyr1 = $('<iframe class="blockUI" style="z-index:'+ (z++) +';display:none;border:none;margin:0;padding:0;position:absolute;width:100%;height:100%;top:0;left:0" src="'+opts.iframeSrc+'"></iframe>');
+			else
+				lyr1 = $('<div class="blockUI" style="display:none"></div>');
+
+			if (opts.theme)
+				lyr2 = $('<div class="blockUI blockOverlay ui-widget-overlay" style="z-index:'+ (z++) +';display:none"></div>');
+			else
+				lyr2 = $('<div class="blockUI blockOverlay" style="z-index:'+ (z++) +';display:none;border:none;margin:0;padding:0;width:100%;height:100%;top:0;left:0"></div>');
+
+			if (opts.theme && full) {
+				s = '<div class="blockUI ' + opts.blockMsgClass + ' blockPage ui-dialog ui-widget ui-corner-all" style="z-index:'+(z+10)+';display:none;position:fixed">';
+				if ( opts.title ) {
+					s += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">'+(opts.title || '&nbsp;')+'</div>';
+				}
+				s += '<div class="ui-widget-content ui-dialog-content"></div>';
+				s += '</div>';
+			}
+			else if (opts.theme) {
+				s = '<div class="blockUI ' + opts.blockMsgClass + ' blockElement ui-dialog ui-widget ui-corner-all" style="z-index:'+(z+10)+';display:none;position:absolute">';
+				if ( opts.title ) {
+					s += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">'+(opts.title || '&nbsp;')+'</div>';
+				}
+				s += '<div class="ui-widget-content ui-dialog-content"></div>';
+				s += '</div>';
+			}
+			else if (full) {
+				s = '<div class="blockUI ' + opts.blockMsgClass + ' blockPage" style="z-index:'+(z+10)+';display:none;position:fixed"></div>';
+			}
+			else {
+				s = '<div class="blockUI ' + opts.blockMsgClass + ' blockElement" style="z-index:'+(z+10)+';display:none;position:absolute"></div>';
+			}
+			lyr3 = $(s);
+
+			// if we have a message, style it
+			if (msg) {
+				if (opts.theme) {
+					lyr3.css(themedCSS);
+					lyr3.addClass('ui-widget-content');
+				}
+				else
+					lyr3.css(css);
+			}
+
+			// style the overlay
+			if (!opts.theme /*&& (!opts.applyPlatformOpacityRules)*/)
+				lyr2.css(opts.overlayCSS);
+			lyr2.css('position', full ? 'fixed' : 'absolute');
+
+			// make iframe layer transparent in IE
+			if (msie || opts.forceIframe)
+				lyr1.css('opacity',0.0);
+
+			//$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
+			var layers = [lyr1,lyr2,lyr3], $par = full ? $('body') : $(el);
+			$.each(layers, function() {
+				this.appendTo($par);
+			});
+
+			if (opts.theme && opts.draggable && $.fn.draggable) {
+				lyr3.draggable({
+					handle: '.ui-dialog-titlebar',
+					cancel: 'li'
+				});
+			}
+
+			// ie7 must use absolute positioning in quirks mode and to account for activex issues (when scrolling)
+			var expr = setExpr && (!$.support.boxModel || $('object,embed', full ? null : el).length > 0);
+			if (ie6 || expr) {
+				// give body 100% height
+				if (full && opts.allowBodyStretch && $.support.boxModel)
+					$('html,body').css('height','100%');
+
+				// fix ie6 issue when blocked element has a border width
+				if ((ie6 || !$.support.boxModel) && !full) {
+					var t = sz(el,'borderTopWidth'), l = sz(el,'borderLeftWidth');
+					var fixT = t ? '(0 - '+t+')' : 0;
+					var fixL = l ? '(0 - '+l+')' : 0;
+				}
+
+				// simulate fixed position
+				$.each(layers, function(i,o) {
+					var s = o[0].style;
+					s.position = 'absolute';
+					if (i < 2) {
+						if (full)
+							s.setExpression('height','Math.max(document.body.scrollHeight, document.body.offsetHeight) - (jQuery.support.boxModel?0:'+opts.quirksmodeOffsetHack+') + "px"');
+						else
+							s.setExpression('height','this.parentNode.offsetHeight + "px"');
+						if (full)
+							s.setExpression('width','jQuery.support.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
+						else
+							s.setExpression('width','this.parentNode.offsetWidth + "px"');
+						if (fixL) s.setExpression('left', fixL);
+						if (fixT) s.setExpression('top', fixT);
+					}
+					else if (opts.centerY) {
+						if (full) s.setExpression('top','(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (blah = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+						s.marginTop = 0;
+					}
+					else if (!opts.centerY && full) {
+						var top = (opts.css && opts.css.top) ? parseInt(opts.css.top, 10) : 0;
+						var expression = '((document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + '+top+') + "px"';
+						s.setExpression('top',expression);
+					}
+				});
+			}
+
+			// show the message
+			if (msg) {
+				if (opts.theme)
+					lyr3.find('.ui-widget-content').append(msg);
+				else
+					lyr3.append(msg);
+				if (msg.jquery || msg.nodeType)
+					$(msg).show();
+			}
+
+			if ((msie || opts.forceIframe) && opts.showOverlay)
+				lyr1.show(); // opacity is zero
+			if (opts.fadeIn) {
+				var cb = opts.onBlock ? opts.onBlock : noOp;
+				var cb1 = (opts.showOverlay && !msg) ? cb : noOp;
+				var cb2 = msg ? cb : noOp;
+				if (opts.showOverlay)
+					lyr2._fadeIn(opts.fadeIn, cb1);
+				if (msg)
+					lyr3._fadeIn(opts.fadeIn, cb2);
+			}
+			else {
+				if (opts.showOverlay)
+					lyr2.show();
+				if (msg)
+					lyr3.show();
+				if (opts.onBlock)
+					opts.onBlock.bind(lyr3)();
+			}
+
+			// bind key and mouse events
+			bind(1, el, opts);
+
+			if (full) {
+				pageBlock = lyr3[0];
+				pageBlockEls = $(opts.focusableElements,pageBlock);
+				if (opts.focusInput)
+					setTimeout(focus, 20);
+			}
+			else
+				center(lyr3[0], opts.centerX, opts.centerY);
+
+			if (opts.timeout) {
+				// auto-unblock
+				var to = setTimeout(function() {
+					if (full)
+						$.unblockUI(opts);
+					else
+						$(el).unblock(opts);
+				}, opts.timeout);
+				$(el).data('blockUI.timeout', to);
+			}
+		}
+
+		// remove the block
+		function remove(el, opts) {
+			var count;
+			var full = (el == window);
+			var $el = $(el);
+			var data = $el.data('blockUI.history');
+			var to = $el.data('blockUI.timeout');
+			if (to) {
+				clearTimeout(to);
+				$el.removeData('blockUI.timeout');
+			}
+			opts = $.extend({}, $.blockUI.defaults, opts || {});
+			bind(0, el, opts); // unbind events
+
+			if (opts.onUnblock === null) {
+				opts.onUnblock = $el.data('blockUI.onUnblock');
+				$el.removeData('blockUI.onUnblock');
+			}
+
+			var els;
+			if (full) // crazy selector to handle odd field errors in ie6/7
+				els = $('body').children().filter('.blockUI').add('body > .blockUI');
+			else
+				els = $el.find('>.blockUI');
+
+			// fix cursor issue
+			if ( opts.cursorReset ) {
+				if ( els.length > 1 )
+					els[1].style.cursor = opts.cursorReset;
+				if ( els.length > 2 )
+					els[2].style.cursor = opts.cursorReset;
+			}
+
+			if (full)
+				pageBlock = pageBlockEls = null;
+
+			if (opts.fadeOut) {
+				count = els.length;
+				els.stop().fadeOut(opts.fadeOut, function() {
+					if ( --count === 0)
+						reset(els,data,opts,el);
+				});
+			}
+			else
+				reset(els, data, opts, el);
+		}
+
+		// move blocking element back into the DOM where it started
+		function reset(els,data,opts,el) {
+			var $el = $(el);
+			if ( $el.data('blockUI.isBlocked') )
+				return;
+
+			els.each(function(i,o) {
+				// remove via DOM calls so we don't lose event handlers
+				if (this.parentNode)
+					this.parentNode.removeChild(this);
+			});
+
+			if (data && data.el) {
+				data.el.style.display = data.display;
+				data.el.style.position = data.position;
+				data.el.style.cursor = 'default'; // #59
+				if (data.parent)
+					data.parent.appendChild(data.el);
+				$el.removeData('blockUI.history');
+			}
+
+			if ($el.data('blockUI.static')) {
+				$el.css('position', 'static'); // #22
+			}
+
+			if (typeof opts.onUnblock == 'function')
+				opts.onUnblock(el,opts);
+
+			// fix issue in Safari 6 where block artifacts remain until reflow
+			var body = $(document.body), w = body.width(), cssW = body[0].style.width;
+			body.width(w-1).width(w);
+			body[0].style.width = cssW;
+		}
+
+		// bind/unbind the handler
+		function bind(b, el, opts) {
+			var full = el == window, $el = $(el);
+
+			// don't bother unbinding if there is nothing to unbind
+			if (!b && (full && !pageBlock || !full && !$el.data('blockUI.isBlocked')))
+				return;
+
+			$el.data('blockUI.isBlocked', b);
+
+			// don't bind events when overlay is not in use or if bindEvents is false
+			if (!full || !opts.bindEvents || (b && !opts.showOverlay))
+				return;
+
+			// bind anchors and inputs for mouse and key events
+			var events = 'mousedown mouseup keydown keypress keyup touchstart touchend touchmove';
+			if (b)
+				$(document).bind(events, opts, handler);
+			else
+				$(document).unbind(events, handler);
+
+		// former impl...
+		//		var $e = $('a,:input');
+		//		b ? $e.bind(events, opts, handler) : $e.unbind(events, handler);
+		}
+
+		// event handler to suppress keyboard/mouse events when blocking
+		function handler(e) {
+			// allow tab navigation (conditionally)
+			if (e.type === 'keydown' && e.keyCode && e.keyCode == 9) {
+				if (pageBlock && e.data.constrainTabKey) {
+					var els = pageBlockEls;
+					var fwd = !e.shiftKey && e.target === els[els.length-1];
+					var back = e.shiftKey && e.target === els[0];
+					if (fwd || back) {
+						setTimeout(function(){focus(back);},10);
+						return false;
+					}
+				}
+			}
+			var opts = e.data;
+			var target = $(e.target);
+			if (target.hasClass('blockOverlay') && opts.onOverlayClick)
+				opts.onOverlayClick(e);
+
+			// allow events within the message content
+			if (target.parents('div.' + opts.blockMsgClass).length > 0)
+				return true;
+
+			// allow events for content that is not being blocked
+			return target.parents().children().filter('div.blockUI').length === 0;
+		}
+
+		function focus(back) {
+			if (!pageBlockEls)
+				return;
+			var e = pageBlockEls[back===true ? pageBlockEls.length-1 : 0];
+			if (e)
+				e.focus();
+		}
+
+		function center(el, x, y) {
+			var p = el.parentNode, s = el.style;
+			var l = ((p.offsetWidth - el.offsetWidth)/2) - sz(p,'borderLeftWidth');
+			var t = ((p.offsetHeight - el.offsetHeight)/2) - sz(p,'borderTopWidth');
+			if (x) s.left = l > 0 ? (l+'px') : '0';
+			if (y) s.top  = t > 0 ? (t+'px') : '0';
+		}
+
+		function sz(el, p) {
+			return parseInt($.css(el,p),10)||0;
+		}
+
+	}
+
+
+	/*global define:true */
+	if (typeof define === 'function' && define.amd && define.amd.jQuery) {
+		define('jquery.blockUI',['jquery'], setup);
+	} else {
+		setup(jQuery);
+	}
+
+})();
+
+define('view/EditPatternDialog.js',["jquery","tinycolor","view/util.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
 function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desktop_template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
-    
+
     var defaultBody = '({\n\tcontrols:[\n\t\t{name: "Repetitions",id:"num",type:"numeric",default:"3"}\n\t],\n\tpattern:function(args) {\n\t\tthis.pixels=150;\n\t\tthis.frames=150;\n\t\tthis.fps=30;\n\t\tthis.render=function(x,t) {\n\t\t\tvar v = 360* ((x+t) % (this.pixels/parseInt(args.num)))/(this.pixels/parseInt(args.num))\n\t\t\treturn {h:v,s:100,v:100};\n\t\t}\n\t\treturn this;\n\t}\n})\n';
 
     var defaultPixelPattern = {
@@ -6919,12 +7590,24 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 });
             },this));
 
+            this.$el.find(".deleteLightwork").click(_.bind(function(e) {
+                e.preventDefault();
+
+                var yes = confirm("Do you really want to Permanently delete "+this.pattern.name);
+                if (!yes) return;
+
+                ga('send', 'event', 'activity', 'lightwork', 'DeleteLightwork');
+
+                $(this.main).trigger("DeleteLightwork",[this.pattern]);
+            },this));
+
             this.$el.find(".publishLightwork").click(_.bind(function(e) {
                 e.preventDefault();
 
                 ga('send', 'event', 'activity', 'lightwork', 'PublishLightwork');
 
                 this.pattern.published = !this.pattern.published;
+                this.$el.find(".publishLightwork").text(this.pattern.published ? "Unpublish" : "Publish");
 
                 $(this.main).trigger("SavePattern",[this.pattern]);
             },this));
@@ -7078,6 +7761,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             this.pattern = pattern;
 
             this.$el.find(".lightworkName").val(this.pattern.name)
+            this.$el.find(".publishLightwork").text(this.pattern.published ? "Unpublish" : "Publish");
+            this.$el.find(".deleteLightwork").toggle(this.pattern.id !== undefined);
 
             this.canvas = util.renderPattern(this.pattern.pixelData,this.pattern.pixels,this.pattern.frames,null,null,false,false);
             this.editor.setImage(this.canvas);
@@ -7241,9 +7926,24 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
         this.init.apply(this,arguments);
     }
 
+    jQuery.fn.insertAt = function(index, element) {
+        var lastIndex = this.children().size()
+        if (index < 0) {
+            index = Math.max(0, lastIndex + 1 + index)
+        }
+        this.append(element)
+        if (index < lastIndex) {
+            this.children().eq(index).before(this.children().last())
+        }
+        return this;
+    }
+
     $.extend(This.prototype, {
         defaultOpts:{
             multiple:true,
+            moreRenderer:function() {
+                return $("<a href='#'>more</a>");
+            }
         },
         init:function(data,renderer,rendererthis,opts,grouprenderer) {
             this.rendererthis = rendererthis;
@@ -7257,6 +7957,26 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
             this.renderer = renderer;
             this.grouprenderer = grouprenderer;
 
+            this.addElements(data);
+
+            this.$el.focus(_.bind(this.focused,this));
+            this.$el.blur(_.bind(this.blurred,this));
+            this.$el.keydown(_.bind(this.keyDown,this));
+        },
+        processPagination(data) {
+            if (data && data.results) {
+                this.pagination = data;
+                data = data.results;
+                delete(this.pagination.results);
+            } else {
+                this.pagination = null;
+            }
+
+            return data;
+        },
+        addElements:function(data) {
+            data = this.processPagination(data);
+
             var self = this;
             function addGroup(items,group) {
                 _.each(items,_.bind(function(value,index) {
@@ -7265,6 +7985,7 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
                     $el.data("index",index);
                     $el.data("object",value);
                     $el.data("group",group);
+                    this.addBehavior($el);
                     this.$el.append($el);
                 },self));
             }
@@ -7277,18 +7998,13 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
                 });
             }
             this.refreshGroupings();
-
-            this.addBehavior();
-
-            this.$el.focus(_.bind(this.focused,this));
-            this.$el.blur(_.bind(this.blurred,this));
-            this.$el.keydown(_.bind(this.keyDown,this));
         },
-        addElement:function(element,group) {
+        addElement:function(element,group,index) {
+            var index = index === undefined ?  this.$el.find(".listElement").length-1 : index;
             var $el = this.renderer.call(this.rendererthis,element);
-            this.$el.append($el);
+
+            this.$el.insertAt(index,$el);
             this.addBehavior($el);
-            var index = this.$el.find(".listElement").length-1;
             $el.data("index",index);
             $el.data("object",element);
             $el.data("group",group);
@@ -7296,6 +8012,8 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
             this.refreshGroupings();
         },
         refreshGroupings:function() {
+            this.$el.find(".moreLink").remove();
+
             var groupMap = {};
             groupMap[""] = [];
             this.$el.find(".listElement").each(function() {
@@ -7333,6 +8051,16 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
                     this.$el.append(item);
                 },this));
             },this));
+
+
+            if (this.pagination && this.pagination.page < this.pagination.totalPages-1) {
+                var $more = this.opts.moreRenderer();
+                $more.addClass("moreLink");
+                $more.click(_.bind(function() {
+                    $(this).trigger("MoreClicked",[this.pagination]);
+                },this));
+                this.$el.append($more);
+            }
         },
         updateElement:function(element) {
             var self = this;
@@ -7489,13 +8217,18 @@ define('view/SelectList.js',['jquery','view/util.js'],function($,util) {
 });
 
 
-define('text!site/LightworkBrowser.html',[],function () { return '<div class="panel panel-default">\n    <div class="panel-heading">\n        <h3 class="panel-title">Lightworks</h3>\n\n        <button class="newLightwork btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></button>\n\n        <div class="clearfix"></div>\n    </div>\n    <div class="panel-body showloggedOut">\n        The Lightwork browser lets you save your lightworks and share them with others, please login or register to use the Lightwork browser.\n    </div>\n    <div class="panel-body showloggedIn">\n        <div class="lightworkList"></div>\n    </div>\n</div>\n';});
+define('text!site/LightworkBrowser.html',[],function () { return '<div class="panel panel-default flexParent flexVertical">\n    <div class="panel-heading flexShrink flexParent flexAlignCenter">\n        <h3 class="panel-title flexShrink">Lightworks</h3>\n\n        <button class="newLightwork btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></button>\n\n        <div class="clearfix"></div>\n    </div>\n    <div class="panel-body showloggedOut flexGrow flexExpandContent">\n        The Lightwork browser lets you save your lightworks and share them with others, please login or register to use the Lightwork browser.\n    </div>\n    <div class="panel-body showloggedIn flexGrow flexExpandContent">\n        <div class="lightworkList flexExpandContent"></div>\n    </div>\n</div>\n';});
 
-define('site/LightworkBrowser.js',["jquery","view/SelectList.js","site/Pattern.js","text!site/LightworkBrowser.html","bootstrap"],
+define('site/LightworkBrowser.js',["jquery","view/SelectList.js","site/Pattern.js","text!site/LightworkBrowser.html","bootstrap","jquery.blockUI"],
 function($,SelectList,Pattern,template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
+
+    $.blockUI.defaults.message = "<div class='loadingIndicator'><span class='glyphicon glyphicon-repeat spinning'></span></div>";
+    delete $.blockUI.defaults.css.border;
+    delete $.blockUI.defaults.css.backgroundColor;
+    $.blockUI.defaults.fadeIn = 0;
 
     function deserializePatternForDownload(b64) {
         var content = atob(b64);
@@ -7525,9 +8258,25 @@ function($,SelectList,Pattern,template) {
             this.$el = $("<div class='lightworkBrowser'/>");
             this.$el.html(template);
 
-            $(this.main.loginPanel).on("UserUpdated",_.bind(this.loadUserPatterns,this));
+            $(this.main.loginPanel).on("UserUpdated",_.bind(this.reloadUserPatterns,this));
 
             $(this.main).on("SavePattern",_.bind(this.savePattern,this));
+            $(this.main).on("DeleteLightwork",_.bind(this.deleteLightwork,this));
+        },
+        deleteLightwork:function(e,pattern) {
+            var opt = {
+                type:"POST",
+                contentType: "application/json; charset=utf-8",
+                url:this.main.host+"/pattern/"+pattern.id+"/delete"
+            };
+
+            $.ajax(opt).done(_.bind(function() {
+                this.patternSelectList.each(_.bind(function(obj,$el) {
+                    if (obj.id == pattern.id) {
+                        $el.remove();
+                    }
+                },this));
+            },this));
         },
         savePattern:function(e,pattern) {
             var patternObject = new Pattern();
@@ -7546,7 +8295,14 @@ function($,SelectList,Pattern,template) {
                     url:this.main.host+"/pattern/"+pattern.id+"/update"
                 };
 
-                $.ajax(opt).done(_.bind(this.loadUserPatterns,this));
+                $.ajax(opt).done(_.bind(function(dbPattern) {
+                    this.patternSelectList.each(_.bind(function(obj,$el) {
+                        if (obj.id == pattern.id) {
+                            _.extend(obj,pattern);
+                            this.patternSelectList.updateElement(obj);
+                        }
+                    },this));
+                },this));
             } else {
                 var opt = {
                     type:"POST",
@@ -7555,14 +8311,25 @@ function($,SelectList,Pattern,template) {
                     url:this.main.host+"/pattern/create",
                 };
 
-                $.ajax(opt).done(_.bind(this.loadUserPatterns,this));
+                $.ajax(opt).done(_.bind(function(pattern) {
+                    this.patternSelectList.addElement(pattern,null,0);
+                },this));
             }
         },
-        populateList:function(patterns) {
-            this.patternSelectList = new SelectList(patterns,this.patternOptionRenderer,{multiple:false});
-            this.$el.find(".lightworkList").empty().append(this.patternSelectList.$el);
+        populateList:function(patterns,append) {
+            if (append) {
+                this.patternSelectList.addElements(patterns);
+            } else {
+                var $lightworkList = this.$el.find(".lightworkList").empty();
+                this.patternSelectList = new SelectList(patterns,this.patternOptionRenderer,{multiple:false});
+                this.$el.find(".lightworkList").empty().append(this.patternSelectList.$el);
 
-            $(this.patternSelectList).on("change",_.bind(this.patternSelected,this));
+                $(this.patternSelectList).on("change",_.bind(this.patternSelected,this));
+                $(this.patternSelectList).on("MoreClicked",_.bind(this.loadMore,this));
+            }
+        },
+        loadMore:function(e,pagination) {
+            this.loadUserPatterns(pagination.page+1,true);
         },
         patternOptionRenderer:function(pattern,$el) {
             if ($el) {
@@ -7571,39 +8338,51 @@ function($,SelectList,Pattern,template) {
             } else {
                 $el = $("<li class='list-group-item listElement' />");
                 $el.append($("<span class='name'></span>").text(pattern.name));
-                $el.append($("<span class='published glyphicon glyphicon-globe'></span>").toggle(pattern.published));
+                $el.append($("<span class='published glyphicon glyphicon-globe'></span>").toggle(pattern.published === true));
             }
             return $el;
         },
-        loadUserPatterns:function() {
+        reloadUserPatterns:function() {
+            this.loadUserPatterns();
+        },
+        loadUserPatterns:function(page,append) {
+            page = page || 0;
             var opt = {
                 type:"GET",
                 dataType:"json",
-                url:this.main.host+"/user/"+this.main.loginPanel.currentUser.id+"/patterns",
+                url:this.main.host+"/user/"+this.main.loginPanel.currentUser.id+"/patterns?size=20&page="+page,
             };
 
-            $.ajax(opt).success(_.bind(function(patterns) {
-                var $lightworkList = this.$el.find(".lightworkList").empty();
-                this.populateList(patterns);
+            if (this.main.loginPanel.currentUser.email == "admin@hohmbody.com") {
+                opt.url = this.main.host+"/pattern?all&size=20&page="+page;
+            }
+
+            $.ajax(opt).success(_.bind(function(json) {
+                this.populateList(json,append);
             },this));
         },
         patternSelected:function(e,selectedObjects,selectedIndexes) {
+            $.blockUI();
+    
             if (selectedObjects.length != 1) return;
             var pattern = selectedObjects[0];
 
-            var opt = {
-                type:"GET",
-                url:this.main.host+"/pattern/"+pattern.id,
-                dataType:"text",
-            };
+            setTimeout(_.bind(function() {
+                var opt = {
+                    type:"GET",
+                    url:this.main.host+"/pattern/"+pattern.id,
+                    dataType:"text",
+                };
 
-            $.ajax(opt).success(_.bind(function(jsonString) {
-                var pattern = new Pattern();
-                pattern.deserializeFromJSON(jsonString);
+                $.ajax(opt).success(_.bind(function(jsonString) {
+                    var pattern = new Pattern();
+                    pattern.deserializeFromJSON(jsonString);
 
-                pattern.body = pattern.pixelData;
-                $(this.main).trigger("LoadPattern",pattern);
-            },this));
+                    pattern.body = pattern.pixelData;
+                    $(this.main).trigger("LoadPattern",pattern);
+                    $.unblockUI();
+                },this));
+            },this),100);
         }
     });
 
@@ -7632,7 +8411,7 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
                 },this));
 
                 this.lightworkBrowser = new LightworkBrowser(this);
-                $(".lightworkBrowser").replaceWith(this.lightworkBrowser.$el);
+                $(".lightworkBrowser").replaceWith(this.lightworkBrowser.$el.attr("class",$(".lightworkBrowser").attr("class")));
 
                 this.lightworkBrowser.$el.find(".newLightwork").click(_.bind(function() {
                     var pattern = Pattern.DEFAULT_PATTERN.clone()

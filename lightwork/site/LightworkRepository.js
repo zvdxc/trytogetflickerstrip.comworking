@@ -3,19 +3,36 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
+
+    var sortTypes = {
+        "createdAt":{
+            display:"recent",
+            defaultAscending:false,
+        },
+        "rating":{
+            display:"popular",
+            defaultAscending:false,
+        },
+        "name":{
+            display:"name",
+            defaultAscending:true,
+        },
+    }
+
     $.extend(This.prototype, {
         init:function(main) {
             this.main = main;
             this.$el = $("<div class='lightworkRepository'/>");
             this.$el.html(template);
             this.page = 0;
+            this.sortBy = [_.keys(sortTypes)[0],sortTypes[_.keys(sortTypes)[0]].defaultAscending ? "ASC" : "DESC"];
 
             $(this.main.loginPanel).on("UserUpdated",_.bind(this.refreshLightworks,this));
 
             this.refreshLightworks();
         },
         refreshLightworks:function() {
-            $.getJSON(this.main.host+"/pattern?includeData&page="+this.page).done(_.bind(function(data) {
+            $.getJSON(this.main.host+"/pattern?includeData&page="+this.page+"&sortBy="+this.sortBy.join(" ")).done(_.bind(function(data) {
                 var $lightworks = this.$el.find(".lightworks").empty();
                 _.each(data.results,_.bind(function(item) {
                     var renderer = new LEDStripRenderer(150);
@@ -58,11 +75,17 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
                 },this));
 
                 this.$el.find(".paginationContainer").each(_.bind(function(index,oldPaginationElement) {
-                    var pagination = new Pagination(data)
+                    var pagination = new Pagination(data,sortTypes)
                     $(pagination).on("PageSelected",_.bind(this.pageSelected,this));
+                    $(pagination).on("SortingUpdated",_.bind(this.sortingUpdated,this));
                     $(oldPaginationElement).replaceWith(pagination.$el);
                 },this));
             },this));
+        },
+        sortingUpdated:function(e,sortBy,ascending) {
+            console.log("sorting updated",sortBy,ascending);
+            this.sortBy = [sortBy,ascending ? "ASC" : "DESC"];
+            this.refreshLightworks();
         },
         pageSelected:function(e,page) {
             this.page = page;

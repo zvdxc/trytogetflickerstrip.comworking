@@ -1,9 +1,9 @@
-define(["jquery","tinycolor","view/util.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","bootstrap"],
+define(["jquery","tinycolor","view/util.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
 function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desktop_template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
-    
+
     var defaultBody = '({\n\tcontrols:[\n\t\t{name: "Repetitions",id:"num",type:"numeric",default:"3"}\n\t],\n\tpattern:function(args) {\n\t\tthis.pixels=150;\n\t\tthis.frames=150;\n\t\tthis.fps=30;\n\t\tthis.render=function(x,t) {\n\t\t\tvar v = 360* ((x+t) % (this.pixels/parseInt(args.num)))/(this.pixels/parseInt(args.num))\n\t\t\treturn {h:v,s:100,v:100};\n\t\t}\n\t\treturn this;\n\t}\n})\n';
 
     var defaultPixelPattern = {
@@ -372,12 +372,24 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
                 });
             },this));
 
+            this.$el.find(".deleteLightwork").click(_.bind(function(e) {
+                e.preventDefault();
+
+                var yes = confirm("Do you really want to Permanently delete "+this.pattern.name);
+                if (!yes) return;
+
+                ga('send', 'event', 'activity', 'lightwork', 'DeleteLightwork');
+
+                $(this.main).trigger("DeleteLightwork",[this.pattern]);
+            },this));
+
             this.$el.find(".publishLightwork").click(_.bind(function(e) {
                 e.preventDefault();
 
                 ga('send', 'event', 'activity', 'lightwork', 'PublishLightwork');
 
                 this.pattern.published = !this.pattern.published;
+                this.$el.find(".publishLightwork").text(this.pattern.published ? "Unpublish" : "Publish");
 
                 $(this.main).trigger("SavePattern",[this.pattern]);
             },this));
@@ -531,6 +543,8 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             this.pattern = pattern;
 
             this.$el.find(".lightworkName").val(this.pattern.name)
+            this.$el.find(".publishLightwork").text(this.pattern.published ? "Unpublish" : "Publish");
+            this.$el.find(".deleteLightwork").toggle(this.pattern.id !== undefined);
 
             this.canvas = util.renderPattern(this.pattern.pixelData,this.pattern.pixels,this.pattern.frames,null,null,false,false);
             this.editor.setImage(this.canvas);

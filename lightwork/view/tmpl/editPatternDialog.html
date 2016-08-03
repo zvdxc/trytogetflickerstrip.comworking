@@ -1,36 +1,39 @@
 <div class="panel panel-default flexParent flexVertical">
-    <div class="panel-heading flexShrink">
-        <div class="buttonPanel">
-            <input type="text" class="lightworkName floatLeft"></input>
+    <div class="panel-heading flexShrink flexParent flexAlignCenter">
+        <input type="text" class="lightworkName flexShrink"></input>
+        <div class="spacer flexGrow"></div>
 
-            <a class="publishLightwork btn btn-default btn-sm" href='#' title='Set this Lightwork to public so that others can view it, download it, and rate it'>Publish</a>
-            <a class="saveLightwork btn btn-success btn-sm" href='#' title='Save this lightwork, replacing the existing version'>Save</a>
-            <a class="sharePattern btn btn-primary btn-sm" title='Get a link to share this lightwork with others' href='#'>Share</a>
-            <a class="generateGif btn btn-success btn-sm" href='#' title='Generate a GIF to see what it looks like on a real Flickerstrip'>Generate GIF</a>
+        <a class="marginRight publishLightwork btn btn-default btn-sm" href='#' title='Set this Lightwork to public so that others can view it, download it, and rate it'>Publish</a>
+        <a class="marginRight saveLightwork btn btn-success btn-sm" href='#' title='Save this lightwork, replacing the existing version'>Save</a>
+        <a class="marginRight sharePattern btn btn-primary btn-sm" title='Get a link to share this lightwork with others' href='#'>Share</a>
+        <a class="marginRight generateGif btn btn-success btn-sm" href='#' title='Generate a GIF to see what it looks like on a real Flickerstrip'>Generate GIF</a>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li>
-                        <a class="imageUpload file"><input type="file">Import image</a>
-                    </li>
-                    <li>
-                        <a class="openPattern file"><input type="file">Import pattern</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <a href="#" class='arduinoDownload'>Export Arduino code</a>
-                    </li>
-                    <li>
-                        <a href="#" class='imageDownload'>Export image</a>
-                    </li>
-                    <li>
-                        <a href="#" class='savePattern'>Export pattern</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a class="imageUpload file"><input type="file">Import image</a>
+                </li>
+                <li>
+                    <a class="openPattern file"><input type="file">Import pattern</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="#" class='arduinoDownload'>Export Arduino code</a>
+                </li>
+                <li>
+                    <a href="#" class='imageDownload'>Export image</a>
+                </li>
+                <li>
+                    <a href="#" class='savePattern'>Export pattern</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="#" class='deleteLightwork' title='Permanently delete this Lightwork'>Delete Lightwork</a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="panel-body flexGrow flexExpandContent">

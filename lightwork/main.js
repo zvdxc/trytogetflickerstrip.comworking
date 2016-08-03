@@ -19,7 +19,7 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
                 },this));
 
                 this.lightworkBrowser = new LightworkBrowser(this);
-                $(".lightworkBrowser").replaceWith(this.lightworkBrowser.$el);
+                $(".lightworkBrowser").replaceWith(this.lightworkBrowser.$el.attr("class",$(".lightworkBrowser").attr("class")));
 
                 this.lightworkBrowser.$el.find(".newLightwork").click(_.bind(function() {
                     var pattern = Pattern.DEFAULT_PATTERN.clone()

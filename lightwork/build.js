@@ -3,6 +3,7 @@
     "shim": {
         "bootstrap" : { "deps" :['jquery'] },
         "jquery.spectrum"  : { "deps" :["jquery"] },
+        "jquery.blockUI"  : { "deps" :["jquery"] },
     },
     paths: {
         "view":"./view",
@@ -13,6 +14,7 @@
         "base64-js":"./view/lib/base64js",
         "text":"./view/lib/text",
         "jquery.spectrum":"./view/lib/jquery.spectrum",
+        "jquery.blockUI":"./view/lib/jquery.blockUI",
         "bootstrap":"./view/lib/bootstrap.min",
     },
     include: ['./view/lib/require.js'],

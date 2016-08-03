@@ -146,19 +146,25 @@ define(['jquery','underscore','tinycolor'],function($,_,tinycolor) {
         canvasToBytes:function(canvas,transpose) {
             var ctx=canvas.getContext("2d");
             var data = ctx.getImageData(0,0,canvas.width,canvas.height);
-            var out = [];
+            var out = new Uint8Array(data.width*data.height*3);
             if (transpose) {
                 for (var x=0; x<data.width; x++) {
                     for (var y=0; y<data.height; y++) {
                         var pixel = This.getPixelFromImageData(data,x,y);
-                        out = out.concat(pixel);
+                        var index = 3*(x * data.height + y);
+                        out[index] = pixel[0];
+                        out[index+1] = pixel[1];
+                        out[index+2] = pixel[2];
                     }
                 }
             } else {
                 for (var y=0; y<data.height; y++) {
                     for (var x=0; x<data.width; x++) {
                         var pixel = This.getPixelFromImageData(data,x,y);
-                        out = out.concat(pixel);
+                        var index = 3*(y * data.width + x);
+                        out[index] = pixel[0];
+                        out[index+1] = pixel[1];
+                        out[index+2] = pixel[2];
                     }
                 }
             }
