@@ -1,9 +1,12 @@
 require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatternDialog.js','site/LoginPanel.js','site/LightworkBrowser.js','bootstrap'],function($,LightworkRepository,Pattern,EditPatternDialog,LoginPanel,LightworkBrowser) {
     $(document).ready(function() {
+
+        var debug = false;
         
         window.platform = "desktop";
         var This = function() {
-            this.host = "http://localhost:3000";
+            this.host = debug ? "http://localhost:3000" : "https://lightwork.hohmbody.com";
+
             this.editorActive = !(window.location.search.indexOf("browse") >= 0);
             $(".mainContainer").toggleClass("editorActive",this.editorActive);
 

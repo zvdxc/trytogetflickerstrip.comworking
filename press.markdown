@@ -72,7 +72,7 @@ header: min
 <h2>Photos</h2>
 <div class="photogallery">
     {% directory path: resources/images/mediakit/photos exclude: smaller %}
-        <a href='/resources/images/mediakit/photos/{{ file.name }}'><img src='/resources/images/mediakit/photos/smaller/{{ file.name }}' /></a>
+        <a href='/flickerstrip/resources/images/mediakit/photos/{{ file.name }}'><img src='/flickerstrip/resources/images/mediakit/photos/smaller/{{ file.name }}' /></a>
     {% enddirectory %}
 </div>
 
