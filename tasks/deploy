@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+cd lightwork
+r.js -o build.js
+cd ..
+
 jekyll build && chmod -R a+r _site/ && rsync -apvvz --delete _site/ reflowst@reflowster.com:~/hohmbody.com/flickerstrip/
 rsync -apvvz --delete _site/ /Users/julian/Documents/Programming/hohmbody.com/flickerstrip/
 ssh -t reflowst@reflowster.com 'chmod -R o-w /home/reflowst/flickerstrip.com/; chmod -R g-w /home/reflowst/hohmbody.com/flickerstrip/'

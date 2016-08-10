@@ -37,10 +37,12 @@ function($,template) {
                 return false;
             },this));
 
+            /*
             this.$el.find(".registerLink").click(_.bind(function() {
                 $registerModal.modal("show");
                 return false;
             },this));
+            */
 
             this.$el.find(".logoutLink").click(_.bind(function() {
                 this.logout();
