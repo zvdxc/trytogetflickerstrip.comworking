@@ -40,7 +40,7 @@ define(['jquery','view/util.js'],function($,util) {
             this.$el.blur(_.bind(this.blurred,this));
             this.$el.keydown(_.bind(this.keyDown,this));
         },
-        processPagination(data) {
+        processPagination:function(data) {
             if (data && data.results) {
                 this.pagination = data;
                 data = data.results;

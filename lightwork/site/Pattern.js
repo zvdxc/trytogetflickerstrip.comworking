@@ -38,7 +38,7 @@ define([ "underscore","tinycolor","base64-js" ],
                 this.palette = defaultPalette;
             },
 
-            setDimensions(pixels,frames) {
+            setDimensions:function(pixels,frames) {
                 this.pixels = pixels;
                 this.frames = frames;
 
