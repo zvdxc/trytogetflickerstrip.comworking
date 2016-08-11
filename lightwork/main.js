@@ -1,7 +1,7 @@
 require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatternDialog.js','site/LoginPanel.js','site/LightworkBrowser.js','bootstrap'],function($,LightworkRepository,Pattern,EditPatternDialog,LoginPanel,LightworkBrowser) {
     $(document).ready(function() {
 
-        var debug = false;
+        var debug = window.location.host == "localhost";
         
         window.platform = "desktop";
         var This = function() {
