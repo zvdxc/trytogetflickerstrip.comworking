@@ -1,5 +1,5 @@
-define(["jquery","tinycolor","view/util.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
-function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desktop_template) {
+define(["jquery","tinycolor","view/util.js","site/Pattern.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
+function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desktop_template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
@@ -60,6 +60,11 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
 
     function deserializePatternForDownload(b64) {
         var content = atob(b64);
+        if (content[0] == "{") {
+            var pattern = new Pattern();
+            pattern.deserializeFromJSON(content);
+            return pattern;
+        }
         var loc = content.indexOf("\n\n");
         var headerraw = content.substring(0,loc);
         var body = content.substring(loc+2);
@@ -76,30 +81,10 @@ function($,tinycolor,util,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desk
             pattern[tokens[0]] = tokens[1];
         });
 
-        pattern.body = body[0] == "[" || body[0] == "{" ? JSON.parse(body) : body;
-        return pattern;
-    }
-
-    function deserializePatternForDownload(b64) {
-        var content = atob(b64);
-        var loc = content.indexOf("\n\n");
-        var headerraw = content.substring(0,loc);
-        var body = content.substring(loc+2);
-
-        var pattern = {};
-        _.each(headerraw.split("\n"),function(line) {
-            if (line == "") return;
-            var index = line.indexOf(":");
-            var tokens = [line.substring(0,index),line.substring(index+1)];
-            if (tokens[1][0] == "[" || tokens[1][0] == "{") {
-                //assume json
-                tokens[1] = JSON.parse(tokens[1]);
-            }
-            pattern[tokens[0]] = tokens[1];
-        });
-
-        pattern.body = body[0] == "[" || body[0] == "{" ? JSON.parse(body) : body;
-        return pattern;
+        pattern.pixelData = body[0] == "[" || body[0] == "{" ? JSON.parse(body) : body;
+        var pat = new Pattern();
+        _.extend(pat,pattern);
+        return pat;
     }
 
     function serializePattern(pattern,datastring) {
