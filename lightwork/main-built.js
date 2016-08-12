@@ -3712,6 +3712,10 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
                     var $upvote = $("<div class='up vote'><i class='glyphicon glyphicon-chevron-up'></i></div>").toggleClass("active",pattern.vote==1).appendTo($middle);
                     var $points = $("<div class='points'></div>").text(pattern.points || 0).appendTo($middle);
                     var $downvote = $("<div class='down vote'><i class='glyphicon glyphicon-chevron-down'></i></div>").toggleClass("active",pattern.vote==-1).appendTo($middle);
+                    if (!this.main.loginPanel.currentUser) {
+                        $upvote.hide();
+                        $downvote.hide();
+                    }
 
                     $middle.find(".vote").click(_.bind(function(e) {
                         var $el = $(e.target).closest(".vote");
