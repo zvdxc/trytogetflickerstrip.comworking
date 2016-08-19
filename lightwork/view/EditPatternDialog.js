@@ -1,5 +1,5 @@
-define(["jquery","tinycolor","view/util.js","site/Pattern.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
-function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,desktop_template) {
+define(["jquery","tinycolor","view/util.js","site/Pattern.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!site/arduino.txt","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
+function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,arduinoTemplate,desktop_template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
@@ -166,13 +166,30 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 this.hide()
             },this));
 
+            function download(content, filename, contentType) {
+                if(!contentType) contentType = 'application/octet-stream';
+                var a = document.createElement('a');
+                var blob = new Blob([content], {'type':contentType});
+                a.href = window.URL.createObjectURL(blob);
+                a.download = filename;
+                a.click();
+            }
+
             this.$el.find(".arduinoDownload").click(_.bind(function(e) {
+                var dl = arduinoTemplate;
+                dl = dl.replace("/*PIXELS*/",this.pattern.pixels);
+                dl = dl.replace("/*FRAMES*/",this.pattern.frames);
+                dl = dl.replace("/*FPS*/",this.pattern.fps);
+                dl = dl.replace("/*DATA*/","["+this.pattern.body.join(",")+"]");
+                download(dl,"pattern.c","text/plain");
+                /*
                 var b64 = serializePattern(this.pattern);
                 var datastring = [this.editor.offset.x,this.editor.offset.y,this.editor.zoomFactor].join("|");
                 $.post("./lightworks.php?create",serializePattern(this.pattern,datastring),function(result) {
                     window.open("arduino.php?id="+result.id);
                 });
                 e.preventDefault();
+                */
             },this));
 
 

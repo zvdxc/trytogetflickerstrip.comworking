@@ -1,0 +1,34 @@
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+  #include <avr/power.h>
+#endif
+
+//IMPORTANT: Update the pin and length to match your LED strip!
+#define PIN 5
+#define LENGTH 150
+
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(LENGTH, PIN, NEO_GRB + NEO_KHZ800);
+int pixels = /*PIXELS*/;
+int frames = /*FRAMES*/;
+int fps = /*FPS*/;
+byte data[] = /*DATA*/;
+
+void setup() {
+  strip.begin();
+  strip.show();
+}
+
+int cframe = 0;
+void loop() {
+    for (int i=0; i<LENGTH; i++) {
+        int cpixel = i % pixels;
+        int index = cframe*pixels*3 + cpixel*3;
+        strip.setPixelColor(i,data[index],data[index+1],data[index+2]);
+    }
+    strip.show();
+    cframe ++;
+    if (cframe >= frames) cframe = 0;
+    delay(1000/fps);
+}
+
+
