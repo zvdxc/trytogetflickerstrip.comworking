@@ -159,6 +159,7 @@ function($,SelectList,Pattern,template) {
 
                     pattern.body = pattern.pixelData;
                     $(this.main).trigger("LoadPattern",pattern);
+                    $(this.main.editPatternDialog.$el).removeClass("loadedPattern");
                     $.unblockUI();
                 },this));
             },this),100);

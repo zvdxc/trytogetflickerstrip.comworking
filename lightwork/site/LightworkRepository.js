@@ -76,6 +76,10 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
                     var $right = $("<div class='right flexGrow' />").appendTo($div);
 
                     $right.append(renderer.$el);
+                    renderer.$el.click(function() {
+                        window.location = "?id="+pattern.id;
+
+                    });
                     $lightworks.append($div);
                 },this));
 

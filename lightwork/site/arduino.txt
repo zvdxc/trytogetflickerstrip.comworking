@@ -11,7 +11,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(LENGTH, PIN, NEO_GRB + NEO_KHZ800);
 int pixels = /*PIXELS*/;
 int frames = /*FRAMES*/;
 int fps = /*FPS*/;
-byte data[] = /*DATA*/;
+const byte data[] PROGMEM = /*DATA*/;
 
 void setup() {
   strip.begin();

@@ -9,6 +9,19 @@ body:not(.loggedIn) .showloggedIn { display:none; }
     .browseMode { display: none; }
 }
 
+.loadedPattern {
+    .lightworkName, .lightworkName:focus {
+        pointer-events: none;
+        border: none;
+        background: transparent;
+        font-weight: bold;
+    }
+
+    .publishLightwork, .saveLightwork, .sharePattern, .deleteLightwork {
+        display: none;
+    }
+}
+
 .loadingIndicator {
     font-size: 120px;
     color: white;

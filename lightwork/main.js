@@ -16,6 +16,29 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
             if (this.editorActive) {
                 this.editPatternDialog = new EditPatternDialog(this,{"type":"bitmap"});
                 $(".lightworkEditor").empty().append(this.editPatternDialog.$el);
+                console.log(window.location);
+                if (window.location.search.indexOf("?id=") === 0) {
+                    var loadId = parseInt(window.location.search.substring(4));
+                    $.blockUI();
+                    setTimeout(_.bind(function() {
+                        var opt = {
+                            type:"GET",
+                            url:this.host+"/pattern/"+loadId,
+                            dataType:"text",
+                        };
+
+                        $.ajax(opt).success(_.bind(function(jsonString) {
+                            var pattern = new Pattern();
+                            pattern.deserializeFromJSON(jsonString);
+
+                            pattern.body = pattern.pixelData;
+                            $(this).trigger("LoadPattern",pattern);
+                            this.editPatternDialog.$el.addClass("loadedPattern");
+                            $.unblockUI();
+                        },this));
+                    },this),100);
+                    console.log("load id",loadId);
+                }
 
                 $(this).on("LoadPattern",_.bind(function(e,pattern) {
                     this.editPatternDialog.loadPattern(pattern);
@@ -27,6 +50,7 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
                 this.lightworkBrowser.$el.find(".newLightwork").click(_.bind(function() {
                     var pattern = Pattern.DEFAULT_PATTERN.clone()
                     pattern.body = pattern.pixelData;
+                    this.editPatternDialog.$el.removeClass("loadedPattern");
                     this.editPatternDialog.loadPattern(pattern);
                 },this));
             } else {

@@ -167,12 +167,16 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
             },this));
 
             function download(content, filename, contentType) {
+                console.log("download called",content,filename);
                 if(!contentType) contentType = 'application/octet-stream';
                 var a = document.createElement('a');
                 var blob = new Blob([content], {'type':contentType});
                 a.href = window.URL.createObjectURL(blob);
                 a.download = filename;
+                console.log("clicking!");
+                $(document.body).append(a);
                 a.click();
+                a.remove();
             }
 
             this.$el.find(".arduinoDownload").click(_.bind(function(e) {
@@ -180,7 +184,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 dl = dl.replace("/*PIXELS*/",this.pattern.pixels);
                 dl = dl.replace("/*FRAMES*/",this.pattern.frames);
                 dl = dl.replace("/*FPS*/",this.pattern.fps);
-                dl = dl.replace("/*DATA*/","["+this.pattern.body.join(",")+"]");
+                dl = dl.replace("/*DATA*/","{"+[].slice.call(this.pattern.body).join(",")+"}");
                 download(dl,"pattern.c","text/plain");
                 /*
                 var b64 = serializePattern(this.pattern);

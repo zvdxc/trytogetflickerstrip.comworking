@@ -3728,6 +3728,10 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
                     var $right = $("<div class='right flexGrow' />").appendTo($div);
 
                     $right.append(renderer.$el);
+                    renderer.$el.click(function() {
+                        window.location = "?id="+pattern.id;
+
+                    });
                     $lightworks.append($div);
                 },this));
 
@@ -6598,7 +6602,7 @@ define('view/CanvasPixelEditor',['jquery','tinycolor',"view/util.js", 'text!tmpl
 });
 
 
-define('text!site/arduino.txt',[],function () { return '#include <Adafruit_NeoPixel.h>\n#ifdef __AVR__\n  #include <avr/power.h>\n#endif\n\n//IMPORTANT: Update the pin and length to match your LED strip!\n#define PIN 5\n#define LENGTH 150\n\nAdafruit_NeoPixel strip = Adafruit_NeoPixel(LENGTH, PIN, NEO_GRB + NEO_KHZ800);\nint pixels = /*PIXELS*/;\nint frames = /*FRAMES*/;\nint fps = /*FPS*/;\nbyte data[] = /*DATA*/;\n\nvoid setup() {\n  strip.begin();\n  strip.show();\n}\n\nint cframe = 0;\nvoid loop() {\n    for (int i=0; i<LENGTH; i++) {\n        int cpixel = i % pixels;\n        int index = cframe*pixels*3 + cpixel*3;\n        strip.setPixelColor(i,data[index],data[index+1],data[index+2]);\n    }\n    strip.show();\n    cframe ++;\n    if (cframe >= frames) cframe = 0;\n    delay(1000/fps);\n}\n\n\n';});
+define('text!site/arduino.txt',[],function () { return '#include <Adafruit_NeoPixel.h>\n#ifdef __AVR__\n  #include <avr/power.h>\n#endif\n\n//IMPORTANT: Update the pin and length to match your LED strip!\n#define PIN 5\n#define LENGTH 150\n\nAdafruit_NeoPixel strip = Adafruit_NeoPixel(LENGTH, PIN, NEO_GRB + NEO_KHZ800);\nint pixels = /*PIXELS*/;\nint frames = /*FRAMES*/;\nint fps = /*FPS*/;\nconst byte data[] PROGMEM = /*DATA*/;\n\nvoid setup() {\n  strip.begin();\n  strip.show();\n}\n\nint cframe = 0;\nvoid loop() {\n    for (int i=0; i<LENGTH; i++) {\n        int cpixel = i % pixels;\n        int index = cframe*pixels*3 + cpixel*3;\n        strip.setPixelColor(i,data[index],data[index+1],data[index+2]);\n    }\n    strip.show();\n    cframe ++;\n    if (cframe >= frames) cframe = 0;\n    delay(1000/fps);\n}\n\n\n';});
 
 
 define('text!tmpl/editPatternDialog.html',[],function () { return '<div class="panel panel-default flexParent flexVertical">\n    <div class="panel-heading flexShrink flexParent flexAlignCenter">\n        <input type="text" class="lightworkName flexShrink"></input>\n        <div class="spacer flexGrow"></div>\n\n        <a class="marginRight publishLightwork btn btn-default btn-sm" href=\'#\' title=\'Set this Lightwork to public so that others can view it, download it, and rate it\'>Publish</a>\n        <a class="marginRight saveLightwork btn btn-success btn-sm" href=\'#\' title=\'Save this lightwork, replacing the existing version\'>Save</a>\n        <a class="marginRight sharePattern btn btn-primary btn-sm" title=\'Get a link to share this lightwork with others\' href=\'#\'>Share</a>\n        <a class="marginRight generateGif btn btn-success btn-sm" href=\'#\' title=\'Generate a GIF to see what it looks like on a real Flickerstrip\'>Generate GIF</a>\n\n        <div class="btn-group">\n            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n                 <span class="caret"></span>\n            </button>\n            <ul class="dropdown-menu dropdown-menu-right">\n                <li>\n                    <a class="imageUpload file"><input type="file">Import image</a>\n                </li>\n                <li>\n                    <a class="openPattern file"><input type="file">Import pattern</a>\n                </li>\n                <li role="separator" class="divider"></li>\n                <li>\n                    <a href="#" class=\'arduinoDownload\'>Export Arduino code</a>\n                </li>\n                <li>\n                    <a href="#" class=\'imageDownload\'>Export image</a>\n                </li>\n                <li>\n                    <a href="#" class=\'savePattern\'>Export pattern</a>\n                </li>\n                <li role="separator" class="divider"></li>\n                <li>\n                    <a href="#" class=\'deleteLightwork\' title=\'Permanently delete this Lightwork\'>Delete Lightwork</a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div class="panel-body flexGrow flexExpandContent">\n        <div class="patternEditor">\n            <!--<div class="prettyRender" style="height: 100px;"></div>-->\n            <div class="patternPreview"></div>\n            <div class="patternControls">\n                <div class="controls"></div>\n                <div class="right metricsPanel">\n                    <label>FPS: <input type="number" class="fps" /></label>\n                    <label>Frames: <input type="number" class="frames" /></label>\n                    <label>Pixels: <input type="number" class="pixels" /></label>\n                </div>\n            </div>\n            <div class="editorcontainer"></div>\n            <div class="helpIcon"><span class="glyphicon glyphicon-question-sign" /></div>\n            <div class="helpOverlay">\n                <div class="illuminate">A rendered version of part of the LED strip displays up here</div>\n                <div class="entirestrip"><span class="glyphicon glyphicon-arrow-down"></span>This bar shows a compact version of the entire 150 pixel strip</div>\n                <div class="timeexpanded">This area shows a "time expanded" view with the current frame highlighted</div>\n                <div class="colorpicker"><span class="glyphicon glyphicon-arrow-down"></span>Click to choose a fg/bg color from a picker</div>\n                <div class="palettehelp"><span class="glyphicon glyphicon-arrow-up"></span>This is the palette, left click to select the color, right click to use the color. (shift for bg color)</div>\n                <div class="metricshelp"><span class="glyphicon glyphicon-arrow-down"></span>Adjust the pattern metrics here</div>\n                <div class="downloadupload">Download/upload patterns to/from<span class="glyphicon glyphicon-arrow-up"></span><br/> your computer to load onto your Flickerstrip</div>\n                <div class="mainarea">Each pixel represents an LED on the strip, the ghosts are for lining up cycling patterns</div>\n                <div class="timeaxis">Time</div>\n                <div class="pixelsaxis">Pixels</div>\n                <div class="arrowkeys">Use the arrow keys to nudge the current color by lightness/hue</div>\n            </div>\n        </div>\n    </div>\n</div>\n\n';});
@@ -7393,12 +7397,16 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
             },this));
 
             function download(content, filename, contentType) {
+                console.log("download called",content,filename);
                 if(!contentType) contentType = 'application/octet-stream';
                 var a = document.createElement('a');
                 var blob = new Blob([content], {'type':contentType});
                 a.href = window.URL.createObjectURL(blob);
                 a.download = filename;
+                console.log("clicking!");
+                $(document.body).append(a);
                 a.click();
+                a.remove();
             }
 
             this.$el.find(".arduinoDownload").click(_.bind(function(e) {
@@ -7406,7 +7414,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 dl = dl.replace("/*PIXELS*/",this.pattern.pixels);
                 dl = dl.replace("/*FRAMES*/",this.pattern.frames);
                 dl = dl.replace("/*FPS*/",this.pattern.fps);
-                dl = dl.replace("/*DATA*/","["+this.pattern.body.join(",")+"]");
+                dl = dl.replace("/*DATA*/","{"+[].slice.call(this.pattern.body).join(",")+"}");
                 download(dl,"pattern.c","text/plain");
                 /*
                 var b64 = serializePattern(this.pattern);
@@ -8392,6 +8400,7 @@ function($,SelectList,Pattern,template) {
 
                     pattern.body = pattern.pixelData;
                     $(this.main).trigger("LoadPattern",pattern);
+                    $(this.main.editPatternDialog.$el).removeClass("loadedPattern");
                     $.unblockUI();
                 },this));
             },this),100);
@@ -8420,6 +8429,29 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
             if (this.editorActive) {
                 this.editPatternDialog = new EditPatternDialog(this,{"type":"bitmap"});
                 $(".lightworkEditor").empty().append(this.editPatternDialog.$el);
+                console.log(window.location);
+                if (window.location.search.indexOf("?id=") === 0) {
+                    var loadId = parseInt(window.location.search.substring(4));
+                    $.blockUI();
+                    setTimeout(_.bind(function() {
+                        var opt = {
+                            type:"GET",
+                            url:this.host+"/pattern/"+loadId,
+                            dataType:"text",
+                        };
+
+                        $.ajax(opt).success(_.bind(function(jsonString) {
+                            var pattern = new Pattern();
+                            pattern.deserializeFromJSON(jsonString);
+
+                            pattern.body = pattern.pixelData;
+                            $(this).trigger("LoadPattern",pattern);
+                            this.editPatternDialog.$el.addClass("loadedPattern");
+                            $.unblockUI();
+                        },this));
+                    },this),100);
+                    console.log("load id",loadId);
+                }
 
                 $(this).on("LoadPattern",_.bind(function(e,pattern) {
                     this.editPatternDialog.loadPattern(pattern);
@@ -8431,6 +8463,7 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
                 this.lightworkBrowser.$el.find(".newLightwork").click(_.bind(function() {
                     var pattern = Pattern.DEFAULT_PATTERN.clone()
                     pattern.body = pattern.pixelData;
+                    this.editPatternDialog.$el.removeClass("loadedPattern");
                     this.editPatternDialog.loadPattern(pattern);
                 },this));
             } else {
