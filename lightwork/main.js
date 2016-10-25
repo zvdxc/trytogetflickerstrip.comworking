@@ -40,6 +40,19 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
                     console.log("load id",loadId);
                 }
 
+                window.stuff  = function() {
+                    var p = new Pattern();
+                    _.extend(p,this.editPatternDialog.pattern);
+                    p.pixelData = p.body;
+                    delete p.body;
+                    delete p.palette;
+                    delete p.type;
+                    delete p.data;
+                    console.log(p);
+                    return p.serializeToJSON();
+                }
+
+
                 $(this).on("LoadPattern",_.bind(function(e,pattern) {
                     this.editPatternDialog.loadPattern(pattern);
                 },this));
