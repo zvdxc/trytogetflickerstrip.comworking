@@ -605,7 +605,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
         destroy:function() {
             if (this.stripRenderer) this.stripRenderer.destroy();
         },
-        getPatternArray(ident) {
+        getPatternArray:function(ident) {
             console.log("this->addPattern(\""+this.pattern.name+"\","+this.pattern.frames+","+this.pattern.pixels+","+this.pattern.fps+","+ident.toLowerCase()+"Data"+","+ident.toUpperCase()+"_SIZE);\n#define "+ident.toUpperCase()+"_SIZE "+this.pattern.body.length+"\nbyte "+ident.toLowerCase()+"Data["+ident.toUpperCase()+"_SIZE"+"] PROGMEM = {"+this.pattern.body.join(",")+"};");
         }
     });
