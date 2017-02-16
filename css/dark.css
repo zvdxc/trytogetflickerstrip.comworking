@@ -50,6 +50,15 @@
  */
 
 /* HACKS TO BE SORTED */
+
+.narrow-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.store-badge {
+    margin: 5px 20px;
+}
 .liveonkickstarter {
     font-size: 24px;
     display: block;
