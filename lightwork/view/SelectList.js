@@ -77,7 +77,7 @@ define(['jquery','view/util.js'],function($,util) {
             this.refreshGroupings();
         },
         addElement:function(element,group,index) {
-            var index = index === undefined ?  this.$el.find(".listElement").length-1 : index;
+            var index = index === undefined ?  this.getLength()-1 : index;
             var $el = this.renderer.call(this.rendererthis,element);
 
             this.$el.insertAt(index,$el);
@@ -152,6 +152,9 @@ define(['jquery','view/util.js'],function($,util) {
             this.$el.children(".listElement").each(function() {
                 self.renderer.call(self.rendererthis,$(this).data("object"),$(this));
             });
+        },
+        getLength() {
+            return this.$el.children(".listElement").length;
         },
         each:function(cb) {
             this.$el.children(".listElement").each(function() {

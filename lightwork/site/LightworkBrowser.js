@@ -91,7 +91,7 @@ function($,SelectList,Pattern,template) {
                 };
 
                 $.ajax(opt).done(_.bind(function(pattern) {
-                    this.patternSelectList.addElement(pattern,null,0);
+                    this.patternSelectList.addElement(pattern,null,-1);
                 },this));
             }
         },
