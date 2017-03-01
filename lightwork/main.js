@@ -16,7 +16,6 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
             if (this.editorActive) {
                 this.editPatternDialog = new EditPatternDialog(this,{"type":"bitmap"});
                 $(".lightworkEditor").empty().append(this.editPatternDialog.$el);
-                console.log(window.location);
                 if (window.location.search.indexOf("?id=") === 0) {
                     var loadId = parseInt(window.location.search.substring(4));
                     $.blockUI();
@@ -37,21 +36,7 @@ require(['jquery','site/LightworkRepository.js','site/Pattern.js','view/EditPatt
                             $.unblockUI();
                         },this));
                     },this),100);
-                    console.log("load id",loadId);
                 }
-
-                window.stuff  = function() {
-                    var p = new Pattern();
-                    _.extend(p,this.editPatternDialog.pattern);
-                    p.pixelData = p.body;
-                    delete p.body;
-                    delete p.palette;
-                    delete p.type;
-                    delete p.data;
-                    console.log(p);
-                    return p.serializeToJSON();
-                }
-
 
                 $(this).on("LoadPattern",_.bind(function(e,pattern) {
                     this.editPatternDialog.loadPattern(pattern);

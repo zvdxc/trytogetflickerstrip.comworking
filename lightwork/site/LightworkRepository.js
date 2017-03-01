@@ -92,7 +92,6 @@ function($,Pagination,Pattern,LEDStripRenderer,template) {
             },this));
         },
         sortingUpdated:function(e,sortBy,ascending) {
-            console.log("sorting updated",sortBy,ascending);
             this.sortBy = [sortBy,ascending ? "ASC" : "DESC"];
             this.refreshLightworks();
         },

@@ -50,11 +50,13 @@ function($,SelectList,Pattern,template) {
             };
 
             $.ajax(opt).done(_.bind(function() {
+                var foundIndex = null;
                 this.patternSelectList.each(_.bind(function(obj,$el) {
                     if (obj.id == pattern.id) {
-                        $el.remove();
+                        foundIndex = $el.data("index");
                     }
                 },this));
+                if (foundIndex !== null) this.patternSelectList.removeElement(foundIndex);
             },this));
         },
         savePattern:function(e,pattern) {

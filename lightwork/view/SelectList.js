@@ -88,6 +88,10 @@ define(['jquery','view/util.js'],function($,util) {
 
             this.refreshGroupings();
         },
+        removeElement:function(index) {
+            this.$el.find(".listElement").eq(index).remove();
+            this.refreshGroupings();
+        },
         refreshGroupings:function() {
             this.$el.find(".moreLink").remove();
 
@@ -153,7 +157,7 @@ define(['jquery','view/util.js'],function($,util) {
                 self.renderer.call(self.rendererthis,$(this).data("object"),$(this));
             });
         },
-        getLength() {
+        getLength:function() {
             return this.$el.children(".listElement").length;
         },
         each:function(cb) {
@@ -161,7 +165,7 @@ define(['jquery','view/util.js'],function($,util) {
                 var obj = $(this).data("object");
                 var index = $(this).data("index");
                 var $el = $(this);
-                cb(obj,$el);
+                cb(obj,$el,index);
             });
         },
         focused:function(e) {

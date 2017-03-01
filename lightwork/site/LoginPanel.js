@@ -60,7 +60,6 @@ function($,template) {
             },this));
         },
         refreshCurrentUser:function() {
-            console.log("refreshing current user");
             var opt = {
                 type:"GET",
                 url:this.main.host+"/user/current",
@@ -69,7 +68,6 @@ function($,template) {
             $.ajax(opt).done(_.bind(function(res) {
                 this.currentUser = res;
                 $(this).trigger("UserUpdated",[this.currentUser]);
-                console.log("got user",this.currentUser);
 
                 this.updateDisplay()
             },this));

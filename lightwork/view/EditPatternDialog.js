@@ -168,13 +168,11 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
             },this));
 
             function download(content, filename, contentType) {
-                console.log("download called",content,filename);
                 if(!contentType) contentType = 'application/octet-stream';
                 var a = document.createElement('a');
                 var blob = new Blob([content], {'type':contentType});
                 a.href = window.URL.createObjectURL(blob);
                 a.download = filename;
-                console.log("clicking!");
                 $(document.body).append(a);
                 a.click();
                 a.remove();
