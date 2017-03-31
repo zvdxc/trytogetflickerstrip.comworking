@@ -505,12 +505,14 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 getFileFromInput(e.target,_.bind(function(fileData) {
                     $(e.target).val("");
                     var dataUrl = fileData;
-                    var preamble = "data:;base64,";
-                    if (!dataUrl.startsWith(preamble)) {
+                    var preamble = /data:.*?;base64,/;
+                    
+                    var match = dataUrl.match(preamble);
+                    if (!match) {
                         alert("Invalid pattern file");
                         throw "Invalid pattern file!";
                     }
-                    var b64 = dataUrl.substring(preamble.length);
+                    var b64 = dataUrl.substring(match[0].length);
                     var pattern = deserializePatternForDownload(b64);
 
                     this.loadPattern(pattern);
