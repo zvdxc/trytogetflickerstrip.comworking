@@ -1,0 +1,6 @@
+#define PATTERN_SIZE_/*ID*/ /*SIZE*/
+const char patternName/*ID*/[] = "/*NAME*/";
+const byte patternData/*ID*/[PATTERN_SIZE_/*ID*/] PROGMEM = /*DATA*/;
+const PatternDefinition patternDef/*ID*/ = {(char*)&patternName/*ID*/,/*PIXELS*/,/*FRAMES*/,/*FPS*/,PATTERN_SIZE_/*ID*/,(byte*)&patternData/*ID*/};
+
+this->addPatternFromProgmem(&patternName/*ID*/); //Adds /*NAME*/

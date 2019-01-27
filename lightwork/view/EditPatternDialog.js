@@ -1,5 +1,5 @@
-define(["jquery","tinycolor","view/util.js","site/Pattern.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!site/arduino.txt","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
-function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,arduinoTemplate,desktop_template) {
+define(["jquery","tinycolor","view/util.js","site/Pattern.js","view/LEDStripRenderer.js","view/PrettyRenderer.js","view/CanvasPixelEditor","text!site/arduino.txt","text!site/patternDef.txt","text!tmpl/editPatternDialog.html","jquery.blockUI","bootstrap"],
+function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEditor,arduinoTemplate,patternDefTemplate,desktop_template) {
     var This = function() {
         this.init.apply(this,arguments);
     }
@@ -185,14 +185,6 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 dl = dl.replace("/*FPS*/",this.pattern.fps);
                 dl = dl.replace("/*DATA*/","{"+[].slice.call(this.pattern.body).join(",")+"}");
                 download(dl,this.pattern.name.replace(/ /g,"")+".ino","text/plain");
-                /*
-                var b64 = serializePattern(this.pattern);
-                var datastring = [this.editor.offset.x,this.editor.offset.y,this.editor.zoomFactor].join("|");
-                $.post("./lightworks.php?create",serializePattern(this.pattern,datastring),function(result) {
-                    window.open("arduino.php?id="+result.id);
-                });
-                e.preventDefault();
-                */
             },this));
 
             this.$el.find(".copyArduino").click(_.bind(function(e) {
@@ -203,16 +195,17 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 dl = dl.replace("/*DATA*/","{"+[].slice.call(this.pattern.body).join(",")+"}");
                 clipboard.copy(dl);
                 alert("Code copied to the clipboard!");
-                /*
-                var b64 = serializePattern(this.pattern);
-                var datastring = [this.editor.offset.x,this.editor.offset.y,this.editor.zoomFactor].join("|");
-                $.post("./lightworks.php?create",serializePattern(this.pattern,datastring),function(result) {
-                    window.open("arduino.php?id="+result.id);
-                });
-                e.preventDefault();
-                */
             },this));
 
+            this.$el.find(".copyPatternDef").click(_.bind(function(e) {
+              var dl = patternDefTemplate;
+              dl = dl.replace("/*PIXELS*/",this.pattern.pixels);
+              dl = dl.replace("/*FRAMES*/",this.pattern.frames);
+              dl = dl.replace("/*FPS*/",this.pattern.fps);
+              dl = dl.replace("/*DATA*/","{"+[].slice.call(this.pattern.body).join(",")+"}");
+              clipboard.copy(dl);
+              alert("Code copied to the clipboard!");
+            },this));
 
             if (!this.pattern.name) this.pattern.name = "New Lightwork";
             this.$el.find(".lightworkName").val(this.pattern.name).change(_.bind(function(e) {
@@ -313,7 +306,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                                 return;
                             } else if (result.trim() == "CONFIRMEMAIL") {
                                 $(".confirmModal").modal("show");
-                                
+
                                 $(".confirmModal .retryButton").off("click").click(function()  {
                                     $(".confirmModal").modal("hide");
 
@@ -344,7 +337,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
 
                                         if (res.status == "complete") {
                                             clearInterval(t);
-                                            
+
                                             inProgress = false;
                                             self.$el.find(".generateGif").removeClass("disabled").text("Generate GIF");
                                             $modal.find(".position").text("complete");
@@ -365,7 +358,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                 inProgress = true;
             	queuePattern();
             },this));
-            
+
             this.$el.find(".patternControls").addClass("hide");
             this.$el.find(".savePattern").click(_.bind(function(e) {
                 var target = e.target;
@@ -506,7 +499,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
                     $(e.target).val("");
                     var dataUrl = fileData;
                     var preamble = /data:.*?;base64,/;
-                    
+
                     var match = dataUrl.match(preamble);
                     if (!match) {
                         alert("Invalid pattern file");
@@ -528,7 +521,7 @@ function($,tinycolor,util,Pattern,LEDStripRenderer,PrettyRenderer,CanvasPixelEdi
             $(this.editor).on("PaletteUpdated",_.bind(function(e,palette) {
                 this.pattern.palette = palette;
             },this));
-            
+
             $(this.canvas).css("border","1px solid black");
 
             this.canvas = util.renderPattern(this.pattern.body,this.pattern.pixels,this.pattern.frames,null,null,false,false);
